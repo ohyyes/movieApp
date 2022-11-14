@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 회원가입 - mbti -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mbti"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipToOutline="true"
+    android:background="#242A32" >
+
+
+    <!-- 헤더 -->
+    <RelativeLayout
+        android:id="@+id/header_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        >
+        <!-- 뒤로가기 버튼 -->
+        <androidx.appcompat.widget.AppCompatButton xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/icon_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="#242A32"
+            android:text="<"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            />
+
+        <!--마이페이지-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="center"
+            android:text="영화 검색"
+
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+    <!-- 중앙 콘텐트 -->
+    <LinearLayout
+        android:id="@+id/body_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_above="@id/navbar_line"
+        android:layout_below="@id/header_wrap"
+        android:orientation="vertical">
+
+        <!-- 중앙 콘텐트 (상단) -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <!--검색창-->
+            <EditText
+                android:id="@+id/search_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/search_edittext"
+            />
+
+            <!--검색 버튼 -->
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignRight="@id/search_EditText"
+                android:background="@drawable/search_edittext"
+                android:src="@drawable/moviesearch_search_btn" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+        <!-- 중앙 콘텐트 (하단) -->
+        <!-- 스크롤뷰 레이아웃 -->
+
+
+
+    <!-- 네브바 구분선-->
+    <ImageView
+        android:id="@+id/navbar_line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_above="@id/nav_wrap"
+        android:src="@drawable/navbar_line" />
+    <!-- 하단 네브바 -->
+    <LinearLayout
+        android:id="@+id/nav_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--영화검색-->
+            <ImageButton
+                android:id="@+id/navbar_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_selected_search" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--홈-->
+            <ImageButton
+                android:id="@+id/navbar_home"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_home" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--나의 감상평-->
+            <ImageButton
+                android:id="@+id/navbar_myreview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_myreview" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--영화검색-->
+            <ImageButton
+                android:id="@+id/navbar_mypage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_mypage" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

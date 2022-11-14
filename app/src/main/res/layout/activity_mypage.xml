@@ -9,27 +9,237 @@
     android:clipToOutline="true"
     android:background="#242A32" >
 
-    <!-- header-wrapper -->
+
+    <!-- 헤더 -->
     <RelativeLayout
         android:id="@+id/header_wrap"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_alignParentTop="true"
         >
-        <!-- icon/outline/arrow-left -->
+        <!-- 뒤로가기 버튼 -->
         <androidx.appcompat.widget.AppCompatButton xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/icon_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
             android:background="#242A32"
+
+
             android:text="<"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:layout_centerVertical="true"
             />
 
+        <!--마이페이지-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            android:text="마이페이지"
+            android:textAlignment="center"
+            android:gravity="center"
+
+            android:textColor="@color/white"
+            android:textSize="20dp" />
 
     </RelativeLayout>
 
+    <!-- 중앙 콘텐트 -->
+    <LinearLayout
+        android:id="@+id/body_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_above="@id/navbar_line"
+        android:layout_below="@id/header_wrap"
+        android:orientation="vertical">
+
+        <!-- 중앙 콘텐트 (상단) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            >
+            <!--프로필사진-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="4"
+                android:src="@drawable/profile_img"
+                />
+
+            <!--닉네임-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+
+                android:textAlignment="center"
+                android:gravity="center"
+
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text="모구모구"
+            />
+
+            <!--프로필 수정 버튼 -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="230dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:background="@drawable/blue_button"
+                android:textColor="@color/white"
+                android:text="내 프로필 수정하기"
+                />
+
+
+        </LinearLayout>
+
+        <!--중앙선-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+
+            android:src="@drawable/center_line"
+        />
+
+        <!-- 중앙 콘텐트 (하단) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+            >
+                <!--내 감상평-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="내 감상평"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="35dp" />
+                <!--더보기 버튼-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/blue_button"
+                    android:text="더보기"
+                    android:textColor="@color/white"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+            <!--리사이클러뷰-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vertical_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/navbar_line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_above="@id/nav_wrap"
+        android:src="@drawable/navbar_line" />
+    <!-- 하단 네브바 -->
+    <LinearLayout
+        android:id="@+id/nav_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--영화검색-->
+            <ImageButton
+                android:id="@+id/navbar_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_search" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--홈-->
+            <ImageButton
+                android:id="@+id/navbar_home"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_home" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--나의 감상평-->
+            <ImageButton
+                android:id="@+id/navbar_myreview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_myreview" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <!--영화검색-->
+            <ImageButton
+                android:id="@+id/navbar_mypage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerHorizontal="true"
+
+                android:background="#242A32"
+                android:src="@drawable/navbar_selected_mypage" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
