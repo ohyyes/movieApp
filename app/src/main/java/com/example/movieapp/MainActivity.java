@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private void doLogin() {
         String loginId = et_id.getText().toString().trim();
         String loginPasswd = et_pass.getText().toString().trim();
-
+        /*
         if(loginId.length() == 0) {
             Toast.makeText(this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
             et_id.requestFocus();
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             return;
         }
-        /*
+
         Member member = AppDatabase.findMember(loginId);
 
         if(member == null){
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         */
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         //intent.putExtra("loginedMemberId", member.getId());
         startActivity(intent);
         Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
