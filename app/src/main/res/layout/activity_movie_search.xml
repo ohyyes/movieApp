@@ -18,14 +18,13 @@
         android:layout_alignParentTop="true"
         >
         <!-- 뒤로가기 버튼 -->
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/icon_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:background="#242A32"
-            android:textColor="@color/white"
+            android:background="@drawable/common_backbtn"
             android:textSize="20dp"
             />
 
@@ -34,9 +33,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
             android:gravity="center"
             android:text="영화 검색"
-
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20dp" />
@@ -68,7 +71,7 @@
                 android:layout_marginRight="40dp"
                 android:background="@drawable/search_edittext"
             />
-
+<image
             <!--검색 버튼 -->
             <ImageButton
                 android:layout_width="40dp"

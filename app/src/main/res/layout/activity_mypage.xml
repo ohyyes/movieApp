@@ -18,15 +18,13 @@
         android:layout_alignParentTop="true"
         >
         <!-- 뒤로가기 버튼 -->
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/icon_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:background="#242A32"
-            android:textColor="@color/white"
-            android:textSize="20dp"
+            android:background="@drawable/common_backbtn"
             />
 
         <!--마이페이지-->
@@ -35,9 +33,9 @@
             android:layout_height="match_parent"
 
 
+            android:gravity="center"
             android:text="마이페이지"
             android:textAlignment="center"
-            android:gravity="center"
 
             android:textColor="@color/white"
             android:textSize="20dp" />
@@ -85,14 +83,12 @@
             />
 
             <!--프로필 수정 버튼 -->
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageButton
                 android:layout_width="230dp"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:layout_gravity="center"
-                android:background="@drawable/blue_button"
-                android:textColor="@color/white"
-                android:text="내 프로필 수정하기"
+                android:background="@drawable/mypage_btn_changeprofile"
                 />
 
 
@@ -131,15 +127,12 @@
                     android:textColor="@color/white"
                     android:textSize="35dp" />
                 <!--더보기 버튼-->
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="50dp"
+                <ImageButton
+                    android:layout_width="47dp"
                     android:layout_height="25dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:background="@drawable/blue_button"
-                    android:text="더보기"
-                    android:textColor="@color/white"
-                    android:textSize="10dp" />
+                    android:background="@drawable/mypage_btn_more" />
             </RelativeLayout>
             <!--리사이클러뷰-->
             <androidx.recyclerview.widget.RecyclerView
