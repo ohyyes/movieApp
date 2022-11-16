@@ -3,7 +3,6 @@
 <!-- 회원가입 - mbti -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mbti"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:clipToOutline="true"
@@ -12,20 +11,19 @@
 
     <!-- 헤더 -->
     <RelativeLayout
-        android:id="@+id/header_wrap"
+        android:id="@+id/rel_header"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
         >
         <!-- 뒤로가기 버튼 -->
         <ImageButton
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/icon_back"
+            android:id="@+id/ib_back"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:background="@drawable/common_backbtn"
-            android:textSize="20dp"
+            android:textSize="20sp"
             />
 
         <!--마이페이지-->
@@ -42,17 +40,17 @@
             android:text="영화 검색"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
     <!-- 중앙 콘텐트 -->
     <LinearLayout
-        android:id="@+id/body_wrap"
+        android:id="@+id/lin_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:layout_below="@id/header_wrap"
+        android:layout_below="@id/rel_header"
         android:orientation="vertical">
 
         <!-- 중앙 콘텐트 (상단) -->
@@ -63,7 +61,7 @@
             >
             <!--검색창-->
             <EditText
-                android:id="@+id/search_EditText"
+                android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="40dp"
@@ -73,9 +71,10 @@
 
             <!--검색 버튼 -->
             <ImageButton
+                android:id="@+id/ib_search"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignRight="@id/search_EditText"
+                android:layout_alignEnd="@id/et_search"
                 android:background="@drawable/search_edittext"
                 android:src="@drawable/moviesearch_search_btn" />
 
