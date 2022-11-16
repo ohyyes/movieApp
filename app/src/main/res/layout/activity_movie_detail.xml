@@ -19,13 +19,12 @@
         android:layout_alignParentTop="true"
         >
         <!-- 뒤로가기 버튼 -->
-        <androidx.appcompat.widget.AppCompatButton xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/icon_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:background="#242A32"
-            android:text="<"
             android:textColor="@color/white"
             android:textSize="20dp"
             />

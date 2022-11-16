@@ -1,14 +1,14 @@
-package com.example.team_project;
+package com.example.movieApp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MovieSearchActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_search);
+        setContentView(R.layout.activity_movie_detail);
     }
 }

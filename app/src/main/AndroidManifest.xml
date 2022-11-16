@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.team_project">
+    package="com.example.movieApp">
 
     <application
         android:allowBackup="true"
@@ -14,16 +14,16 @@
         android:theme="@style/Theme.Team_project"
         tools:targetApi="31">
         <activity
-            android:name=".MovieDetailActivity"
+            android:name="com.example.movieApp.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieSearchActivity"
+            android:name="com.example.movieApp.MovieSearchActivity"
             android:exported="false" />
         <activity
-            android:name=".MyPageActivity"
+            android:name="com.example.movieApp.MyPageActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.example.movieApp.RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
