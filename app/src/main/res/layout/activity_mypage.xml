@@ -3,24 +3,21 @@
 <!-- 회원가입 - mbti -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mbti"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clipToOutline="true"
     android:background="#242A32" >
 
 
     <!-- 헤더 -->
     <RelativeLayout
-        android:id="@+id/header_wrap"
+        android:id="@+id/rel_header"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
         >
         <!-- 뒤로가기 버튼 -->
         <ImageButton
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/icon_back"
+            android:id="@+id/ib_back"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
@@ -38,7 +35,7 @@
             android:textAlignment="center"
 
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -48,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:layout_below="@id/header_wrap"
+        android:layout_below="@id/rel_header"
         android:orientation="vertical">
 
         <!-- 중앙 콘텐트 (상단) -->
@@ -60,6 +57,7 @@
             >
             <!--프로필사진-->
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_profile_img"
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -69,6 +67,7 @@
 
             <!--닉네임-->
             <TextView
+                android:id="@+id/tv_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
@@ -76,13 +75,14 @@
                 android:textAlignment="center"
                 android:gravity="center"
 
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:textColor="@color/white"
                 android:text="모구모구"
             />
 
             <!--프로필 수정 버튼 -->
             <ImageButton
+                android:id="@+id/ib_edit_profile"
                 android:layout_width="230dp"
                 android:layout_height="0dp"
                 android:layout_weight="2"
@@ -127,6 +127,7 @@
                     android:textSize="35dp" />
                 <!--더보기 버튼-->
                 <ImageButton
+                    android:id="@+id/ib_more"
                     android:layout_width="47dp"
                     android:layout_height="25dp"
                     android:layout_alignParentEnd="true"
