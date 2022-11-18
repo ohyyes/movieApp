@@ -17,10 +17,10 @@
             android:name="com.example.movieapp.MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.movieapp.MovieDetailActivity"
+            android:name=".MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.movieapp.MovieSearchActivity"
+            android:name=".MovieSearchActivity"
             android:exported="false" />
         <activity
             android:name="com.example.movieapp.MyPageActivity"

@@ -7,6 +7,7 @@
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_movie_search.xml" value="0.2" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_mypage.xml" value="0.264" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_register.xml" value="0.264" />
+<<<<<<< HEAD
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/drawable/blue_button.xml" value="0.258" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/drawable/empty_button.xml" value="0.1235" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/drawable/search_edittext.xml" value="0.2005" />
@@ -19,6 +20,20 @@
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_mypage.xml" value="0.264" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/mypage_recycleview_items.xml" value="0.25364583333333335" />
+=======
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/drawable/blue_button.xml" value="0.258" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/drawable/empty_button.xml" value="0.1235" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/drawable/search_edittext.xml" value="0.2005" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/font-v26/font.xml" value="0.22962962962962963" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/font/font.xml" value="0.1" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/layout/activity_home.xml" value="0.253125" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/layout/activity_movie_detail.xml" value="0.264" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/layout/activity_movie_search.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/layout/activity_mypage.xml" value="0.264" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/hyeeu/AndroidStudioProjects/team_project/app/src/main/res/layout/mypage_recycleview_items.xml" value="0.25364583333333335" />
+>>>>>>> 08e9c7732a94980964f2531098bc540ef16b9e21
       </map>
     </option>
   </component>
