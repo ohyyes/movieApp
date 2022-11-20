@@ -1,17 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MypageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="마이페이지"
-        android:gravity="center"
-        android:textColor="@color/main"
-        android:textSize="50sp"
-        />
+        android:background="@color/BG">
+        <!-- 헤더 -->
+        <RelativeLayout
+            android:id="@+id/rel_header"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            >
+            <!-- 뒤로가기 버튼 -->
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/common_backbtn"
+                />
+
+            <!--마이페이지-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center"
+                android:text="마이페이지"
+                android:textAlignment="center"
+
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <!-- 중앙 콘텐트 -->
+        <LinearLayout
+            android:id="@+id/body_wrap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_below="@id/rel_header"
+            android:orientation="vertical">
+
+            <!-- 중앙 콘텐트 (상단) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                >
+                <!--프로필사진-->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_profile_img"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="4"
+                    android:src="@drawable/profile_img"
+                    />
+
+                <!--닉네임-->
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:text="모구모구"
+                    />
+
+                <!--프로필 수정 버튼 -->
+                <ImageButton
+                    android:id="@+id/ib_edit_profile"
+                    android:layout_width="230dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:background="@drawable/mypage_btn_changeprofile"
+                    />
+
+
+            </LinearLayout>
+
+            <!--중앙선-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+
+                android:src="@drawable/center_line"
+                />
+
+            <!-- 중앙 콘텐트 (하단) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    >
+                    <!--내 감상평-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="내 감상평"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="35dp" />
+                    <!--더보기 버튼-->
+                    <ImageButton
+                        android:id="@+id/ib_more"
+                        android:layout_width="47dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="34dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/mypage_btn_more" />
+                </RelativeLayout>
+                <!--리사이클러뷰-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/vertical_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </FrameLayout>
