@@ -20,13 +20,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MovieDetailActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:noHistory="true"
