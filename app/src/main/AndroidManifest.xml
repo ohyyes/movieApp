@@ -46,13 +46,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity2"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".HomeActivity"
             android:exported="false">
             <meta-data
