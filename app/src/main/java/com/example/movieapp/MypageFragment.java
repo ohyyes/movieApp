@@ -103,7 +103,7 @@ public class MypageFragment extends Fragment {
             }
         });
 
-        ib_more.setOnClickListener(new View.OnClickListener()   {
+        ib_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activity.onFragmentChange(0);
