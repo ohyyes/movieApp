@@ -90,7 +90,18 @@ public class MypageFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        ImageButton ib_more = (ImageButton)rootView.findViewById(R.id.ib_more);
+        ImageButton ib_more = (ImageButton)rootView.findViewById(R.id.ib_more);     //더보기 버튼
+        ImageButton ib_edit_profile = (ImageButton)rootView.findViewById(R.id.ib_edit_profile);     //프로필수정 버튼
+
+        //프로필수정 버튼 눌렀을 때,
+        ib_edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Edit_profile.xml 로 이동
+                Intent intent = new Intent(activity.getApplicationContext(), EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ib_more.setOnClickListener(new View.OnClickListener() {
             @Override
