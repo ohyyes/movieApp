@@ -13,7 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
-
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private SearchFragment fragmentSearch = new SearchFragment();
     private ReviewFragment fragmentReview = new ReviewFragment();
@@ -21,8 +20,6 @@ public class HomeActivity extends AppCompatActivity {
     private HomeFragment fragmentHome = new HomeFragment();
     private MovieDetailFragment fragmentMovieDetail = new MovieDetailFragment();
     private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
