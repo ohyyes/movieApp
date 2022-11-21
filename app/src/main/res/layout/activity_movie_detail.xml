@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!-- 회원가입 - mbti -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#242A32" >
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BG"
+    tools:context=".MovieDetailActivity">
 
     <!-- 헤더 -->
     <RelativeLayout
@@ -238,7 +236,7 @@
                 android:text="감독 : 조 펄맨, 에란 크리비, 케이시 패터슨.."
                 android:textColor="@color/white"
                 android:textSize="13sp"
-                 />
+                />
             <!--출연배우-->
             <TextView
                 android:id="@+id/tv_actor"
@@ -257,5 +255,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
 </RelativeLayout>
