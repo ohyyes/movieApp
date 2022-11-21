@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -18,6 +19,9 @@ public class HomeActivity extends AppCompatActivity {
     private ReviewFragment fragmentReview = new ReviewFragment();
     private MypageFragment fragmentMypage = new MypageFragment();
     private HomeFragment fragmentHome = new HomeFragment();
+    private MovieDetailFragment fragmentMovieDetail = new MovieDetailFragment();
+    private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
+
 
 
     @Override
@@ -54,8 +58,21 @@ public class HomeActivity extends AppCompatActivity {
 
                 return true;
             }
-
         });
 
     }
+
+    public void onFragmentChange(int index) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
+        if(index == 0) { //감상평 상세 화면으로 이동
+            bottomNavigationView.setSelectedItemId(R.id.menu_review);
+            transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
+        }else if(index == 1) {
+            transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
+        }
+
+    }
 }
+
