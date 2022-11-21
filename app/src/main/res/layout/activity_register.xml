@@ -80,7 +80,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="#878787"
                 android:textSize="20sp" />
-            <TableLayout
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -111,6 +111,7 @@
                         />
 
                 </TableRow>
+            </RadioGroup>
 
                 <TableRow
                     android:paddingBottom="5dp">
