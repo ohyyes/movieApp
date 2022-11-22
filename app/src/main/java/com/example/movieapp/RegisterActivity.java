@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText et_email, et_pw1, et_pw2, et_name;
     private ImageButton btn_register;
     public String email, pw1, pw2, nickname;
-    private ImageButton btn_e, btn_i, btn_s, btn_n, btn_t, btn_f, btn_j, btn_p;
+    private Chip btn_e, btn_i, btn_s, btn_n, btn_t, btn_f, btn_j, btn_p;
+    private ChipGroup chipGroupEI, chipGroupSN, chipGroupTF, chipGroupJP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +49,33 @@ public class RegisterActivity extends AppCompatActivity {
         et_pw1 = (EditText) findViewById(R.id.et_pw1);
         et_pw2 = (EditText) findViewById(R.id.et_pw2);
         et_name = (EditText) findViewById(R.id.et_name);
-        btn_e = (ImageButton) findViewById(R.id.btn_e);
-        btn_i = (ImageButton) findViewById(R.id.btn_i);
-        btn_s = (ImageButton) findViewById(R.id.btn_s);
-        btn_n = (ImageButton) findViewById(R.id.btn_n);
-        btn_t = (ImageButton) findViewById(R.id.btn_t);
-        btn_f = (ImageButton) findViewById(R.id.btn_f);
-        btn_j = (ImageButton) findViewById(R.id.btn_j);
-        btn_p = (ImageButton) findViewById(R.id.btn_p);
+        chipGroupEI = (ChipGroup) findViewById(R.id.chipGroupEI);
+        chipGroupSN = (ChipGroup)findViewById(R.id.chipGroupSN);
+        chipGroupTF = (ChipGroup)findViewById(R.id.chipGroupTF);
+        chipGroupJP = (ChipGroup)findViewById(R.id.chipGroupJP);
+        btn_e = (Chip) findViewById(R.id.btn_e);
+        btn_i = (Chip) findViewById(R.id.btn_i);
+        btn_s = (Chip) findViewById(R.id.btn_s);
+        btn_n = (Chip) findViewById(R.id.btn_n);
+        btn_t = (Chip) findViewById(R.id.btn_t);
+        btn_f = (Chip) findViewById(R.id.btn_f);
+        btn_j = (Chip) findViewById(R.id.btn_j);
+        btn_p = (Chip) findViewById(R.id.btn_p);
+
+        chipGroupEI.setSelectionRequired(true);
+        chipGroupSN.setSelectionRequired(true);
+        chipGroupTF.setSelectionRequired(true);
+        chipGroupJP.setSelectionRequired(true);
+
+        //click시 check표시 띄우기 (색깔로 변환 뒤 지우기!)
+        btn_e.setCheckable(true);
+        btn_i.setCheckable(true);
+        btn_s.setCheckable(true);
+        btn_n.setCheckable(true);
+        btn_t.setCheckable(true);
+        btn_f.setCheckable(true);
+        btn_j.setCheckable(true);
+        btn_p.setCheckable(true);
 
         //firebase 정의
         mDatabase = FirebaseDatabase.getInstance().getReference();

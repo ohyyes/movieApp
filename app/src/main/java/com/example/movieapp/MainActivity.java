@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,16 +10,22 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
-
-
     private EditText et_id, et_pass;
     private ImageButton btn_login, btn_goregister;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         et_id = findViewById(R.id.et_id);
         et_pass = findViewById(R.id.et_pass);
@@ -46,39 +53,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doLogin() {
-        String loginId = et_id.getText().toString().trim();
-        String loginPasswd = et_pass.getText().toString().trim();
-        /*
-        if(loginId.length() == 0) {
-            Toast.makeText(this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
-            et_id.requestFocus();
+        String email = et_id.getText().toString().trim();
+        String pwd = et_pass.getText().toString().trim();
 
-            return;
-        }
-        if(loginPasswd.length() == 0){
-            Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-            et_pass.requestFocus();
-
-            return;
-        }
-
-        Member member = AppDatabase.findMember(loginId);
-
-        if(member == null){
-            Toast.makeText(this, "존재하지 않는  아이디입니다.", Toast.LENGTH_SHORT).show();
-            et_id.requestFocus();
-            return;
-        }
-        else if(member.getLoginPasswd().equals(loginPasswd) == false){
-            Toast.makeText(this, "비밀번호가 일치하지 않습니다..", Toast.LENGTH_SHORT).show();
-            et_pass.requestFocus();
-            return;
-        }
-        */
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        //intent.putExtra("loginedMemberId", member.getId());
-        startActivity(intent);
-        Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
+        firebaseAuth.signInWithEmailAndPassword(email, pwd)
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
     }
 }
