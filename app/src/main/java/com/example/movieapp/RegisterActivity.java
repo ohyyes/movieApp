@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_email, et_pw1, et_pw2, et_name;
     private ImageButton btn_register;
-    public String email, pw1, pw2, nickname;
+    public String email, pw1, pw2, name;
     private Chip btn_e, btn_i, btn_s, btn_n, btn_t, btn_f, btn_j, btn_p;
     private ChipGroup chipGroupEI, chipGroupSN, chipGroupTF, chipGroupJP;
 
@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         readUser();
 
-        // 다음 버튼을 클릭 시 닉네임, mbti입력 화면으로 이동
+        // 다음 버튼을 클릭 시 DB저장, 회원가입 완료
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,15 +91,15 @@ public class RegisterActivity extends AppCompatActivity {
                 email = et_email.getText().toString();
                 pw1 = et_pw1.getText().toString();
                 pw2 = et_pw2.getText().toString();
-                nickname = et_name.getText().toString();
+                name = et_name.getText().toString();
 
                 //이메일, 비밀번호, 닉네임이 공백이 아닐 경우
-                if(!email.equals("") && !pw1.equals("") && !pw2.equals("") && !nickname.equals("")){
+                if(!email.equals("") && !pw1.equals("") && !pw2.equals("") && !name.equals("")){
                     //회원가입 조건 성립 -> 화면 넘어감
                     if(pw1.equals(pw2)){
                         //조건 : 비밀번호 6자 이상
                         if(pw1.length() > 5){
-                            createUser(email, pw1, nickname);
+                            createUser(email, pw1, name);
                         }
                         else{
                             Toast.makeText(RegisterActivity.this, "비밀번호를 6자 이상 입력하세요.", Toast.LENGTH_LONG).show();
@@ -119,15 +119,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     //계정 생성
-    private void createUser(String email, String pwd, String nickname){
-        UserAccount user = new UserAccount(nickname, email);
+    private void createUser(String email, String pwd, String name){
+        UserAccount user = new UserAccount(name, email);
         Toast.makeText(RegisterActivity.this, "createUser", Toast.LENGTH_SHORT).show();
         firebaseAuth.createUserWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            mDatabase.child("users").child(nickname).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            mDatabase.child("users").child(name).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     // 회원가입 성공시

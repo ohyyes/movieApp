@@ -4,12 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +36,17 @@ public class MypageFragment extends Fragment {
 
     HomeActivity activity;
 
+    //recyclerView 관련
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<UserAccount> arrayList;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private View view;
+
+    ImageButton ib_more = (ImageButton)view.findViewById(R.id.ib_more);
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -37,8 +60,6 @@ public class MypageFragment extends Fragment {
 
         activity = null;
     }
-
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,9 +92,6 @@ public class MypageFragment extends Fragment {
         return fragment;
     }
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +104,35 @@ public class MypageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        //recycleView 관련
+        view = inflater.inflate(R.layout.fragment_mypage, container, false);
+        recyclerView = (RecyclerView) recyclerView.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능 강화
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        arrayList = new ArrayList<>();  //User 객체를 담을 list
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("User"); //DB 테이블 연결
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //firebase data 받아옴
+                arrayList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    UserAccount user = snapshot.getValue(UserAccount.class);  //User객체에 데이터 담음
+                    arrayList.add(user);
+                }
+                adapter.notifyDataSetChanged();//리스트 저장 및 새로고침
+            }
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypage, container, false);
-
-        ImageButton ib_more = (ImageButton)rootView.findViewById(R.id.ib_more);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //DB 가져오던 중 에러 발생 시
+                Log.e("MypageFragment", String.valueOf(databaseError.toException()));
+            }
+        });
+        adapter = new MypageAdapter(arrayList, getContext());
+        recyclerView.setAdapter(adapter);
 
         ib_more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,9 +143,15 @@ public class MypageFragment extends Fragment {
                 //startActivity(intent);
             }
         });
-        return rootView;
 
-
-
+        return view;
     }
+
+        // Inflate the layout for this fragment
+
+//        View rootView = (View)inflater.inflate(R.layout.fragment_mypage, container, false);
+
+
+
+
 }

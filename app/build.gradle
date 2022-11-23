@@ -59,4 +59,11 @@ dependencies {
 
     //chip 사용
     implementation 'com.google.android.material:material:1.1.0'
+
+//    //recyclerView 사용
+//    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    //Glide 사용
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 }
