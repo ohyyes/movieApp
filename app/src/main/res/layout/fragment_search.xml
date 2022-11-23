@@ -57,6 +57,7 @@
 
         <!-- 중앙 콘텐트 (상단) -->
         <RelativeLayout
+            android:id="@+id/rel_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -79,11 +80,28 @@
                 android:layout_alignEnd="@id/et_search"
                 android:background="@drawable/search_edittext"
                 android:src="@drawable/moviesearch_search_btn" />
-
         </RelativeLayout>
+
+        <!-- 중앙 콘텐트 (하단) -->
+        <!-- 리사이클러 뷰 레이아웃 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_search_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@id/rel_search"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@color/white"
+            android:scrollbars="vertical"
+            android:layout_weight="15"
+            android:layout_marginTop="30dp"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
     </LinearLayout>
 
-    <!-- 중앙 콘텐트 (하단) -->
-    <!-- 스크롤뷰 레이아웃 -->
+
     </RelativeLayout>
 </FrameLayout>
