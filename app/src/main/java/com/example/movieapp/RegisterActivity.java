@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 
 public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
@@ -41,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageButton ib_register;
     private boolean has_et_email, has_et_pw1, has_et_pw2, has_et_name;
     public String email, pw1, pw2, name, profile="";
+    public ArrayList<String> mbti_list = new ArrayList<>();
     private Chip btn_e, btn_i, btn_s, btn_n, btn_t, btn_f, btn_j, btn_p;
     private ChipGroup chipGroupEI, chipGroupSN, chipGroupTF, chipGroupJP;
 
@@ -198,7 +201,9 @@ public class RegisterActivity extends AppCompatActivity {
                 //값이 다 존재하는 경우
                 @Override
                 public void onClick(View view) {
+                    //DB 저장, mbti list로 변환
                     if(pw1.equals(pw2)){
+                        checkedMbti();
                         createUser(email, pw1, name);
                         readUser();
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
@@ -216,6 +221,17 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    //mbti list로 저장하는 함수
+    private void checkedMbti(){
+        if(btn_e.isChecked()) mbti_list.add("E");
+        if(btn_i.isChecked()) mbti_list.add("I");
+        if(btn_s.isChecked()) mbti_list.add("S");
+        if(btn_n.isChecked()) mbti_list.add("N");
+        if(btn_t.isChecked()) mbti_list.add("T");
+        if(btn_f.isChecked()) mbti_list.add("F");
+        if(btn_p.isChecked()) mbti_list.add("P");
+        if(btn_j.isChecked()) mbti_list.add("J");
+    }
     //계정 생성
     private void createUser(String email, String pwd, String name){
         UserAccount user = new UserAccount(name, pwd, email);
