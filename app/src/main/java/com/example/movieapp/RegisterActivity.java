@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText et_email, et_pw1, et_pw2, et_name;
     private ImageButton ib_register;
     private boolean has_et_email, has_et_pw1, has_et_pw2, has_et_name;
-    public String email, pw1, pw2, name, profile="";
+    public String email, pw1, pw2, name, mbti;
     public ArrayList<String> mbti_list = new ArrayList<>();
     private Chip btn_e, btn_i, btn_s, btn_n, btn_t, btn_f, btn_j, btn_p;
     private ChipGroup chipGroupEI, chipGroupSN, chipGroupTF, chipGroupJP;
@@ -204,7 +204,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //DB 저장, mbti list로 변환
                     if(pw1.equals(pw2)){
                         checkedMbti();
-                        createUser(email, pw1, name);
+                        createUser(email, pw1, name, mbti);
                         readUser();
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -231,10 +231,12 @@ public class RegisterActivity extends AppCompatActivity {
         if(btn_f.isChecked()) mbti_list.add("F");
         if(btn_p.isChecked()) mbti_list.add("P");
         if(btn_j.isChecked()) mbti_list.add("J");
+
+        mbti = mbti_list.toString();
     }
     //계정 생성
-    private void createUser(String email, String pwd, String name){
-        UserAccount user = new UserAccount(name, pwd, email);
+    private void createUser(String email, String pwd, String name, String mbti){
+        UserAccount user = new UserAccount(name, pwd, email, mbti);
 //        Toast.makeText(RegisterActivity.this, "createUser", Toast.LENGTH_SHORT).show();
         Log.d("email =", email);
         Log.d("pwd =", pwd);
@@ -244,8 +246,10 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 회원가입 성공시
+                            Log.d("onComplete =", pwd);
                             Toast.makeText(RegisterActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
-                            userReference.child("User").child("1").setValue(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            //realtime database에 값 저장 User table에 key = email, user객체 받은거 저장
+                            userReference.child("User").child(email).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(RegisterActivity.this, "reference등록 성공", Toast.LENGTH_SHORT).show();
