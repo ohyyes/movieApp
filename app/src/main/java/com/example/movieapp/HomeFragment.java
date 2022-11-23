@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,11 +27,24 @@ public class HomeFragment extends Fragment {
 
     ViewGroup rootView;
 
-    private RecyclerView mRecyclerView;
-    private ArrayList<RecyclerViewItem> mList;
-    private RecyclerViewAdapter mRecyclerViewAdapter;
+    RecyclerView recyclerView;
+    ItemSheetAdapter adapter;
+    Context context;
 
+    /*@Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (context != null) {
+            context = null;
+        }
+    }
+*/
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,41 +85,16 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        firstInit();
-
-        for(int i=0;i<5;i++){
-            addItem("iconName", "Taek" + i, "taek2.tistory.com");
-        }
-
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mList);
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = (ViewGroup)inflater.inflate(R.layout.ctivity_recycler_item, container, false);
+        rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
         return rootView;
     }
-    //FragmentMyBinding
-    public void firstInit(){
-        //mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mList = new ArrayList<>();
-    }
-
-    public void addItem(String imgName, String mainText, String subText){
-        RecyclerViewItem item = new RecyclerViewItem();
-
-        item.setImgName(imgName);
-        item.setMainText(mainText);
-        item.setSubText(subText);
-
-        mList.add(item);
-    }
-
 
 
 }
