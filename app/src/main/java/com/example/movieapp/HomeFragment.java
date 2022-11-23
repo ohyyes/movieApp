@@ -1,6 +1,7 @@
 package com.example.movieapp;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,13 +25,14 @@ import java.util.ArrayList;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecyclerViewClickListener{
 
     ViewGroup rootView;
+    ArrayList<ItemData> dataList = new ArrayList<>();
+    int[] cat = {R.drawable.movie1, R.drawable.movie1,R.drawable.movie1,R.drawable.movie1,R.drawable.movie1};
 
-    RecyclerView recyclerView;
-    ItemSheetAdapter adapter;
-    Context context;
+    final MyRecyclerAdapter adapter = new MyRecyclerAdapter(dataList);
+    static int i=0;
 
     /*@Override
     public void onAttach(@NonNull Context context) {
@@ -91,10 +94,42 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        for (int i=0; i<5; i++) {
+            dataList.add(new ItemData(cat[i], "movie "+(i+1)));
+        }
+        recyclerView.setAdapter(adapter);
         return rootView;
     }
+    @Override
+    public void onItemClicked(int position) {
+        Toast.makeText(getActivity().getApplicationContext(), "Item : "+position, Toast.LENGTH_SHORT).show();
+    }
+
+    public void onTitleClicked(int position) {
+        Toast.makeText(getActivity().getApplicationContext(), "Title : "+position, Toast.LENGTH_SHORT).show();
+    }
+
+    public void onContentClicked(int position) {
+        Toast.makeText(getActivity().getApplicationContext(), "Content : "+position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onImageViewClicked(int position) {
+        Toast.makeText(getActivity().getApplicationContext(), "Image : "+position, Toast.LENGTH_SHORT).show();
+    }
+
+    public void onItemLongClicked(int position) {
+        adapter.remove(position);
+        Toast.makeText(getActivity().getApplicationContext(),
+                dataList.get(position).getmName()+" is removed",Toast.LENGTH_SHORT).show();
+    }
+
 
 
 }

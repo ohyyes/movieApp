@@ -7,28 +7,15 @@
     tools:context=".HomeFragment"
     android:background="@color/BG">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="132dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:spanCount="2"
-            tools:listitem="@layout/moviechart_recycleview_items" />
-        />
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
 </FrameLayout>
