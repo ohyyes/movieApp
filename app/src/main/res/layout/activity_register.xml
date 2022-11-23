@@ -198,7 +198,7 @@
             </TableLayout>
 
             <ImageButton
-                android:id="@+id/btn_register"
+                android:id="@+id/ib_register"
                 android:layout_width="160dp"
                 android:layout_height="67dp"
                 android:background="@android:color/transparent"

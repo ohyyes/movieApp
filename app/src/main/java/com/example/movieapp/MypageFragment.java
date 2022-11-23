@@ -14,7 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,29 +33,23 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class MypageFragment extends Fragment {
+    HomeActivity activity;
+
+//    ImageButton ib_more = (ImageButton) view.findViewById(R.id.ib_more);
+
+    //firebase로 로그인한 사용자 정보 불러오기
+    private FirebaseAuth mAuth;
+
 
     public static MypageFragment newInstance() {
         return new MypageFragment();
     }
 
-    HomeActivity activity;
-
-    //recyclerView 관련
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<UserAccount> arrayList;
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
-    private View view;
-
-    ImageButton ib_more = (ImageButton)view.findViewById(R.id.ib_more);
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        activity = (HomeActivity)getActivity();
+        activity = (HomeActivity) getActivity();
     }
 
     @Override
@@ -104,54 +102,22 @@ public class MypageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //recycleView 관련
-        view = inflater.inflate(R.layout.fragment_mypage, container, false);
-        recyclerView = (RecyclerView) recyclerView.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능 강화
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<>();  //User 객체를 담을 list
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("User"); //DB 테이블 연결
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //firebase data 받아옴
-                arrayList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    UserAccount user = snapshot.getValue(UserAccount.class);  //User객체에 데이터 담음
-                    arrayList.add(user);
-                }
-                adapter.notifyDataSetChanged();//리스트 저장 및 새로고침
-            }
+        //Firebase 로그인한 사용자 정보
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //DB 가져오던 중 에러 발생 시
-                Log.e("MypageFragment", String.valueOf(databaseError.toException()));
-            }
-        });
-        adapter = new MypageAdapter(arrayList, getContext());
-        recyclerView.setAdapter(adapter);
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
 
-        ib_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.onFragmentChange(0);
-                //Intent intent = new Intent(getActivity(), ReviewDetailActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //startActivity(intent);
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        Thread mThread = new Thread();
+        mThread.start();
+
+        TextView tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
+        tv_nickname.setText(user.getDisplayName());
+
+        ArrayList<UserAccount> data_userinfo = new ArrayList<>();
+
 
         return view;
     }
-
-        // Inflate the layout for this fragment
-
-//        View rootView = (View)inflater.inflate(R.layout.fragment_mypage, container, false);
-
-
-
-
 }
