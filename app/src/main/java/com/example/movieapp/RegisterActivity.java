@@ -48,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
     public ArrayList<String> mbti_list = new ArrayList<>();
     private Chip btn_e, btn_i, btn_s, btn_n, btn_t, btn_f, btn_j, btn_p;
     private ChipGroup chipGroupEI, chipGroupSN, chipGroupTF, chipGroupJP;
-    public boolean signIn = true;
     public String userUid;
 
     @Override
@@ -208,13 +207,14 @@ public class RegisterActivity extends AppCompatActivity {
                         //firebase 서버 통신 시간동안 대기
                         try {
                             Toast.makeText(RegisterActivity.this, "잠시 기다려 주세요.", Toast.LENGTH_SHORT).show();
+                            Log.d("잠시 대기", pw1);
                             //여기에 대기창 같은거 띄울 수 있나? 창 띄운 다음 sleep 바로 뒤에 finish 넣어서 사라지도록 하고 싶음
-                            Thread.sleep(8000); //10초 대기
+                            Thread.sleep(10000); //10초 대기
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         //회원가입 성공 -> realtimeDB 저장
-                        if(signIn) createUserRealtime(email, pw1, name, mbti);
+//                        if(signIn) createUserRealtime(email, pw1, name, mbti);
 
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -253,9 +253,11 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+//                            Log.d("회원가입 성공", pw1);
+                            createUserRealtime(email, pw1, name, mbti);
                             Toast.makeText(RegisterActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                         } else {
-                            signIn = false;
+//                            Log.d("회원가입 실패", pw1);
                             Toast.makeText(RegisterActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -263,6 +265,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createUserRealtime(String email, String pwd, String name, String mbti) {
+        Log.d("createuser", pw1);
         userUid = firebaseAuth.getUid();
         Log.d("userUid=", String.valueOf(userUid));
         UserAccount user = new UserAccount(email, pwd, name, mbti);

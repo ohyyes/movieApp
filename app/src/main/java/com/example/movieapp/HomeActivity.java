@@ -23,8 +23,6 @@ public class HomeActivity extends AppCompatActivity {
     private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
     private MovieRecoFragment fragmentMovieReco = new MovieRecoFragment();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +33,8 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -56,10 +54,11 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                 }
-
                 return true;
             }
         });
+
+
 
     }
 

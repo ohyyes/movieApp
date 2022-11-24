@@ -12,114 +12,114 @@
         android:layout_height="match_parent"
         android:background="@color/BG">
 
-    <RelativeLayout
-        android:id="@+id/rel_header"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        >
-        <!-- 뒤로가기 버튼 -->
-        <ImageButton
-            android:id="@+id/ib_back"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/common_backbtn"
-            android:textSize="20sp"
-            />
-
-        <!--마이페이지-->
-        <TextView
+        <RelativeLayout
+            android:id="@+id/rel_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            android:gravity="center"
-            android:text="영화 검색"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
-    <!-- 검색 창 레이아웃 -->
-    <RelativeLayout
-        android:id="@+id/rel_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rel_header"
-        >
-        <!--검색창-->
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/search_edittext"
-            />
-
-        <!--검색 버튼 -->
-        <ImageButton
-            android:id="@+id/ib_search"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignEnd="@id/et_search"
-            android:background="@drawable/search_edittext"
-            android:src="@drawable/moviesearch_search_btn" />
-    </RelativeLayout>
-
-
-    <!-- 중앙 콘텐트 -->
-    <FrameLayout
-        android:id="@+id/lin_body"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rel_search"
-        android:orientation="vertical">
-
-        <!-- 리사이클러 뷰 레이아웃 -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_search_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarSize="5dp"
-            android:scrollbarThumbVertical="@color/white"
-            android:scrollbars="vertical"
-            android:layout_marginTop="30dp"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
             >
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <!--검색결과가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
-        <LinearLayout
-            android:id="@+id/lin_no_result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            >
-            <ImageView
-                android:layout_marginTop="60dp"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:src="@drawable/search_sadface"
-                />
-            <TextView
-                android:paddingTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="죄송합니다..\n해당 검색어와 일치하는 결과가 없습니다."
-                android:textColor="@color/white"
+            <!-- 뒤로가기 버튼 -->
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/common_backbtn"
                 android:textSize="20sp"
-                android:gravity="center"
                 />
-        </LinearLayout>
-    </FrameLayout>
+
+            <!--마이페이지-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="center"
+                android:text="영화 검색"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <!-- 검색 창 레이아웃 -->
+        <RelativeLayout
+            android:id="@+id/rel_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel_header"
+            >
+            <!--검색창-->
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/search_edittext"
+                />
+
+            <!--검색 버튼 -->
+            <ImageButton
+                android:id="@+id/ib_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignEnd="@id/et_search"
+                android:background="@drawable/search_edittext"
+                android:src="@drawable/moviesearch_search_btn" />
+        </RelativeLayout>
+
+
+        <!-- 중앙 콘텐트 -->
+        <FrameLayout
+            android:id="@+id/lin_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rel_search"
+            android:orientation="vertical">
+
+            <!-- 리사이클러 뷰 레이아웃 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_search_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarFadeDuration="0"
+                android:scrollbarSize="5dp"
+                android:scrollbarThumbVertical="@color/white"
+                android:scrollbars="vertical"
+                android:layout_marginTop="30dp"
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <!--검색결과가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
+            <LinearLayout
+                android:id="@+id/lin_no_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                >
+                <ImageView
+                    android:layout_marginTop="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:src="@drawable/search_sadface"
+                    />
+                <TextView
+                    android:paddingTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="죄송합니다..\n해당 검색어와 일치하는 결과가 없습니다."
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+        </FrameLayout>
     </RelativeLayout>
 </FrameLayout>
