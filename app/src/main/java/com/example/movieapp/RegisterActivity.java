@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 
 public class RegisterActivity extends AppCompatActivity {
+
     //firebase에서 데이터 추가/조회 하기 위한 instance
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -49,6 +50,29 @@ public class RegisterActivity extends AppCompatActivity {
     private ChipGroup chipGroupEI, chipGroupSN, chipGroupTF, chipGroupJP;
     public boolean signIn = true;
     public String userUid;
+
+    //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
+    private void setIbRegisterEnableDisable(boolean email, boolean pw1, boolean pw2, boolean name){
+        //모든 입력창에 값이 있다면 -> 버튼 활성화 및 배경색 가시적으로 바꾸기 !
+        if(email && pw1 && pw2 && name){
+            ib_register.setEnabled(true);
+            ib_register.setBackgroundColor(Color.parseColor("#2196F3"));
+
+            ib_register.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        // 하나라도 빈 입력창이 있다면 -> 버튼 비활성화
+        else{
+            ib_register.setEnabled(false);
+            ib_register.setBackgroundColor(getColor(android.R.color.transparent)); //투명하게
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

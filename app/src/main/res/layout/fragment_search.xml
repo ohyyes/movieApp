@@ -46,44 +46,80 @@
 
     </RelativeLayout>
 
+    <!-- 검색 창 레이아웃 -->
+    <RelativeLayout
+        android:id="@+id/rel_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rel_header"
+        >
+        <!--검색창-->
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/search_edittext"
+            />
+
+        <!--검색 버튼 -->
+        <ImageButton
+            android:id="@+id/ib_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignEnd="@id/et_search"
+            android:background="@drawable/search_edittext"
+            android:src="@drawable/moviesearch_search_btn" />
+    </RelativeLayout>
+
+
     <!-- 중앙 콘텐트 -->
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/lin_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:layout_below="@id/rel_header"
+        android:layout_below="@id/rel_search"
         android:orientation="vertical">
 
-        <!-- 중앙 콘텐트 (상단) -->
-        <RelativeLayout
+        <!-- 리사이클러 뷰 레이아웃 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_search_list"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@color/white"
+            android:scrollbars="vertical"
+            android:layout_marginTop="30dp"
             >
-            <!--검색창-->
-            <EditText
-                android:id="@+id/et_search"
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <!--검색결과가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
+        <LinearLayout
+            android:id="@+id/lin_no_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            >
+            <ImageView
+                android:layout_marginTop="60dp"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:background="@drawable/search_edittext"
+                android:layout_height="80dp"
+                android:src="@drawable/search_sadface"
                 />
-
-            <!--검색 버튼 -->
-            <ImageButton
-                android:id="@+id/ib_search"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignEnd="@id/et_search"
-                android:background="@drawable/search_edittext"
-                android:src="@drawable/moviesearch_search_btn" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <!-- 중앙 콘텐트 (하단) -->
-    <!-- 스크롤뷰 레이아웃 -->
+            <TextView
+                android:paddingTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="죄송합니다..\n해당 검색어와 일치하는 결과가 없습니다."
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </FrameLayout>
     </RelativeLayout>
 </FrameLayout>
