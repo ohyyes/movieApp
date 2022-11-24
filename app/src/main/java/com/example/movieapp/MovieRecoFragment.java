@@ -62,7 +62,7 @@ public class MovieRecoFragment extends Fragment {
 
     RecyclerView mRecyclerView;
 
-    private ArrayList<String> dataList;
+    private List<List<String>> dataList;
     private ArrayList<String> resultList; // 추천 알고리즘 결과값
     private ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
     private ArrayList<MovieItem> movieList; // MovieItem 타입의 리스트 for 리사이클러 뷰
