@@ -88,14 +88,11 @@ public class SearchFragment extends Fragment {
         // rootView 객체에 fragment_search.xml 과 연결한 것을 담기.
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_search, container, false);
 
-
         //여기서부터 만짐//
         rec_search_list = (RecyclerView) rootView.findViewById(R.id.rec_search_list);
         lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
         ib_search = (ImageButton) rootView.findViewById(R.id.ib_search);
         et_search = (EditText)  rootView.findViewById(R.id.et_search);
-
-
 
         linearLayoutManager = new LinearLayoutManager(getContext()); //???
         rec_search_list.setLayoutManager(linearLayoutManager);
@@ -106,8 +103,6 @@ public class SearchFragment extends Fragment {
 
         //어댑터 생성
         mainAdapter = new MainAdapter(search_list);
-
-
 
         // 테스트용 임시 original_list
         MainData mainData1 = new MainData(R.drawable.movie_avatar, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드

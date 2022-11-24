@@ -83,8 +83,8 @@ public class MovieRecoFragment extends Fragment {
         RegisterActivity registerActivity = new RegisterActivity();
         MBTIList = registerActivity.mbti_list;
 
-        CSVReader csvReader = new CSVReader(MBTIList);
-        resultList = csvReader.resultList;
+//        CSVReader csvReader = new CSVReader(MBTIList);
+//        resultList = csvReader.resultList;
 
         recoAdapter = new RecoAdapter(movieList);
 
