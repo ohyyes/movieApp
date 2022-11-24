@@ -62,12 +62,13 @@ public class MovieRecoFragment extends Fragment {
 
     RecyclerView mRecyclerView;
 
+    private ArrayList<String> dataList;
     private ArrayList<String> resultList; // 추천 알고리즘 결과값
     private ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
     private ArrayList<MovieItem> movieList; // MovieItem 타입의 리스트 for 리사이클러 뷰
 
-
-    private  RecoAdapter recoAdapter;
+    private RecoAdapter recoAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +77,10 @@ public class MovieRecoFragment extends Fragment {
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewReco);
 
+        linearLayoutManager = new LinearLayoutManager(getContext()); //???
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
+        dataList = new ArrayList<>();
         resultList = new ArrayList<>();
         MBTIList = new ArrayList<>();
         movieList = new ArrayList<>();
@@ -83,15 +88,21 @@ public class MovieRecoFragment extends Fragment {
         RegisterActivity registerActivity = new RegisterActivity();
         MBTIList = registerActivity.mbti_list;
 
-//        CSVReader csvReader = new CSVReader(MBTIList);
-//        resultList = csvReader.resultList;
+        HomeActivity homeActivity = new HomeActivity();
+        dataList = homeActivity.data_list;
+
+        RecomendMain recomendMain = new RecomendMain(dataList, MBTIList);
+        resultList = recomendMain.recomendFunc();
 
         recoAdapter = new RecoAdapter(movieList);
 
+        System.out.println(MBTIList);
+        System.out.println(resultList);
         for(int i=0; i<resultList.size(); i++){
             movieList.add(new MovieItem(R.drawable.movie_black, resultList.get(i)));
         }
-        recoAdapter.setMovieList(movieList);
+
+        mRecyclerView.setAdapter(recoAdapter);
         return rootView;
     }
 }
