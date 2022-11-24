@@ -21,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     private HomeFragment fragmentHome = new HomeFragment();
     private MovieDetailFragment fragmentMovieDetail = new MovieDetailFragment();
     private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
+    private MovieRecoFragment fragmentMovieReco = new MovieRecoFragment();
 
 
 
@@ -30,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.menu_frame_layout, fragmentHome).commitAllowingStateLoss();
+        transaction.replace(R.id.menu_frame_layout, fragmentMovieReco).commitAllowingStateLoss();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
@@ -51,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
                         transaction.replace(R.id.menu_frame_layout, fragmentMypage).commitAllowingStateLoss();
                         break;
                     case R.id.menu_home:
-                        transaction.replace(R.id.menu_frame_layout, fragmentHome).commitAllowingStateLoss();
+                        transaction.replace(R.id.menu_frame_layout, fragmentMovieReco).commitAllowingStateLoss();
                         break;
 
                 }
