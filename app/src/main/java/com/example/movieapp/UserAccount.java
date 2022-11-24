@@ -32,16 +32,6 @@ public class UserAccount {
 //        this.profile = profile;
     }
 
-//    @Exclude
-//    public Map<String, Object> toMap() {
-//        HashMap<String, Object> result = new HashMap<>();
-//        result.put("email", email);
-//        result.put("pwd", pwd);
-//        result.put("name", name);
-//        result.put("mbti", mbti);
-//        return result;
-//    }
-
     public String getEmail(){
         return email;
     }
