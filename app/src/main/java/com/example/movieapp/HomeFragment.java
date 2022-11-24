@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecycl
 
     ViewGroup rootView;
     ArrayList<ItemData> dataList = new ArrayList<>();
-    int[] cat = {R.drawable.movie1, R.drawable.movie1,R.drawable.movie1,R.drawable.movie1,R.drawable.movie1};
+    int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
     final MyRecyclerAdapter adapter = new MyRecyclerAdapter(dataList);
     static int i=0;
