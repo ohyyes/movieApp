@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
 
-        da = readMovie();
+        readMovie();
 //        Log.d("da = ", String.valueOf(da));
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -93,7 +93,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     //
-    private ArrayList readMovie() {
+    private void readMovie() {
         Log.d("readMovie = ", "readmovie");
         for (int i = 0; i < 63; i++) {
             userReference.child(String.valueOf(i)).addValueEventListener(new ValueEventListener() {
@@ -117,7 +117,6 @@ public class HomeActivity extends AppCompatActivity {
                     data.add(Img);
 
                     data_list.add(data);
-                    Log.d("data_list = ", String.valueOf(data_list));
                 }
 
                 @Override
@@ -126,7 +125,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         }
-        return (ArrayList) data_list;
     }
 
 }
