@@ -4,12 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,18 +33,23 @@ import android.widget.ImageButton;
  * create an instance of this fragment.
  */
 public class MypageFragment extends Fragment {
+    HomeActivity activity;
+
+//    ImageButton ib_more = (ImageButton) view.findViewById(R.id.ib_more);
+
+    //firebase로 로그인한 사용자 정보 불러오기
+    private FirebaseAuth mAuth;
+
 
     public static MypageFragment newInstance() {
         return new MypageFragment();
     }
 
-    HomeActivity activity;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        activity = (HomeActivity)getActivity();
+        activity = (HomeActivity) getActivity();
     }
 
     @Override
@@ -37,8 +58,6 @@ public class MypageFragment extends Fragment {
 
         activity = null;
     }
-
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,9 +90,6 @@ public class MypageFragment extends Fragment {
         return fragment;
     }
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,9 +102,13 @@ public class MypageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        //Firebase 로그인한 사용자 정보
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypage, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+
+        View view = inflater.inflate(R.layout.fragment_mypage, container, false);
+
 
         ImageButton ib_more = (ImageButton)rootView.findViewById(R.id.ib_more);     //더보기 버튼
         ImageButton ib_edit_profile = (ImageButton)rootView.findViewById(R.id.ib_edit_profile);     //프로필수정 버튼
@@ -103,18 +123,16 @@ public class MypageFragment extends Fragment {
             }
         });
 
-        ib_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.onFragmentChange(0);
-                //Intent intent = new Intent(getActivity(), ReviewDetailActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //startActivity(intent);
-            }
-        });
-        return rootView;
+        Thread mThread = new Thread();
+        mThread.start();
 
 
+        TextView tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
+        tv_nickname.setText(user.getDisplayName());
 
+        ArrayList<UserAccount> data_userinfo = new ArrayList<>();
+
+
+        return view;
     }
 }
