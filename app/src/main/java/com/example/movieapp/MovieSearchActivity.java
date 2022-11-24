@@ -1,24 +1,25 @@
 package com.example.movieapp;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Movie;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,56 +34,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
+public class MovieSearchActivity extends AppCompatActivity {
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SearchFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SearchFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     private static final String TAG = "moviesearch";
     public static final int LOAD_SUCCESS = 101;
 
@@ -94,71 +47,78 @@ public class SearchFragment extends Fragment {
     private final String API_ID = "BEOHWoFfrwf9hxeYp1_1";
     private final String API_SECRET = "1SQEUT5QF6";
 
-    private Process progressDialog;
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    private LinearLayoutManager linearLayoutManager;
-    private RecyclerView rec_searchList;    // 리사이클러 뷰
-    private LinearLayout lin_no_result;     // 검색결과 없음 레이아웃
-    private EditText et_search;         // 검색창 입력값
-    private ArrayList<MainData> resultMovieList;    // 검색 결과 리스트
-    private MainAdapter mainAdapter;
+    private ProgressDialog progressDialog;
+    private EditText et_search;
+    private MainAdapter adapter;
+    private ArrayList<MainData> resultMovieList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // rootView 객체에 fragment_search.xml 과 연결한 것을 담기.
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movie_search);
 
-        //여기서부터 만짐//
-        rec_searchList = (RecyclerView) rootView.findViewById(R.id.rec_searchList);
-        lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
-        et_search = (EditText) rootView.findViewById(R.id.et_search);
-        //리스트 생성
-        resultMovieList = new ArrayList<>();
-        //어댑터 생성
-        mainAdapter = new MainAdapter(resultMovieList);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.frag_search, new SearchFragment());
+        fragmentTransaction.commit();
 
-        linearLayoutManager = new LinearLayoutManager(getContext());     // ???
-        rec_searchList.setLayoutManager(linearLayoutManager);
+        et_search = (EditText) findViewById(R.id.et_search);
+        resultMovieList = new ArrayList<MainData>();        // 검색 결과(데이터)를 저장할 리스트
+        RecyclerView rec_movieList = (RecyclerView) findViewById(R.id.rec_searchList);  // 검색 결과를 보여줄 리사이클러 뷰
 
-        // [돋보기] 버튼을 누르면 해당 키워드를 포함하는 아이템 검색해서 보여줌
-        ImageView ib_search = (ImageButton) rootView.findViewById(R.id.ib_search);
-        ib_search.setOnClickListener(new View.OnClickListener() {
+        adapter = new MainAdapter(resultMovieList);
+        rec_movieList.setAdapter(adapter);
+
+        // 버튼 클릭!
+        ImageButton ib_search = (ImageButton) findViewById(R.id.ib_search);
+        ImageButton ib_back = (ImageButton) findViewById(R.id.ib_back);
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.v("검색버튼", "클릭!");
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.ib_search:
+                        Log.v("검색버튼", "클릭!");
 
-                // 검색 결과 리스트 초기화
-                resultMovieList.clear();
+                        // 로딩중
+                        progressDialog = new ProgressDialog(MovieSearchActivity.this);
+                        progressDialog.setMessage("Please wait...");
+                        progressDialog.show();      // 시작!
 
-                // 검색
-                String keyword = et_search.getText().toString();    // keyword 변수에 EditText 에 입력된 값 담기
-                searchMovie(keyword);               // keyword 로 영화 검색
-
-                // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
-                mainAdapter.setItems(resultMovieList);
-
-                // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
-                if(resultMovieList.isEmpty()){
-                    rec_searchList.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
-                    lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
-                }
-                // 있을 땐, 리사이클러뷰가 보이게 !
-                else{
-                    rec_searchList.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
-                    lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+                        String keyword = et_search.getText().toString();     // 검색 키워드 입력 받기
+                        searchMovie(keyword);       // 키워드로 영화 검색
+                        break;
+                    case R.id.ib_back:
+                        // 뒤로 가기
+                        break;
                 }
             }
-        });
+        };
+        ib_search.setOnClickListener(listener);
+        ib_back.setOnClickListener(listener);
 
-        // 리사이클러뷰에게 어댑터 객체를 전송한다.
-        // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
-        rec_searchList.setAdapter(mainAdapter);
-
-        return rootView;
     }
+    private final MyHandler mHandler = new MyHandler(this);
 
+    private static class MyHandler extends Handler {
+        private final WeakReference<MovieSearchActivity> weakReference;
+
+        public MyHandler(MovieSearchActivity activity) {
+            weakReference = new WeakReference<MovieSearchActivity>(activity);
+        }
+
+        // 메시지 큐의 메시지 처리
+        @Override
+        public void handleMessage(Message msg) {
+            MovieSearchActivity movieSearchActivity = weakReference.get();
+
+            if (movieSearchActivity != null) {
+                if (msg.what == LOAD_SUCCESS) {         // json 파싱 성공 시
+                    movieSearchActivity.progressDialog.dismiss();      // 로딩 스피너 종료!
+                    movieSearchActivity.adapter.notifyDataSetChanged();    // 리사이클러뷰 새로고침
+                }
+            }
+        }
+    }
     // 영화목록 조회 API 호출 및 응답결과 파싱 함수 호출
     public void searchMovie(final String keyword) {
         if (keyword == null) return;
@@ -200,15 +160,16 @@ public class SearchFragment extends Fragment {
                     jsonString = sb.toString().trim();
 
                 } catch (Exception e) {
-                    Log.d(TAG, e.toString());
+                    jsonString = e.toString();
                 }
 
-                // 응답 결과 확인용 ---------------
+                // 응답 결과 확인용 ----------------
                 System.out.println(jsonString);
 
                 // 응답 결과(jsonString) JSON 파싱
                 if (parseJSON(jsonString)) {
-                    System.out.println("성공!!");
+                    Message message = mHandler.obtainMessage(LOAD_SUCCESS);
+                    mHandler.sendMessage(message);
                 }
             }
         });
@@ -222,6 +183,8 @@ public class SearchFragment extends Fragment {
             JSONObject jsonObject = new JSONObject(jsonString);     // 응답 결과 {} : JSON ---(1)
             JSONObject result = jsonObject.getJSONObject("movieListResult");   // (1)안에 "movieListResult"에 대응되는 value {} : JSON ---(2)
             JSONArray movies = result.getJSONArray("movieList");        // (2)안에 "movieList"에 대응되는 value [] : JSON 배열 ---(3)
+
+            resultMovieList.clear();
 
             for (int i=0; i<movies.length(); i++) {
                 JSONObject movieObject = movies.getJSONObject(i);       // (3)안에 하나의 영화 정보 {} : JSON
@@ -239,11 +202,11 @@ public class SearchFragment extends Fragment {
 
         return false;
     }
-    // (2) 영화코드로 상세정보 API 호출 (영화 한 개)
+    // (2) 영화코드로 상세정보 API 호출
     public void searchMovieInfo(final String code, int position) {
         if (code == null) return;
 
-        // 전달받은 영화 코드로 API 호출하여 얻은 응답 저장
+        // 전달받은 키워드로 API 호출하여 얻은 응답을 jsonString에 저장
         String jsonString = null;
 
         try {
@@ -276,7 +239,7 @@ public class SearchFragment extends Fragment {
             jsonString = sb.toString().trim();
 
         } catch (Exception e) {
-            Log.d(TAG, e.toString());
+            jsonString = e.toString();
         }
 
         // 응답 결과 확인용 ----------------
@@ -285,8 +248,9 @@ public class SearchFragment extends Fragment {
         // 응답 결과(jsonString) JSON 파싱(3)
         parseJSON2(jsonString, position);
     }
-    // (3) 영화 상세정보 파싱 및 resultMovieList 에 정보 저장
+    // (3) 영화 상세정보 파싱 및 resultMovieList에 정보 저장
     public void parseJSON2(String jsonString, int position) {
+
         if (jsonString == null) return;
 
         try {
@@ -302,23 +266,21 @@ public class SearchFragment extends Fragment {
             String actors = movies.getString("actors");
 
             MainData mv = resultMovieList.get(position);
-            mv.setTitle(title);
             mv.setOpenYear(openYear);
             mv.setRunningTime(runningTime);
             mv.setDirectors(directors);
             mv.setActors(actors);
 
-            // 제목으로 네이버 영화 API 호출(4)
+            // 네이버 영화 API 호출(4)
             searchNaver(mv.getTitle(), position);
 
         } catch (Exception e) {
             Log.d(TAG, e.toString());
         }
     }
-    // (4) 네이버 영화 검색 API 호출 - 포스터, 평점
+    // (4) 네이버 영화 검색 API 호출
     public void searchNaver(String title, int position) {
         String jsonString = null;
-        title = title.replace(" ", "_");        // 제목에 띄어쓰기 _로 변환
 
         try {
             Log.d(TAG, NAVERMOVIE_URL+title);
@@ -353,17 +315,14 @@ public class SearchFragment extends Fragment {
             jsonString = sb.toString().trim();
 
         } catch (Exception e) {
-            Log.d(TAG, e.toString());
+            jsonString = e.toString();
         }
-
         // 네이버 API 응답 결과 파싱(5)
         parseJSON3(jsonString, position);
     }
-    // (5) 네이버 API 응답 결과에서 포스터, 평점 문자열 뽑아내기
+    // (5) 네이버 API 에서 이미지, 평점 문자열 뽑아내기
     public void parseJSON3(String jsonString, int position) {
         MainData mv = resultMovieList.get(position);
-
-        if (jsonString == null) return;
 
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -410,13 +369,14 @@ public class SearchFragment extends Fragment {
                 return null;
 
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            posterBitmap = BitmapFactory.decodeStream(bufferedInputStream);
+            Bitmap bitmap = BitmapFactory.decodeStream(bufferedInputStream);
 
             bufferedInputStream.close();
             httpURLConnection.disconnect();
 
+            posterBitmap = bitmap;
             // 변환 확인용 ---------------------------
-            System.out.println(posterBitmap);
+            System.out.println(bitmap);
 
         } catch (Exception e) {
             Log.d(TAG, e.toString());
