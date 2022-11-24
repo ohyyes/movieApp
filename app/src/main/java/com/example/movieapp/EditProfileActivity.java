@@ -32,7 +32,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     //화면 이동
                     //MyPageFragment로 이동해야될 것 같은데
-                    Intent intent = new Intent(EditProfileActivity.this, MypageFragment.class);
+                    Intent intent = new Intent(EditProfileActivity.this, MyPageActivity.class);
                     startActivity(intent);
                 }
             });
