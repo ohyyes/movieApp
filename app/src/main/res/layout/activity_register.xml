@@ -197,6 +197,13 @@
                 </com.google.android.material.chip.ChipGroup>
             </TableLayout>
 
+            <TextView
+                android:id="@+id/read_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="데이터" />
+
             <ImageButton
                 android:id="@+id/ib_register"
                 android:layout_width="160dp"

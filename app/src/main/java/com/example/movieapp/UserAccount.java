@@ -2,6 +2,11 @@ package com.example.movieapp;
 
 //사용자 계정 정보 모델 클래스
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 //firebase -> 테이블 개념x
 //테이블이라 생각하고 key값 넣기
 public class UserAccount {
@@ -10,7 +15,7 @@ public class UserAccount {
     private String email;     // 이메일 아이디
     private String pwd;
     private String mbti;    //mbti
-//    private String idToken; //Firebase Uid (고유 토큰정보)
+    private String idToken; //Firebase Uid (고유 토큰정보)
     /**
      * firebase realtime database를 쓸 때 모델클래스를 이용해서 갖고와야할 때 빈 생성자를 만들어주어야 함
      * -> 안 그러면 database 조회시 오류
@@ -26,6 +31,16 @@ public class UserAccount {
         this.mbti = mbti;
 //        this.profile = profile;
     }
+
+//    @Exclude
+//    public Map<String, Object> toMap() {
+//        HashMap<String, Object> result = new HashMap<>();
+//        result.put("email", email);
+//        result.put("pwd", pwd);
+//        result.put("name", name);
+//        result.put("mbti", mbti);
+//        return result;
+//    }
 
     public String getEmail(){
         return email;
@@ -67,13 +82,13 @@ public class UserAccount {
 //        this.profile = profile;
 //    }
 
-//    public String getIdToken(){
-//        return idToken;
-//    }
-//
-//    public void setIdToken(String idToken){
-//        this.idToken = idToken;
-//    }
+    public String getIdToken(){
+        return idToken;
+    }
+
+    public void setIdToken(String idToken){
+        this.idToken = idToken;
+    }
 
     public String toString() {
         return "User{" +
