@@ -1,6 +1,7 @@
 package com.example.movieapp;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
     @Override
     public int getItemCount() {
         if (arrayList!=null){
+            Log.v("arrayList.size()=", Integer.toString(arrayList.size()));
             return arrayList.size();
         }
         else return 0;

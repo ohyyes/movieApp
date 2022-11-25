@@ -136,29 +136,35 @@ public class SearchFragment extends Fragment {
                 String keyword = et_search.getText().toString();    // keyword 변수에 EditText 에 입력된 값 담기
                 searchMovie(keyword);               // keyword 로 영화 검색
 
-                // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
-                mainAdapter.setItems(resultMovieList);
-
-                // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
-                if(resultMovieList.isEmpty()){
-                    rec_searchList.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
-                    lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
-                }
-                // 있을 땐, 리사이클러뷰가 보이게 !
-                else{
-                    rec_searchList.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
-                    lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
-                }
             }
         });
 
         // 리사이클러뷰에게 어댑터 객체를 전송한다.
         // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
-        rec_searchList.setAdapter(mainAdapter);
 
         return rootView;
     }
+    private final MyHandler mHandler = new MyHandler();
 
+    private class MyHandler extends Handler {
+        // 메시지 큐의 메시지 처리
+        @Override
+        public void handleMessage(Message msg) {
+            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
+            mainAdapter.setItems(resultMovieList);
+            // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
+            if (resultMovieList.isEmpty()) {
+                rec_searchList.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
+                lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+            }
+            // 있을 땐, 리사이클러뷰가 보이게 !
+            else {
+                rec_searchList.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
+                lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+            }
+            rec_searchList.setAdapter(mainAdapter);
+        }
+    }
     // 영화목록 조회 API 호출 및 응답결과 파싱 함수 호출
     public void searchMovie(final String keyword) {
         if (keyword == null) return;
@@ -209,6 +215,8 @@ public class SearchFragment extends Fragment {
                 // 응답 결과(jsonString) JSON 파싱
                 if (parseJSON(jsonString)) {
                     System.out.println("성공!!");
+                    Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
+                    mHandler.sendMessage(msg);
                 }
             }
         });
@@ -291,32 +299,47 @@ public class SearchFragment extends Fragment {
 
         try {
             JSONObject jsonObject = new JSONObject(jsonString);     // 응답 결과 {} : JSON ---(1)
+            if (!jsonObject.has("movieInfoResult")) return;     // 검색 결과 없을 시 리턴!!
             JSONObject result = jsonObject.getJSONObject("movieInfoResult");  // (1) 안에 "movieInfo~"에 대응되는 value {}: JSON ---(2)
             JSONObject movies = result.getJSONObject("movieInfo");   // (2)안에 "movieInfo"에 대응되는 value {} : JSON ---(2)
 
-            String title = movies.getString("movieNm");
-            String openYear = movies.getString("openDt");
-            String runningTime = movies.getString("showTm");
-            // 상세 페이지에서 추가로 필요한 정보들
-            String directors = movies.getString("directors");
-            String actors = movies.getString("actors");
+            resultMovieList.get(position).setTitle(movies.getString("movieNm"));     // 제목
+            resultMovieList.get(position).setOpenYear(movies.getString("openDt"));      // 개봉연도
+            resultMovieList.get(position).setRunningTime(movies.getString("showTm"));    // 상영시간
 
-            MainData mv = resultMovieList.get(position);
-            mv.setTitle(title);
-            mv.setOpenYear(openYear);
-            mv.setRunningTime(runningTime);
-            mv.setDirectors(directors);
-            mv.setActors(actors);
+            JSONArray genresArray = movies.getJSONArray("genres");
+            if (genresArray.length() != 0)
+                resultMovieList.get(position).setGenre(genresArray.getJSONObject(0).getString("genreNm"));    // 장르 (하나만)
+
+            // 상세 페이지에서 추가로 필요한 정보들
+            JSONArray directorsArray = movies.getJSONArray("directors");
+            JSONArray actorsArray = movies.getJSONArray("actors");
+
+            resultMovieList.get(position).setDirectors(getPeopleStr(directorsArray));          // 감독
+            resultMovieList.get(position).setActors(getPeopleStr(actorsArray));                // 출연진
 
             // 제목으로 네이버 영화 API 호출(4)
-            searchNaver(mv.getTitle(), position);
+            searchNaver(resultMovieList.get(position).getTitle(), position);               // 포스터, 평점
 
         } catch (Exception e) {
             Log.d(TAG, e.toString());
         }
     }
+    // JSON 배열에 담긴 정보들 하나의 문자열로
+    private String getPeopleStr(JSONArray peoplesArray) throws Exception {
+        if (peoplesArray.length() == 0)
+            return null;
+        String peoples = peoplesArray.getJSONObject(0).getString("peopleNm");
+        for (int i=1; i< peoplesArray.length(); i++) {
+            String people = peoplesArray.getJSONObject(i).getString("peopleNm");
+            peoples = peoples.concat(", " + people);
+        }
+        return peoples;
+    }
     // (4) 네이버 영화 검색 API 호출 - 포스터, 평점
     public void searchNaver(String title, int position) {
+        if (title == null) return;
+
         String jsonString = null;
         title = title.replace(" ", "_");        // 제목에 띄어쓰기 _로 변환
 
@@ -361,13 +384,12 @@ public class SearchFragment extends Fragment {
     }
     // (5) 네이버 API 응답 결과에서 포스터, 평점 문자열 뽑아내기
     public void parseJSON3(String jsonString, int position) {
-        MainData mv = resultMovieList.get(position);
-
         if (jsonString == null) return;
 
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.getJSONArray("items");
+            if (jsonArray.length() == 0) return;            // 검색 결과 없을 시 리턴
             JSONObject items = jsonArray.getJSONObject(0);     // check! - 맨 처음 나온 결과가 찾던 영화라 가정
 
             String imageUrl = items.getString("image");
@@ -377,8 +399,8 @@ public class SearchFragment extends Fragment {
             Bitmap poster = getPosterFromURL(imageUrl);
 
             // 해당 위치의 영화에 이미지와 평점 정보 저장
-            mv.setPoster(poster);
-            mv.setUserRating(userRating);
+            resultMovieList.get(position).setPoster(poster);
+            resultMovieList.get(position).setUserRating(userRating);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -386,9 +408,9 @@ public class SearchFragment extends Fragment {
     }
     // (6) 이미지 링크를 받아서 비트맵으로 반환
     public Bitmap getPosterFromURL(final String imageURL) {
-        Bitmap posterBitmap = null;
-
         if (imageURL == null) return null;
+
+        Bitmap posterBitmap = null;
 
         try {
             URL url = new URL(imageURL);
