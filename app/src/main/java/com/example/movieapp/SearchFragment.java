@@ -71,12 +71,12 @@ public class SearchFragment extends Fragment {
 
 
     //리스트 선언
-    private ArrayList<MainData> original_list; //모든 영화가 담긴 리스트
-    private ArrayList<MainData> search_list; //검색 시 담을 아이템 리스트
+    private ArrayList<SearchFragmentMainData> original_list; //모든 영화가 담긴 리스트
+    private ArrayList<SearchFragmentMainData> search_list; //검색 시 담을 아이템 리스트
 
 
     //어댑터 선언
-    private  MainAdapter mainAdapter;
+    private SearchFragmentAdapter adapter;
     //리사이클러 뷰에서 사용할
     private LinearLayoutManager linearLayoutManager;
 
@@ -105,26 +105,26 @@ public class SearchFragment extends Fragment {
         search_list = new ArrayList<>();
 
         //어댑터 생성
-        mainAdapter = new MainAdapter(search_list);
+        adapter = new SearchFragmentAdapter(search_list);
 
 
 
         // 테스트용 임시 original_list
-        MainData mainData1 = new MainData(R.drawable.movie_avatar, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.movie_avatar, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData1);
-        MainData mainData2 = new MainData(R.drawable.movie_minari, "minari", "20", "200", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.movie_minari, "minari", "20", "200", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData2);
-        MainData mainData3 = new MainData(R.drawable.movie_black, "black", "30", "300", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.movie_black, "black", "30", "300", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData3);
-        MainData mainData4 = new MainData(R.mipmap.ic_launcher, "1234", "40", "400", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.mipmap.ic_launcher, "1234", "40", "400", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData4);
-        MainData mainData5 = new MainData(R.mipmap.ic_launcher, "12345", "50", "500", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData5 = new SearchFragmentMainData(R.mipmap.ic_launcher, "12345", "50", "500", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData5);
-        MainData mainData6 = new MainData(R.mipmap.ic_launcher, "123456", "60", "600", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData6 = new SearchFragmentMainData(R.mipmap.ic_launcher, "123456", "60", "600", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData6);
-        MainData mainData7 = new MainData(R.mipmap.ic_launcher, "1234567", "70", "700", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData7 = new SearchFragmentMainData(R.mipmap.ic_launcher, "1234567", "70", "700", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData7);
-        MainData mainData8 = new MainData(R.mipmap.ic_launcher, "12345678", "80", "700", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData8 = new SearchFragmentMainData(R.mipmap.ic_launcher, "12345678", "80", "700", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData8);
 
 
@@ -139,14 +139,14 @@ public class SearchFragment extends Fragment {
 
                 //original_list에 있는 모든 아이템을 for 문으로 돌면서 검색
                 for(int i=0; i<original_list.size(); i++){
-                    //키워드를 포함하면 search_list에 해당 아이템 (= MainData 객체) 을 추가함
+                    //키워드를 포함하면 search_list에 해당 아이템 (= SearchFragmentMainData 객체) 을 추가함
                     if(original_list.get(i).getTv_name().contains(search_keyword)){
                         search_list.add(original_list.get(i));
                     }
                 }
 
-                //어댑터의 data 를 search_list 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
-                mainAdapter.setItems(search_list);
+                //어댑터의 data 를 search_list 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현 되어있음)
+                adapter.setItems(search_list);
 
 
                 // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
@@ -164,7 +164,7 @@ public class SearchFragment extends Fragment {
 
         // 리사이클러뷰에게 어댑터 객체를 전송한다.
         // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
-        rec_search_list.setAdapter(mainAdapter);
+        rec_search_list.setAdapter(adapter);
 
         return rootView;
     }

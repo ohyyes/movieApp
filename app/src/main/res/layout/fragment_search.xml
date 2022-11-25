@@ -76,7 +76,7 @@
 
     <!-- 중앙 콘텐트 -->
     <FrameLayout
-        android:id="@+id/lin_body"
+        android:id="@+id/frame_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rel_search"

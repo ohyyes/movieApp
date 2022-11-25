@@ -1,11 +1,11 @@
 package com.example.movieapp;
 
-public class MainData {
+public class SearchFragmentMainData {
     private int iv_profile;  //이미지뷰는 int 값임.
     private String tv_name, tv_rate, tv_gerne, tv_date, tv_running_time;
 
     //생성자
-    public MainData(int iv_profile, String tv_name, String tv_rate, String tv_gerne, String tv_date, String tv_running_time) {
+    public SearchFragmentMainData(int iv_profile, String tv_name, String tv_rate, String tv_gerne, String tv_date, String tv_running_time) {
         this.iv_profile = iv_profile;
         this.tv_name = tv_name;
         this.tv_rate = tv_rate;
