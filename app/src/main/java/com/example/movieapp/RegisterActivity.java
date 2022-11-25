@@ -28,8 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
         //모든 입력창에 값이 있다면 -> 버튼 활성화 및 배경색 가시적으로 바꾸기 !
         if(email && pw1 && pw2 && name){
             ib_register.setEnabled(true);
-            ib_register.setBackgroundColor(Color.parseColor("#2196F3"));
-
+            ib_register.setImageResource(R.drawable.registerbutton2);
+            
             ib_register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
