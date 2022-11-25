@@ -36,8 +36,8 @@ public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecycl
     final MyRecyclerAdapter adapter = new MyRecyclerAdapter(dataList);
     static int i=0;
 
-    private FragmentManager fragmentManager = getChildFragmentManager();
-    private RecFragment fragmentRec = new RecFragment();
+    //private FragmentManager fragmentManager = getChildFragmentManager();
+    //private RecFragment fragmentRec = new RecFragment();
 
 
 
@@ -86,8 +86,8 @@ public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecycl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.rec_frame_layout, fragmentRec).commitAllowingStateLoss();
+        //FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //transaction.replace(R.id.rec_frame_layout, fragmentRec).commitAllowingStateLoss();
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
