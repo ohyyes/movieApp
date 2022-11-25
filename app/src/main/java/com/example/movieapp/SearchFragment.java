@@ -118,6 +118,8 @@ public class SearchFragment extends Fragment {
         resultMovieList = new ArrayList<>();
         //어댑터 생성
         mainAdapter = new MainAdapter(resultMovieList);
+        // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
+        mainAdapter.setItems(resultMovieList);
 
         linearLayoutManager = new LinearLayoutManager(getContext());     // ???
         rec_searchList.setLayoutManager(linearLayoutManager);
@@ -131,16 +133,11 @@ public class SearchFragment extends Fragment {
 
                 // 검색 결과 리스트 초기화
                 resultMovieList.clear();
-
                 // 검색
                 String keyword = et_search.getText().toString();    // keyword 변수에 EditText 에 입력된 값 담기
                 searchMovie(keyword);               // keyword 로 영화 검색
-
             }
         });
-
-        // 리사이클러뷰에게 어댑터 객체를 전송한다.
-        // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
 
         return rootView;
     }
@@ -150,8 +147,8 @@ public class SearchFragment extends Fragment {
         // 메시지 큐의 메시지 처리
         @Override
         public void handleMessage(Message msg) {
-            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
-            mainAdapter.setItems(resultMovieList);
+
+
             // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
             if (resultMovieList.isEmpty()) {
                 rec_searchList.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
@@ -162,6 +159,9 @@ public class SearchFragment extends Fragment {
                 rec_searchList.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
                 lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
             }
+
+            // 리사이클러뷰에게 어댑터 객체를 전송한다.
+            // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
             rec_searchList.setAdapter(mainAdapter);
         }
     }

@@ -57,14 +57,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
                 Toast.makeText(view.getContext(), curName, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
 
     @Override
     public int getItemCount() {
         if (arrayList!=null){
-            Log.v("arrayList.size()=", Integer.toString(arrayList.size()));
             return arrayList.size();
         }
         else return 0;
