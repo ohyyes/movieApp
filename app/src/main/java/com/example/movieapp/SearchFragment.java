@@ -71,7 +71,7 @@ public class SearchFragment extends Fragment {
 
 
     //리스트 선언
-    private ArrayList<SearchFragmentMainData> original_list; //모든 영화가 담긴 리스트
+    private ArrayList<com.example.movieapp.SearchFragmentMainData> original_list; //모든 영화가 담긴 리스트
     private ArrayList<SearchFragmentMainData> search_list; //검색 시 담을 아이템 리스트
 
 

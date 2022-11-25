@@ -18,15 +18,6 @@
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
         >
-        <!-- 뒤로가기 버튼 -->
-        <ImageButton
-            android:id="@+id/ib_back"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/common_backbtn"
-            android:textSize="20sp"
-            />
 
         <!--마이페이지-->
         <TextView
@@ -60,6 +51,8 @@
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
             android:background="@drawable/search_edittext"
             />
 
