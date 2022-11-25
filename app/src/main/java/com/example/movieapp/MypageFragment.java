@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,15 +88,74 @@ public class MypageFragment extends Fragment {
         }
     }
 
+
+
+
+    private RecyclerView rec_review_list; //리사이클러 뷰
+    private LinearLayout lin_no_review; //리뷰 없음 레이아웃
+    private ImageButton ib_edit_profile, ib_more; //프로필 수정 버튼, 더보기 버튼
+
+    //리스트 선언
+    private ArrayList<MyPageFragmentMainData> review_list; //내 리뷰가 담긴 리스트
+
+    //어댑터 선언
+    private MyPageFragmentAdapter adapter;
+    //리사이클러 뷰에서 사용할
+    private LinearLayoutManager linearLayoutManager;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
+        // rootView 객체에 fragment_mypage.xml 과 연결한 것을 담기.
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        ImageButton ib_more = (ImageButton)rootView.findViewById(R.id.ib_more);     //더보기 버튼
-        ImageButton ib_edit_profile = (ImageButton)rootView.findViewById(R.id.ib_edit_profile);     //프로필수정 버튼
+
+        rec_review_list = (RecyclerView) rootView.findViewById(R.id.rec_review_list);
+        lin_no_review = (LinearLayout) rootView.findViewById(R.id.lin_no_review);
+        ib_more = (ImageButton) rootView.findViewById(R.id.ib_more);
+        ib_edit_profile = (ImageButton) rootView.findViewById(R.id.ib_edit_profile);
+
+
+
+        //수평 스크롤뷰로 설정하기 ㅎㅎ
+        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false); //???
+        rec_review_list.setLayoutManager(linearLayoutManager);
+
+
+        //리스트 생성
+        review_list = new ArrayList<>();
+
+        //어댑터 생성
+        adapter = new MyPageFragmentAdapter(review_list);
+
+
+        // 테스트용 임시 original_list
+        MyPageFragmentMainData MainData1 = new MyPageFragmentMainData(R.drawable.movie_avatar); //아이템 추가하는 코드
+        review_list.add(MainData1);
+        MyPageFragmentMainData MainData2 = new MyPageFragmentMainData(R.drawable.movie_minari); //아이템 추가하는 코드
+        review_list.add(MainData2);
+        MyPageFragmentMainData MainData3 = new MyPageFragmentMainData(R.drawable.movie_black); //아이템 추가하는 코드
+        review_list.add(MainData3);
+        MyPageFragmentMainData MainData4 = new MyPageFragmentMainData(R.mipmap.ic_launcher); //아이템 추가하는 코드
+        review_list.add(MainData4);
+
+
+        // 저장된 리뷰가 없을 때 -> "작성한 감상평이 없네요!" 레이아웃을 보이게
+        if(review_list.isEmpty()){
+            rec_review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
+            lin_no_review.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+        }
+        // 있을 땐, 리사이클러뷰가 보이게 !
+        else{
+            rec_review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
+            lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+        }
+
+
+        rec_review_list.setAdapter(adapter);
+
+
 
         //프로필수정 버튼 눌렀을 때,
         ib_edit_profile.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +167,8 @@ public class MypageFragment extends Fragment {
             }
         });
 
+
+        //더보기 버튼 눌렀을 때
         ib_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

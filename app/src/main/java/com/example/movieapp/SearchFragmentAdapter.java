@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHolder> {
+public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAdapter.CustomViewHolder> {
 
     //리스트뷰의 아이템들을 담을 리스트
-    private ArrayList<MainData> arrayList;
+    private ArrayList<SearchFragmentMainData> arrayList;
     //생성자
-    public MainAdapter(ArrayList<MainData> arrayList) {
+    public SearchFragmentAdapter(ArrayList<SearchFragmentMainData> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -36,7 +36,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
 
     @Override
     //실제 추가될 때 생명주기
-    public void onBindViewHolder(@NonNull MainAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchFragmentAdapter.CustomViewHolder holder, int position) {
         //프로필 사진 가져오기
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
         holder.tv_name.setText(arrayList.get(position).getTv_name());
@@ -69,9 +69,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
         else return 0;
     }
 
-    // (검색) 어댑터의 아이템을 setItems 의 인자로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
-    public void setItems(ArrayList<MainData> arrayList){
-        this.arrayList = arrayList;
+    // SearchFragment.java 에서 검색 for문 후 만들어진 search_list 를 어댑터의 data 로 바꿀 때 쓰임.
+    // 어댑터의 data 를 newList 로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
+    public void setItems(ArrayList<SearchFragmentMainData> newList){
+        this.arrayList = newList;
         notifyDataSetChanged();
     }
 
