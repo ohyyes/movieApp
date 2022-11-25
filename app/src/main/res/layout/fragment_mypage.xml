@@ -138,17 +138,43 @@
                         android:layout_marginBottom="8dp"
                         android:background="@drawable/mypage_btn_more" />
                 </RelativeLayout>
-                <!--리사이클러뷰-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/vertical_list"
+
+                <!-- 리사이클러뷰 & lin_mypage_list 레이아웃 -->
+                <FrameLayout
+                    android:id="@+id/frame_body"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:orientation="vertical"
                     android:layout_weight="5"
-                    />
+                    >
 
+                    <!-- 리사이클러 뷰 레이아웃 -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rec_review_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                    <!--기존에 작성한 리뷰가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
+                    <LinearLayout
+                        android:id="@+id/lin_no_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        >
+                        <TextView
+                            android:paddingTop="60dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="작성한 감상평이 없네요!\n지금 작성하러 가실래요?"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
-
         </LinearLayout>
-
     </RelativeLayout>
 </FrameLayout>
