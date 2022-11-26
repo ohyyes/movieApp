@@ -37,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
     public List<List<String>> da = new ArrayList<>();
 
     //firebase에서 데이터 추가/조회 하기 위한 instance
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference userReference = database.getReference();
 
@@ -96,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
     private void readMovie() {
         Log.d("readMovie = ", "readmovie");
         for (int i = 0; i < 63; i++) {
-            userReference.child(String.valueOf(i)).addValueEventListener(new ValueEventListener() {
+            userReference.child("movie").child(String.valueOf(i)).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Movie movie = snapshot.getValue(Movie.class);
