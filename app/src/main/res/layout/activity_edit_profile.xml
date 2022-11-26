@@ -31,7 +31,7 @@
 
 
             android:gravity="center"
-            android:text="마이페이지"
+            android:text="프로필 수정"
             android:textAlignment="center"
 
             android:textColor="@color/white"
