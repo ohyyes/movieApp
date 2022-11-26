@@ -1,6 +1,8 @@
 package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +12,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class EditProfileActivity extends AppCompatActivity {
     // 입력창 : 이메일, 비번, 비번 확인, 닉네임
@@ -20,26 +25,31 @@ public class EditProfileActivity extends AppCompatActivity {
     // EditText 에 값이 있는지 TF로 확인
     private boolean has_et_name;
 
+    FragmentManager manager = getSupportFragmentManager();
+    MypageFragment fragmentMypage = new MypageFragment();
     //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
     private void setIbRegisterEnableDisable(boolean name){
         //모든 입력창에 값이 있다면 -> 버튼 활성화 및 배경색 가시적으로 바꾸기 !
         if(name){
             ib_register.setEnabled(true);
-            ib_register.setBackgroundColor(Color.parseColor("#2196F3"));
+            ib_register.setImageResource(R.drawable.registerbutton2);
 
             ib_register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //프래그먼트 매니저 선언
+
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    EditProfileActivity.super.onBackPressed();
                     //화면 이동
-                    Intent intent = new Intent(EditProfileActivity.this, MypageFragment.class);
-                    startActivity(intent);
+                    //transaction.replace(R.id.menu_frame_layout, fragmentMypage).commitAllowingStateLoss();
+                    Toast.makeText(getApplicationContext(), "정보수정 성공", Toast.LENGTH_SHORT).show();
                 }
             });
         }
         // 하나라도 빈 입력창이 있다면 -> 버튼 비활성화
         else{
             ib_register.setEnabled(false);
-            ib_register.setBackgroundColor(getColor(android.R.color.transparent)); //투명하게
         }
     }
 
@@ -77,8 +87,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
                 setIbRegisterEnableDisable(has_et_name);
+
+
             }
         });
+
+
 
     }
 }
