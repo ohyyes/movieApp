@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".EditProfileActivity"
     android:orientation="vertical"
-    android:background="@color/BG">
+    android:background="@color/BG"
+    >
 
     <!-- 헤더 -->
     <RelativeLayout
@@ -22,7 +23,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:background="@drawable/common_backbtn"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <!--마이페이지-->
         <TextView
@@ -62,10 +63,8 @@
             android:layout_marginTop="30dp"
             android:backgroundTint="#B8B8B8"
             android:ems="10"
-            android:hint="모구모구"
             android:inputType="textPersonName"
             android:textColor="@color/white"
-            android:textColorHint="#6C6B6B"
             android:textSize="22sp" />
         <TableLayout
             android:layout_width="wrap_content"
@@ -76,99 +75,120 @@
             android:paddingTop="20dp"
             android:paddingBottom="10dp"
             >
+            <!--chipGroup - EI -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupEI"
+                android:layout_width="290dp"
+                android:layout_height="match_parent"
+                app:singleSelection="true"
+                app:selectionRequired="true"
 
-            <TableRow
-                android:paddingBottom="5dp">
-
-                <ImageButton
+                >
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_e"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
                     android:paddingRight="20dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ebutton" />
-
-                <ImageButton
+                    android:textAlignment="center"
+                    android:text="E"
+                    />
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_i"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ibutton"
-                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:text="I"
                     />
+            </com.google.android.material.chip.ChipGroup>
 
-            </TableRow>
-
-            <TableRow
-                android:paddingBottom="5dp">
-                <ImageButton
+            <!--chipGroup - SN -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupSN"
+                android:layout_width="290dp"
+                android:layout_height="match_parent"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                >
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_s"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/sbutton"
                     android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:text="S"
                     />
-                <ImageButton
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_n"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/nbutton"
-                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:text="N"
                     />
+            </com.google.android.material.chip.ChipGroup>
 
-            </TableRow>
-
-            <TableRow
-                android:paddingBottom="5dp">
-                <ImageButton
+            <!--chipGroup - TF -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupTF"
+                android:layout_width="290dp"
+                android:layout_height="match_parent"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                >
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_t"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/tbutton"
                     android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:text="T"
                     />
-                <ImageButton
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_f"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/fbutton"
-                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:text="F"
                     />
+            </com.google.android.material.chip.ChipGroup>
 
-            </TableRow>
-
-            <TableRow
+            <!--chipGroup - JP -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupJP"
+                android:layout_width="290dp"
+                android:layout_height="match_parent"
+                app:singleSelection="true"
+                app:selectionRequired="true"
                 >
-                <ImageButton
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_j"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/jbutton"
                     android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:text="J"
                     />
-                <ImageButton
+                <com.google.android.material.chip.Chip
                     android:id="@+id/btn_p"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/pbutton"
-                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textAlignment="center"
+                    android:text="P"
                     />
+            </com.google.android.material.chip.ChipGroup>
 
-            </TableRow>
+
         </TableLayout>
 
         <ImageButton
@@ -176,11 +196,11 @@
             android:layout_width="160dp"
             android:layout_height="67dp"
             android:background="@android:color/transparent"
+            android:clickable="false"
+            android:paddingTop="0dp"
             android:scaleType="fitCenter"
             android:src="@drawable/registerbutton"
-            android:paddingTop="0dp"
-            android:clickable="false"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </LinearLayout>
