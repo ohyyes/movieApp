@@ -38,12 +38,7 @@ public class EditProfileActivity extends AppCompatActivity {
             ib_register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //프래그먼트 매니저 선언
-
-                    FragmentTransaction transaction = manager.beginTransaction();
                     EditProfileActivity.super.onBackPressed();
-                    //화면 이동
-                    //transaction.replace(R.id.menu_frame_layout, fragmentMypage).commitAllowingStateLoss();
                     Toast.makeText(getApplicationContext(), "정보수정 성공", Toast.LENGTH_SHORT).show();
                 }
             });
