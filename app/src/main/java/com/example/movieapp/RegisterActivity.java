@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         // 하나라도 빈 입력창이 있다면 -> 버튼 비활성화
         else{
             ib_register.setEnabled(false);
-            ib_register.setBackgroundColor(getColor(android.R.color.transparent)); //투명하게
+            ib_register.setImageResource(R.drawable.registerbutton);
         }
     }
 
