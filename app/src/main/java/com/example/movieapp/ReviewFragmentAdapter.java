@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAdapter.CustomViewHolder> {
+public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAdapter.CustomViewHolder> {
 
     //리스트뷰의 아이템들을 담을 리스트
-    private ArrayList<SearchFragmentMainData> arrayList;
+    private ArrayList<ReviewFragmentMainData> arrayList;
     //생성자
-    public SearchFragmentAdapter(ArrayList<SearchFragmentMainData> arrayList) {
+    public ReviewFragmentAdapter(ArrayList<ReviewFragmentMainData> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -27,7 +27,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         // mypage_recycleview_items.xml 과 연동하기
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_recyclerview_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_recyclerview_items, parent, false);
         //holder로 mypage_recycleview_items.xml 의 뷰를 컨택할 수 있음.
         CustomViewHolder holder = new CustomViewHolder(view);
 
@@ -36,7 +36,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     @Override
     //실제 추가될 때 생명주기
-    public void onBindViewHolder(@NonNull SearchFragmentAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ReviewFragmentAdapter.CustomViewHolder holder, int position) {
         //프로필 사진 가져오기
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
         holder.tv_name.setText(arrayList.get(position).getTv_name());
@@ -71,7 +71,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     // SearchFragment.java 에서 검색 for문 후 만들어진 search_list 를 어댑터의 data 로 바꿀 때 쓰임.
     // 어댑터의 data 를 newList 로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
-    public void setItems(ArrayList<SearchFragmentMainData> newList){
+    public void setItems(ArrayList<ReviewFragmentMainData> newList){
         this.arrayList = newList;
         notifyDataSetChanged();
     }

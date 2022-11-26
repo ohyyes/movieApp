@@ -26,7 +26,7 @@ public class MyPageFragmentAdapter extends RecyclerView.Adapter<MyPageFragmentAd
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         // mypage_recycleview_items.xml 과 연동하기
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mypage_recycleview_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mypage_recyclerview_items, parent, false);
         //holder로 mypage_recycleview_items.xml 의 뷰를 컨택할 수 있음.
         CustomViewHolder holder = new CustomViewHolder(view);
 
