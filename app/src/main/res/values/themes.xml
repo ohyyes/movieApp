@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MovieApp" parent="Theme.AppCompat.DayNight">
+<!--    <style name="Theme.MovieApp" parent="Theme.AppCompat.DayNight">-->
         <!-- Primary brand color. -->
+    <style name="Theme.MovieApp" parent="Theme.MaterialComponents.Light.Bridge">
         <item name="colorPrimary">@color/BG</item>
         <item name="colorPrimaryVariant">@color/BG</item>
         <item name="colorOnPrimary">@color/main</item>
