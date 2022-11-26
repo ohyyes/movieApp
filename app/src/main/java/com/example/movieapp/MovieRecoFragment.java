@@ -2,13 +2,23 @@ package com.example.movieapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +72,12 @@ public class MovieRecoFragment extends Fragment {
 
     RecyclerView mRecyclerView;
 
-    private List<List<String>> dataList;
+    public List<List<String>> dataList;
     private ArrayList<String> resultList; // 추천 알고리즘 결과값
-    private ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
+    public ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
     private ArrayList<MovieItem> movieList; // MovieItem 타입의 리스트 for 리사이클러 뷰
 
     private RecoAdapter recoAdapter;
-    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,14 +94,30 @@ public class MovieRecoFragment extends Fragment {
         MBTIList = new ArrayList<>();
         movieList = new ArrayList<>();
 
-        RegisterActivity registerActivity = new RegisterActivity();
-        MBTIList = registerActivity.mbti_list;
+//        System.out.println(mbti_list);
+//
+//        MBTIList.add("E");
+//        MBTIList.add("S");
+//        MBTIList.add("F");
+//        MBTIList.add("J");
 
-        DataListReady.readMovie();
         dataList = DataListReady.data_list;
+        MBTIList = DataListReady.mbti_list;
 
-        RecomendMain recomendMain = new RecomendMain(dataList, MBTIList);
-        resultList = recomendMain.recomendFunc();
+        System.out.println(dataList);
+
+        for (int i=0; i<dataList.size(); i++) {
+            int cnt = 0;
+
+            if (dataList.get(i).get(1).equals(MBTIList.get(0))) { cnt++; }
+            if (dataList.get(i).get(2).equals(MBTIList.get(1))) { cnt++; }
+            if (dataList.get(i).get(3).equals(MBTIList.get(2))) { cnt++; }
+            if (dataList.get(i).get(4).equals(MBTIList.get(3))) { cnt++; }
+
+            if (cnt >= 3) {
+                resultList.add(dataList.get(i).get(0));
+            }
+        }
 
         recoAdapter = new RecoAdapter(movieList);
 
