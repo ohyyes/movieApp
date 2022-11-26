@@ -44,7 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_main"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:text="aa@gmail.com"/>
 
     <EditText
         android:id="@+id/et_pass"
@@ -63,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="@+id/et_id"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_id"
-        app:layout_constraintTop_toBottomOf="@+id/et_id" />
+        app:layout_constraintTop_toBottomOf="@+id/et_id"
+        android:text="asdfasdf"/>
 
     <ImageButton
         android:id="@+id/btn_login"

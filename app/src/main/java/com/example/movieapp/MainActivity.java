@@ -26,23 +26,22 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
 
+
     private EditText et_id, et_pass;
     private ImageButton btn_login, btn_goregister;
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference userReference = database.getReference();
 
-    public MainActivity() { // by. gyuwon
-        Log.d("DataListReady.readMovie() = ", "DataListReady.readMovie()");
-        DataListReady.readMovie();
-    }
+//    public MainActivity() { // by. gyuwon
+//        Log.d("DataListReady.readMovie() = ", "DataListReady.readMovie()");
+//        DataListReady.readMovie();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        firebaseAuth = FirebaseAuth.getInstance();
 
         et_id = findViewById(R.id.et_id);
         et_pass = findViewById(R.id.et_pass);
@@ -62,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                doLogin();
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
+                doLogin();
+//                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private void doLogin() {
         String email = et_id.getText().toString().trim();
         String pwd = et_pass.getText().toString().trim();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseAuth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            DataListReady.readMBTI();
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(intent);
                         }else{

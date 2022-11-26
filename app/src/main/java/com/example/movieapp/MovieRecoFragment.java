@@ -96,13 +96,13 @@ public class MovieRecoFragment extends Fragment {
 
 //        System.out.println(mbti_list);
 //
-        MBTIList.add("E");
-        MBTIList.add("S");
-        MBTIList.add("F");
-        MBTIList.add("J");
+//        MBTIList.add("E");
+//        MBTIList.add("S");
+//        MBTIList.add("F");
+//        MBTIList.add("J");
 
         dataList = DataListReady.data_list;
-        //MBTIList = DataListReady.mbti_list;
+        MBTIList = DataListReady.mbti_list;
 
         System.out.println(dataList);
 
