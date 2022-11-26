@@ -5,9 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.movieapp"/>
 
-    <!-- API 호출 위한 인터넷 권한 설정 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <!-- HTTP 접속 허용함 -->
     <application
         android:allowBackup="true"

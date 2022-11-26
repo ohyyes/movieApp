@@ -33,8 +33,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SearchFragment#newInstance} factory method to
@@ -111,8 +109,8 @@ public class SearchFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
 
         //여기서부터 만짐//
-        rec_searchList = (RecyclerView) rootView.findViewById(R.id.rec_searchList);
-        lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
+//        rec_searchList = (RecyclerView) rootView.findViewById(R.id.rec_searchList);
+//        lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
         et_search = (EditText) rootView.findViewById(R.id.et_search);
         //리스트 생성
         resultMovieList = new ArrayList<>();
