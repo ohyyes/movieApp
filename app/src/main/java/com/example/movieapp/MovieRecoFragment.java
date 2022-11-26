@@ -88,8 +88,8 @@ public class MovieRecoFragment extends Fragment {
         RegisterActivity registerActivity = new RegisterActivity();
         MBTIList = registerActivity.mbti_list;
 
-        HomeActivity homeActivity = new HomeActivity();
-        dataList = homeActivity.data_list;
+        DataListReady.readMovie();
+        dataList = DataListReady.data_list;
 
         RecomendMain recomendMain = new RecomendMain(dataList, MBTIList);
         resultList = recomendMain.recomendFunc();
