@@ -77,8 +77,8 @@ public class MovieRecoFragment extends Fragment {
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewReco);
 
-        linearLayoutManager = new LinearLayoutManager(getContext()); //???
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         dataList = new ArrayList<>();
         resultList = new ArrayList<>();
