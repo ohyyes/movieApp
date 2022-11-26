@@ -3,11 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/activity_movie_search.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_boxoffice.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_home.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/item_boxoffice.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/network_security_config.xml" value="0.12604166666666666" />
+        <entry key="..\:/Users/Haedam/AndroidStudioProjects/MovieApp/app/src/main/res/layout/search_recycleview_items.xml" value="0.264" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_movie_detail.xml" value="0.22962962962962963" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_movie_search.xml" value="0.2" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_mypage.xml" value="0.264" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/layout/activity_register.xml" value="0.264" />
-<<<<<<< HEAD
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/drawable/blue_button.xml" value="0.258" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/drawable/empty_button.xml" value="0.1235" />
         <entry key="..\:/Users/hyeeu/AndroidStudioProjects/movieApp/app/src/main/res/drawable/search_edittext.xml" value="0.2005" />

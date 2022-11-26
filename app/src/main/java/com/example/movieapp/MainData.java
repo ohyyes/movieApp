@@ -1,65 +1,77 @@
 package com.example.movieapp;
 
+import android.graphics.Bitmap;
+
 public class MainData {
-    private int iv_profile;  //이미지뷰는 int 값임.
-    private String tv_name, tv_rate, tv_gerne, tv_date, tv_running_time;
+    private Bitmap poster;
+    private String title, userRating, genre, openYear, runningTime, directors, actors;
 
     //생성자
-    public MainData(int iv_profile, String tv_name, String tv_rate, String tv_gerne, String tv_date, String tv_running_time) {
-        this.iv_profile = iv_profile;
-        this.tv_name = tv_name;
-        this.tv_rate = tv_rate;
-        this.tv_gerne = tv_gerne;
-        this.tv_date = tv_date;
-        this.tv_running_time = tv_running_time;
-
+    public MainData() {}
+    public MainData(Bitmap poster, String title, String userRating, String genre, String openYear, String runningTime) {
+        this.poster = poster;
+        this.title = title;
+        this.userRating = userRating;
+        this.genre = genre;
+        this.openYear = openYear;
+        this.runningTime = runningTime;
     }
 
-    public int getIv_profile() {
-        return iv_profile;
+    public Bitmap getPoster() {
+        return poster;
     }
 
-    public void setIv_profile(int iv_profile) {
-        this.iv_profile = iv_profile;
+    public void setPoster(Bitmap poster) {
+        this.poster = poster;
     }
 
-    public String getTv_name() {
-        return tv_name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTv_name(String tv_name) {
-        this.tv_name = tv_name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getTv_rate() {
-        return tv_rate;
+    public String getUserRating() {
+        return userRating;
     }
 
-    public void setTv_rate(String tv_rate) {
-        this.tv_rate = tv_rate;
+    public void setUserRating(String userRating) {
+        this.userRating = userRating;
     }
 
-    public String getTv_gerne() {
-        return tv_gerne;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setTv_gerne(String tv_gerne) {
-        this.tv_gerne = tv_gerne;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public String getTv_date() {
-        return tv_date;
+    public String getOpenYear() {
+        return openYear;
     }
 
-    public void setTv_date(String tv_date) {
-        this.tv_date = tv_date;
+    public void setOpenYear(String openYear) {
+        this.openYear = openYear;
     }
 
-    public String getTv_running_time() {
-        return tv_running_time;
+    public String getRunningTime() {
+        return runningTime;
     }
 
-    public void setTv_running_time(String tv_running_time) {
-        this.tv_running_time = tv_running_time;
+    public void setRunningTime(String runningTime) {
+        this.runningTime = runningTime;
+    }
+
+    public String getDirectors() { return  directors; }
+    public void setDirectors(String directors) {
+        this.directors = directors;
+    }
+
+    public String getActors() { return  actors; }
+    public void setActors(String actors) {
+        this.actors = actors;
     }
 }

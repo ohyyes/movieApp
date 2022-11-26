@@ -3,6 +3,8 @@ package com.example.movieapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
+
+
     private EditText et_id, et_pass;
     private ImageButton btn_login, btn_goregister;
     private FirebaseAuth firebaseAuth;
@@ -71,19 +75,19 @@ public class MainActivity extends AppCompatActivity {
         String email = et_id.getText().toString().trim();
         String pwd = et_pass.getText().toString().trim();
 
-//        firebaseAuth.signInWithEmailAndPassword(email, pwd)
-//                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-//                            startActivity(intent);
-//                        }else{
-//                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
+        firebaseAuth.signInWithEmailAndPassword(email, pwd)
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
     }
 }

@@ -33,10 +33,6 @@ public class HomeActivity extends AppCompatActivity {
     private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
     private MovieRecoFragment fragmentMovieReco = new MovieRecoFragment();
 
-    public HomeActivity() {
-        DataListReady.readMBTI();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

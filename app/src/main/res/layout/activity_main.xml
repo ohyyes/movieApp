@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BG"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:backgroundTint="@color/BG">
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/btn_main"

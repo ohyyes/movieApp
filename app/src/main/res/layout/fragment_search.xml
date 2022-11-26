@@ -12,46 +12,54 @@
         android:layout_height="match_parent"
         android:background="@color/BG">
 
-        <RelativeLayout
-            android:id="@+id/rel_header"
+    <RelativeLayout
+        android:id="@+id/rel_header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        >
+        <!-- 뒤로가기 버튼 -->
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_backbtn"
+            android:textSize="20sp"
+            />
+
+        <!--마이페이지-->
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_alignParentTop="true"
-            >
-            <!-- 뒤로가기 버튼 -->
-            <ImageButton
-                android:id="@+id/ib_back"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/common_backbtn"
-                android:textSize="20sp"
-                />
+            android:layout_height="match_parent"
 
-            <!--마이페이지-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
 
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:text="영화 검색"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:gravity="center"
-                android:text="영화 검색"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+    </RelativeLayout>
 
-        </RelativeLayout>
+    <!-- 중앙 콘텐트 -->
+    <LinearLayout
+        android:id="@+id/lin_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-        <!-- 검색 창 레이아웃 -->
+        android:layout_below="@id/rel_header"
+        android:orientation="vertical"/>
+
+        <!-- 중앙 콘텐트 (상단) -->
         <RelativeLayout
-            android:id="@+id/rel_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rel_header"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             >
             <!--검색창-->
             <EditText
@@ -71,8 +79,8 @@
                 android:layout_alignEnd="@id/et_search"
                 android:background="@drawable/search_edittext"
                 android:src="@drawable/moviesearch_search_btn" />
-        </RelativeLayout>
 
+        </RelativeLayout>
 
         <!-- 중앙 콘텐트 -->
         <FrameLayout
@@ -84,7 +92,7 @@
 
             <!-- 리사이클러 뷰 레이아웃 -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rec_search_list"
+                android:id="@+id/rec_searchList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbarFadeDuration="0"
