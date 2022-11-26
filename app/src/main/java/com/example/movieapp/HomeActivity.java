@@ -63,10 +63,10 @@ public class HomeActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        if(index == 0) { //감상평 상세 화면으로 이동
+        if(index == 0) { //감상평 목록 화면으로 이동
             bottomNavigationView.setSelectedItemId(R.id.menu_review);
-            transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
-        }else if(index == 1) {
+            transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
+        }else if(index == 1) { //감상평 상세 화면으로 이동
             transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
         }
 

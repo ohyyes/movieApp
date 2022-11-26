@@ -173,9 +173,6 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.onFragmentChange(0);
-                //Intent intent = new Intent(getActivity(), ReviewDetailActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //startActivity(intent);
             }
         });
         return rootView;
