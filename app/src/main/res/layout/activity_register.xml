@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity2"
+    tools:context=".RegisterActivity"
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/BG">
@@ -88,98 +89,206 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
                 android:paddingTop="40dp">
 
-                <TableRow
-                    android:paddingBottom="5dp">
-
-                    <ImageButton
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupEI"
+                    android:layout_width="290dp"
+                    android:layout_height="match_parent"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    >
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_e"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
                         android:paddingRight="20dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ebutton" />
-
-                    <ImageButton
+                        android:textAlignment="center"
+                        android:text="E"
+                        />
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_i"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ibutton"
-                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textAlignment="center"
+                        android:text="I"
                         />
+                </com.google.android.material.chip.ChipGroup>
 
-                </TableRow>
-
-                <TableRow
-                    android:paddingBottom="5dp">
-                    <ImageButton
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupSN"
+                    android:layout_width="290dp"
+                    android:layout_height="match_parent"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    >
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_s"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/sbutton"
                         android:paddingRight="20dp"
+                        android:textAlignment="center"
+                        android:text="S"
                         />
-                    <ImageButton
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_n"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/nbutton"
-                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textAlignment="center"
+                        android:text="N"
                         />
+                </com.google.android.material.chip.ChipGroup>
 
-                </TableRow>
-
-                <TableRow
-                    android:paddingBottom="5dp">
-                    <ImageButton
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupTF"
+                    android:layout_width="290dp"
+                    android:layout_height="match_parent"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    >
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_t"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/tbutton"
                         android:paddingRight="20dp"
+                        android:textAlignment="center"
+                        android:text="T"
                         />
-                    <ImageButton
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_f"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/fbutton"
-                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textAlignment="center"
+                        android:text="F"
                         />
+                </com.google.android.material.chip.ChipGroup>
 
-                </TableRow>
-
-                <TableRow
-                    android:paddingBottom="35dp">
-                    <ImageButton
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupJP"
+                    android:layout_width="290dp"
+                    android:layout_height="match_parent"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    >
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_j"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/jbutton"
                         android:paddingRight="20dp"
+                        android:textAlignment="center"
+                        android:text="J"
                         />
-                    <ImageButton
+                    <com.google.android.material.chip.Chip
                         android:id="@+id/btn_p"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/pbutton"
-                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textAlignment="center"
+                        android:text="P"
                         />
+                </com.google.android.material.chip.ChipGroup>
 
-                </TableRow>
+<!--                <TableRow-->
+<!--                    android:paddingBottom="5dp">-->
+
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_e"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:paddingRight="20dp"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/ebutton" />-->
+
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_i"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/ibutton"-->
+<!--                        android:paddingLeft="20dp"-->
+<!--                        />-->
+
+<!--                </TableRow>-->
+
+<!--                <TableRow-->
+<!--                    android:paddingBottom="5dp">-->
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_s"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/sbutton"-->
+<!--                        android:paddingRight="20dp"-->
+<!--                        />-->
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_n"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/nbutton"-->
+<!--                        android:paddingLeft="20dp"-->
+<!--                        />-->
+
+<!--                </TableRow>-->
+
+<!--                <TableRow-->
+<!--                    android:paddingBottom="5dp">-->
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_t"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/tbutton"-->
+<!--                        android:paddingRight="20dp"-->
+<!--                        />-->
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_f"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/fbutton"-->
+<!--                        android:paddingLeft="20dp"-->
+<!--                        />-->
+
+<!--                </TableRow>-->
+
+<!--                <TableRow-->
+<!--                    android:paddingBottom="35dp">-->
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_j"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/jbutton"-->
+<!--                        android:paddingRight="20dp"-->
+<!--                        />-->
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btn_p"-->
+<!--                        android:layout_width="101dp"-->
+<!--                        android:layout_height="67dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:src="@drawable/pbutton"-->
+<!--                        android:paddingLeft="20dp"-->
+<!--                        />-->
+
+<!--                </TableRow>-->
             </TableLayout>
 
             <ImageButton
@@ -190,7 +299,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/registerbutton"
                 android:layout_marginBottom="50dp"
-                android:clickable="false"
+                android:clickable="true"
                 />
         </LinearLayout>
     </ScrollView>
