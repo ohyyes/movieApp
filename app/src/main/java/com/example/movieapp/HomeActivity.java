@@ -33,12 +33,9 @@ public class HomeActivity extends AppCompatActivity {
     private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
     private MovieRecoFragment fragmentMovieReco = new MovieRecoFragment();
 
-    public List<List<String>> data_list = new ArrayList<>();
-    public List<List<String>> da = new ArrayList<>();
-
-    //firebase에서 데이터 추가/조회 하기 위한 instance
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference userReference = database.getReference();
+    public HomeActivity() {
+        DataListReady.readMBTI();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
 
-        readMovie();
+//        readMovie();
 //        Log.d("da = ", String.valueOf(da));
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -90,42 +87,6 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
-
-    //
-    private void readMovie() {
-        Log.d("readMovie = ", "readmovie");
-        for (int i = 0; i < 63; i++) {
-            userReference.child("movie").child(String.valueOf(i)).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Movie movie = snapshot.getValue(Movie.class);
-                    List<String> data = new ArrayList<>();
-                    String title = movie.getTitle();
-                    String IE = movie.getIE();
-                    String NS = movie.getNS();
-                    String TF = movie.getTF();
-                    String JP = movie.getJP();
-                    String Img = movie.getImg();
-                    Log.d("title = ", title);
-
-                    data.add(title);
-                    data.add(IE);
-                    data.add(NS);
-                    data.add(TF);
-                    data.add(JP);
-                    data.add(Img);
-
-                    data_list.add(data);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-    }
-
 }
 
 
