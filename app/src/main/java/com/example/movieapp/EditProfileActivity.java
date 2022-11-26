@@ -21,6 +21,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText et_name;
     // 버튼 : 등록 버튼 (완료!)
     private ImageButton ib_register;
+    private ImageButton ib_back;
 
     // EditText 에 값이 있는지 TF로 확인
     private boolean has_et_name;
@@ -50,6 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
         // 하나라도 빈 입력창이 있다면 -> 버튼 비활성화
         else{
             ib_register.setEnabled(false);
+            ib_register.setImageResource(R.drawable.registerbutton);
         }
     }
 
@@ -61,6 +63,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         et_name = findViewById(R.id.et_name);
         ib_register = findViewById(R.id.btn_register);
+        ib_back = findViewById(R.id.ib_back);
 
         //초기화
         has_et_name = false;
@@ -92,6 +95,12 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditProfileActivity.super.onBackPressed();
+            }
+        });
 
 
     }
