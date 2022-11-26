@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity2"
+    tools:context=".RegisterActivity"
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/BG">
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="200dp"
@@ -43,18 +44,22 @@
                 android:textColorHint="#878787"
                 android:textSize="20sp" />
 
+
             <EditText
                 android:id="@+id/et_pw1"
+                android:inputType="textPassword"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_email"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="#878787"
-                android:hint="비밀번호"
+                android:hint="비밀번호(7글자 이상)"
                 android:textColor="@color/white"
                 android:textColorHint="#878787"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
+
+
 
             <EditText
                 android:id="@+id/et_pw2"
