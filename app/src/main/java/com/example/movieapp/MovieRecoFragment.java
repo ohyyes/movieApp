@@ -94,8 +94,6 @@ public class MovieRecoFragment extends Fragment {
         MBTIList = new ArrayList<>();
         movieList = new ArrayList<>();
 
-//        System.out.println(mbti_list);
-//
 //        MBTIList.add("E");
 //        MBTIList.add("S");
 //        MBTIList.add("F");
@@ -103,8 +101,6 @@ public class MovieRecoFragment extends Fragment {
 
         dataList = DataListReady.data_list;
         MBTIList = DataListReady.mbti_list;
-
-        System.out.println(dataList);
 
         for (int i=0; i<dataList.size(); i++) {
             int cnt = 0;

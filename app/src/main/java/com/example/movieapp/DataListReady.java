@@ -60,7 +60,6 @@ public class DataListReady {
     }
 
     public static void readMBTI() {
-        //Firebase 로그인한 사용자 정보
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
         String userUid = user.getUid();
