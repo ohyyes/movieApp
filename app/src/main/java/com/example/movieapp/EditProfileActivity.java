@@ -1,11 +1,6 @@
 package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +23,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private ImageButton ib_register;
     private ImageButton ib_back;
 
+    private boolean has_et_name;
     //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
     private void setIbRegisterEnableDisable(boolean name){
         //모든 입력창에 값이 있다면 -> 버튼 활성화 및 배경색 가시적으로 바꾸기 !
@@ -62,6 +58,36 @@ public class EditProfileActivity extends AppCompatActivity {
         et_name = findViewById(R.id.et_name);
         ib_register = findViewById(R.id.btn_register);
         ib_back = findViewById(R.id.ib_back);
+
+        //초기화
+        has_et_name = false;
+
+
+        // 닉네임 입력창에 값이 들어오면
+        et_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            // 입력창에 값이 바뀐 후 실행할 코드
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // et_name 입력창에 값이 1개이상 들어오면 true 로 바꿈
+                if(et_name.length() > 0) has_et_name = true;
+                else has_et_name = false;
+
+                //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
+                setIbRegisterEnableDisable(has_et_name);
+
+
+            }
+        });
 
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,28 +135,5 @@ public class EditProfileActivity extends AppCompatActivity {
         btn_f.setChecked(true);
         btn_j.setChecked(true);
 
-
-
-        // [완료!] 버튼이 눌렸을 때 실행될 코드
-        ib_register.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                // 닉네임 EditText 에 값이 있는지 TF로 확인할 변수들
-                boolean has_name;
-
-                //닉네임 EditText 에 값이 0자 보다 많으면 true 를 아니면 false 를 변수에 저장
-                has_name = et_name.length() > 0;
-
-
-                //입력값과 chip 조건을 모두 만족할 때만 -> 버튼 배경색 변경 및 MyPageFragment 로 이동
-                if(has_name){
-                    ib_register.setImageResource(R.drawable.registerbutton2); //버튼 배경색 변경
-                    // 엑티비티 to 프래그먼트 화면 전환 코드 (수연이가 써줄..ㅎ)
-//                    Intent intent = new Intent(RegisterActivity.this, MyPageFragment.class);
-//                    startActivity(intent);
-                }
-            }
-        });
     }
 }
