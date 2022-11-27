@@ -58,21 +58,12 @@ public class ReviewFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
-        ReviewFragmentMainData mainData1 = new ReviewFragmentMainData(R.drawable.movie1, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
-        all_review.add(mainData1);
-        ReviewFragmentMainData mainData2 = new ReviewFragmentMainData(R.drawable.movie2, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
-        all_review.add(mainData2);
-        ReviewFragmentMainData mainData3 = new ReviewFragmentMainData(R.drawable.movie3, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
-        all_review.add(mainData3);
-
     }
 
 
     //데이터 리스트
-    private ArrayList<ReviewFragmentMainData> all_review = new ArrayList<>();
-    private ReviewFragmentAdapter adapter = new ReviewFragmentAdapter(all_review);
+    private ArrayList<ReviewFragmentMainData> all_review;
+    private ReviewFragmentAdapter adapter;
 
 
 
@@ -89,9 +80,19 @@ public class ReviewFragment extends Fragment {
         review_list.setLayoutManager(layoutManager);
 
 
+        all_review = new ArrayList<>();
 
 
 
+        //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
+        ReviewFragmentMainData mainData1 = new ReviewFragmentMainData(R.drawable.movie1, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        all_review.add(mainData1);
+        ReviewFragmentMainData mainData2 = new ReviewFragmentMainData(R.drawable.movie2, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        all_review.add(mainData2);
+        ReviewFragmentMainData mainData3 = new ReviewFragmentMainData(R.drawable.movie3, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        all_review.add(mainData3);
+
+        adapter = new ReviewFragmentAdapter(all_review);
         review_list.setAdapter(adapter);
 
         if(all_review.isEmpty()){
