@@ -16,4 +16,23 @@
         <item name="errorTextColor">@color/main</item>
 
     </style>
+
+    <style name="CounterStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@android:color/white</item>
+        <!--other parameters that you want to change -->
+    </style>
+    <style name="CounterOverride" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@android:color/white</item>
+        <!--other parameters that you want to change -->
+    </style>
+    <style name="Widget.MyApp.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
+        <item name="android:state_checked">@style/ChipCheck</item>
+    </style>
+    <style name="ThemeOverlay.MyApp.Chip.Choice" parent="">
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+    <style name="ChipCheck" parent="">
+        <item name="strokeWidth">0dp</item>
+    </style>
 </resources>
