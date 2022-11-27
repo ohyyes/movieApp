@@ -174,7 +174,7 @@ public class MypageFragment extends Fragment {
         ib_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeActivity.onFragmentChange(0);
+                homeActivity.onFragmentChange(2);
             }
         });
         return rootView;
