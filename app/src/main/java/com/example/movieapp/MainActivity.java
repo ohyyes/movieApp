@@ -3,7 +3,9 @@ package com.example.movieapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,15 +17,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private EditText et_id, et_pass;
     private ImageButton btn_login, btn_goregister;
     private FirebaseAuth firebaseAuth;
+    FirebaseAuth mAuth;
 
-    public MainActivity() {
-        DataListReady.readMovie();
-    }
+//    public MainActivity() {
+//        DataListReady.readMovie();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,5 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
@@ -31,6 +32,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 
@@ -213,9 +217,6 @@ public class RegisterActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        //회원가입 성공 -> realtimeDB 저장
-//                        if(signIn) createUserRealtime(email, pw1, name, mbti);
-
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
@@ -253,11 +254,9 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            Log.d("회원가입 성공", pw1);
                             createUserRealtime(email, pw1, name, mbti);
                             Toast.makeText(RegisterActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                         } else {
-//                            Log.d("회원가입 실패", pw1);
                             Toast.makeText(RegisterActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -267,7 +266,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void createUserRealtime(String email, String pwd, String name, String mbti) {
         Log.d("createuser", pw1);
         userUid = firebaseAuth.getUid();
-        Log.d("userUid=", String.valueOf(userUid));
+        signCheck(userUid, mbti);
         UserAccount user = new UserAccount(email, pwd, name, mbti);
         userReference.child("user").child(userUid).setValue(user);
         userReference.addValueEventListener(new ValueEventListener() {
@@ -284,4 +283,20 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    //파일 생성, 정보 저장
+    private void  signCheck(String userUid, String mbti){
+        String memberInfo = userUid + "\n" + mbti;
+        try{
+            FileOutputStream fs = openFileOutput(userUid, Context.MODE_PRIVATE);
+            PrintWriter writer = new PrintWriter(fs);
+            writer.print(memberInfo);
+            writer.close();
+            Log.d("file에 mbti 저장", mbti);
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
