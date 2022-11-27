@@ -30,10 +30,10 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecyclerViewClickListener{
 
     ViewGroup rootView;
-    ArrayList<ItemData> dataList = new ArrayList<>();
+    ArrayList<ItemData> dataList;
     int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
-    final MyRecyclerAdapter adapter = new MyRecyclerAdapter(dataList);
+    private MyRecyclerAdapter adapter;
     static int i=0;
 
     //private FragmentManager fragmentManager = getChildFragmentManager();
@@ -95,9 +95,13 @@ public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecycl
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
+        dataList = new ArrayList<>();
+        adapter = new MyRecyclerAdapter(dataList);
         for (int i=0; i<5; i++) {
             dataList.add(new ItemData(cat[i], "movie "+(i+1)));
         }
+
+
         recyclerView.setAdapter(adapter);
         return rootView;
     }
