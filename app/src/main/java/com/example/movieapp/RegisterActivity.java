@@ -33,6 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
     // 버튼 : 등록 버튼 (완료!)
     private ImageButton ib_register;
 
+
+    //입력값 유무에 따른 등록 버튼 활성화 구현
     private void setIbRegisterEnableDisable(boolean email, boolean pw1, boolean pw2, boolean name, boolean EI, boolean SN, boolean TF, boolean JP){
         //입력값과 chip 조건을 모두 만족할 때만 -> 버튼 배경색 변경 및 MainActivity 로 이동
 
@@ -103,10 +105,10 @@ public class RegisterActivity extends AppCompatActivity {
         btn_j.setCheckable(true); btn_p.setCheckable(true);
 
         // 초기화
-        has_EI = false; //btn_e.isChecked() || btn_i.isChecked();
-        has_SN = false; //btn_s.isChecked() || btn_n.isChecked();
-        has_TF = false; //btn_t.isChecked() || btn_f.isChecked();
-        has_JP = false; //btn_j.isChecked() || btn_p.isChecked();
+        has_EI = false;
+        has_SN = false;
+        has_TF = false;
+        has_JP = false;
 
         //EI chip 버튼 클릭 시
         btn_e.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
+            //값 입력할 때
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -212,8 +214,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 // pw1 입력창에 값이 1개이상 들어오면 true 로 바꿈
-                if(et_pw1.length() > 0) has_et_pw1 = true;
-                else has_et_pw1 = false;
+                if(et_pw1.length() > 6) has_et_pw1 = true;
+                else {
+                    has_et_pw1 = false;
+                    et_pw1.setError("비밀번호는 7자리 이상 입력해주세요.",null);//에러메세지 띄우기
+                    }
 
                 //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
                 setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
@@ -236,8 +241,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 // pw2 입력창에 값이 1개이상 들어오면 true 로 바꿈
-                if(et_pw2.length() > 0) has_et_pw2 = true;
-                else has_et_pw2 = false;
+                if(et_pw2.getText().toString().equals(et_pw1.getText().toString())) has_et_pw2 = true;
+                else {
+                    has_et_pw2 = false;
+                    et_pw2.setError("비밀번호를 똑같이 입력해주세요",null);//에러메세지 띄우기
+                    }
 
                 //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
                 setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
@@ -270,7 +278,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-        //입력값 유무에 따른 등록 버튼 활성화 구현
+        //입력값 유무에 따른 등록 버튼 활성화 함수
         setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
 
     }
