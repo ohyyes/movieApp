@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,27 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
+
+    //홈 엑티비티 선언 (화면 전환시 필요)
+    HomeActivity homeActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //홈 엑티비티 생성
+        homeActivity = (HomeActivity)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        //홈 엑티비티 제거
+        homeActivity = null;
+    }
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,7 +127,7 @@ public class SearchFragment extends Fragment {
         search_list = new ArrayList<>();
 
         //어댑터 생성
-        adapter = new SearchFragmentAdapter(search_list);
+        adapter = new SearchFragmentAdapter(original_list, homeActivity);
 
 
 
