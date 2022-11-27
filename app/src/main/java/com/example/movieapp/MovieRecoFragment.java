@@ -85,9 +85,8 @@ public class MovieRecoFragment extends Fragment {
         movieList = new ArrayList<>();
 
         dataList = DataListReady.data_list;
-
-        int cnt = 0;
         for (int i = 0; i < dataList.size(); i++) {
+                    int cnt = 0;
                     if (dataList.get(i).get(1).equals(MBTIList.get(0))) cnt++;
                     if (dataList.get(i).get(2).equals(MBTIList.get(1))) cnt++;
                     if (dataList.get(i).get(3).equals(MBTIList.get(2))) cnt++;
