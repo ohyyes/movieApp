@@ -1,6 +1,5 @@
 package com.example.movieapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -10,16 +9,14 @@ import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.internal.CheckableGroup;
-
-import java.util.List;
-import java.util.Set;
 
 public class RegisterActivity extends AppCompatActivity {
     //chip group 선언
@@ -29,37 +26,35 @@ public class RegisterActivity extends AppCompatActivity {
 
     // 입력창 : 이메일, 비번, 비번 확인, 닉네임
     private EditText et_email, et_pw1, et_pw2, et_name;
+    // EditText 에 값이 있는지 TF로 확인
+    private boolean has_et_email, has_et_pw1, has_et_pw2, has_et_name;
+    // 각 EditText 와 각 chipGroup 에 값이 있는지 TF로 확인할 변수들
+    boolean has_EI, has_SN, has_TF, has_JP;
     // 버튼 : 등록 버튼 (완료!)
     private ImageButton ib_register;
 
-    // EditText 에 값이 있는지 TF로 확인
-    private boolean has_et_email, has_et_pw1, has_et_pw2, has_et_name;
 
-    // chipGroup 이 선택 되었는지 TF로 확인
-    private boolean has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP;
-
-
-
-
-    //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
+    //입력값 유무에 따른 등록 버튼 활성화 구현
     private void setIbRegisterEnableDisable(boolean email, boolean pw1, boolean pw2, boolean name, boolean EI, boolean SN, boolean TF, boolean JP){
-        //모든 입력창에 값이 있다면 -> 버튼 활성화 및 배경색 가시적으로 바꾸기 !
+        //입력값과 chip 조건을 모두 만족할 때만 -> 버튼 배경색 변경 및 MainActivity 로 이동
+
         if(email && pw1 && pw2 && name && EI && SN && TF && JP){
             ib_register.setEnabled(true);
             ib_register.setImageResource(R.drawable.registerbutton2);
 
             ib_register.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view){
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_SHORT).show();
                 }
             });
         }
         // 하나라도 빈 입력창이 있다면 -> 버튼 비활성화
         else{
             ib_register.setEnabled(false);
-            ib_register.setImageResource(R.drawable.registerbutton); //비활성화 버튼 이미지
+            ib_register.setImageResource(R.drawable.registerbutton);
         }
     }
 
@@ -78,11 +73,16 @@ public class RegisterActivity extends AppCompatActivity {
         et_name = (EditText) findViewById(R.id.et_name);
 
 
+        has_et_email = false;
+        has_et_pw1 = false;
+        has_et_pw2 = false;
+        has_et_name = false;
+
         //chipGroup 불러오기
         chipGroupEI = (ChipGroup) findViewById(R.id.chipGroupEI);
         chipGroupSN = (ChipGroup) findViewById(R.id.chipGroupSN);
         chipGroupTF = (ChipGroup) findViewById(R.id.chipGroupTF);
-        chipGroupJP = (ChipGroup) findViewById(R.id.chipGroupJP);
+        chipGroupJP  =(ChipGroup) findViewById(R.id.chipGroupJP);
 
 
         //chip 불러오기
@@ -104,58 +104,75 @@ public class RegisterActivity extends AppCompatActivity {
         btn_t.setCheckable(true); btn_f.setCheckable(true);
         btn_j.setCheckable(true); btn_p.setCheckable(true);
 
+        // 초기화
+        has_EI = false;
+        has_SN = false;
+        has_TF = false;
+        has_JP = false;
 
-
-        //칩 눌림 확인용 변수 값 초기화
-        has_chipGroupEI = false; has_chipGroupSN = false; has_chipGroupTF = false; has_chipGroupJP = false;
-
-
-
-
-        /* chip이 선택될 때 마다 작동하는 코드*/
-        // EI 그룹
-        chipGroupEI.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+        //EI chip 버튼 클릭 시
+        btn_e.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                has_chipGroupEI = true; //눌렸다고 표시
-                //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+            public void onClick(View view) {
+                has_EI = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
+            }
+        });
+        btn_i.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                has_EI = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
 
-        // SN 그룹
-        chipGroupSN.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+        //SN chip 버튼 클릭 시
+        btn_s.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                has_chipGroupSN = true; //눌렸다고 표시
-                //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+            public void onClick(View view) {
+                has_SN = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
+            }
+        });
+        btn_n.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                has_SN = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
 
-        // TF 그룹
-        chipGroupTF.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+        //TF chip 버튼 클릭 시
+        btn_t.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                has_chipGroupTF = true; //눌렸다고 표시
-                //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+            public void onClick(View view) {
+                has_TF = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
+            }
+        });
+        btn_f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                has_TF = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
 
-        // JP 그룹
-        chipGroupJP.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+        //JP chip 버튼 클릭 시
+        btn_j.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                has_chipGroupJP = true; //눌렸다고 표시
-                //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+            public void onClick(View view) {
+                has_JP = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
-
-
-
-
+        btn_p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                has_JP = true;
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
+            }
+        });
 
         // 이메일 입력창에 값이 들어오면
         et_email.addTextChangedListener(new TextWatcher() {
@@ -163,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
+            //값 입력할 때
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -177,7 +194,7 @@ public class RegisterActivity extends AppCompatActivity {
                 else has_et_email = false;
 
                 //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
 
@@ -197,11 +214,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 // pw1 입력창에 값이 1개이상 들어오면 true 로 바꿈
-                if(et_pw1.length() > 0) has_et_pw1 = true;
-                else has_et_pw1 = false;
+                if(et_pw1.length() > 6) has_et_pw1 = true;
+                else {
+                    has_et_pw1 = false;
+                    et_pw1.setError("비밀번호는 7자리 이상 입력해주세요.",null);//에러메세지 띄우기
+                    }
 
                 //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
 
@@ -221,11 +241,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 // pw2 입력창에 값이 1개이상 들어오면 true 로 바꿈
-                if(et_pw2.length() > 0) has_et_pw2 = true;
-                else has_et_pw2 = false;
+                if(et_pw2.getText().toString().equals(et_pw1.getText().toString())) has_et_pw2 = true;
+                else {
+                    has_et_pw2 = false;
+                    et_pw2.setError("비밀번호를 똑같이 입력해주세요",null);//에러메세지 띄우기
+                    }
 
                 //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
 
@@ -249,9 +272,14 @@ public class RegisterActivity extends AppCompatActivity {
                 else has_et_name = false;
 
                 //각 입력값에 값이 있는지 확인 후 버튼 활성화 or 비활성화 하는 메소드
-                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_chipGroupEI, has_chipGroupSN, has_chipGroupTF, has_chipGroupJP);
+                setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
             }
         });
+
+
+
+        //입력값 유무에 따른 등록 버튼 활성화 함수
+        setIbRegisterEnableDisable(has_et_email, has_et_pw1, has_et_pw2, has_et_name, has_EI, has_SN, has_TF,has_JP);
 
     }
 }

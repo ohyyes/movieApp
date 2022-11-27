@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EditTextStyle" parent="Widget.Design.TextInputLayout"> // important : parent 를 이것으로.
+
+        <item name="colorControlNormal">@color/white</item>  // unFocus 상태일때 밑줄 색.
+        <item name="boxStrokeColor">@color/white</item> // Focus 상태일때 밑줄 색.
+        <item name="android:textCursorDrawable">@color/white</item>  // cursor 색.
+
+
+        <item name="android:textColorHint">#878787</item>  // hint 색
+        <item name="hintTextColor">@color/white</item>   // floating hint 색
+
+        <!--<item name="helperText">@color/white</item> // xml 에서 한 속성을 여기서도 할 수 있습니다.-->
+        <!--<item name="helperTextTextColor">@color/white</item>-->
+
+        <item name="errorTextColor">@color/main</item>
+
+    </style>
+
+    <style name="CounterStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@android:color/white</item>
+        <!--other parameters that you want to change -->
+    </style>
+    <style name="CounterOverride" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@android:color/white</item>
+        <!--other parameters that you want to change -->
+    </style>
+    <style name="Widget.MyApp.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
+        <item name="android:state_checked">@style/ChipCheck</item>
+    </style>
+    <style name="ThemeOverlay.MyApp.Chip.Choice" parent="">
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+    <style name="ChipCheck" parent="">
+        <item name="strokeWidth">0dp</item>
+    </style>
+</resources>

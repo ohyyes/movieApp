@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,8 +29,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
-            <EditText
+            android:gravity="center"
+            android:id="@+id/register_content"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:id="@+id/register_textinputlayout"
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/EditTextStyle"
+                app:hintAnimationEnabled="true"
+                android:gravity="center"
+                android:paddingBottom="18dp"
+                >
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -41,11 +59,23 @@
                 android:backgroundTint="#878787"
                 android:textColor="@color/white"
                 android:hint="이메일"
+                android:inputType="textEmailAddress"
                 android:textColorHint="#878787"
                 android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:passwordToggleEnabled="true"
+                app:errorEnabled="true"
+                style="@style/EditTextStyle"
+                android:gravity="center">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_pw1"
+                android:inputType="textPassword"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_email"
@@ -55,9 +85,19 @@
                 android:hint="비밀번호"
                 android:textColor="@color/white"
                 android:textColorHint="#878787"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:passwordToggleEnabled="true"
+                style="@style/EditTextStyle"
+                android:gravity="center"
+                app:errorEnabled="true"
+                >
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_pw2"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -66,10 +106,20 @@
                 android:layout_marginTop="40dp"
                 android:backgroundTint="#878787"
                 android:hint="비밀번호 확인"
+                android:inputType="textPassword"
                 android:textColor="@color/white"
                 android:textColorHint="#878787"
                 android:textSize="20sp" />
-            <EditText
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/EditTextStyle"
+                android:gravity="center"
+                app:counterTextAppearance="@style/CounterStyle"
+                app:counterOverflowTextAppearance="@style/CounterOverride"
+                >
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -81,6 +131,10 @@
                 android:textColor="@color/white"
                 android:textColorHint="#878787"
                 android:textSize="20sp" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
             <!-- chipGroup 들을 담을 레이아웃 -->
             <TableLayout
@@ -100,22 +154,32 @@
                     app:selectionRequired="true"
                     >
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MyApp.Chip.Choice"
                         android:id="@+id/btn_e"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textColor="@color/white"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:text="E"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"
                         />
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MyApp.Chip.Choice"
                         android:id="@+id/btn_i"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textColor="@color/white"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:text="I"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"
                         />
                 </com.google.android.material.chip.ChipGroup>
 
@@ -127,23 +191,33 @@
                     app:singleSelection="true"
                     app:selectionRequired="true"
                     >
+
                     <com.google.android.material.chip.Chip
                         android:id="@+id/btn_s"
+                        style="@style/Widget.MyApp.Chip.Choice"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
                         android:paddingRight="20dp"
-                        android:textAlignment="center"
                         android:text="S"
-                        />
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"/>
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MyApp.Chip.Choice"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textColor="@color/white"
                         android:id="@+id/btn_n"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:text="N"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"
                         />
                 </com.google.android.material.chip.ChipGroup>
 
@@ -156,22 +230,32 @@
                     app:selectionRequired="true"
                     >
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MyApp.Chip.Choice"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textColor="@color/white"
                         android:id="@+id/btn_t"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:text="T"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"
                         />
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MyApp.Chip.Choice"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textColor="@color/white"
                         android:id="@+id/btn_f"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:text="F"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"
                         />
                 </com.google.android.material.chip.ChipGroup>
 
@@ -184,22 +268,32 @@
                     app:selectionRequired="true"
                     >
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MyApp.Chip.Choice"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textColor="@color/white"
                         android:id="@+id/btn_j"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:text="J"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"
                         />
                     <com.google.android.material.chip.Chip
+                        style="@style/Widget.MyApp.Chip.Choice"
+                        app:chipBackgroundColor="@drawable/button_selector"
+                        android:textColor="@color/white"
                         android:id="@+id/btn_p"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        android:background="@android:color/transparent"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
                         android:text="P"
+                        android:textSize="24sp"
+                        app:chipStrokeColor="@color/white"
+                        app:chipStrokeWidth="0.7dp"
                         />
                 </com.google.android.material.chip.ChipGroup>
 
@@ -214,7 +308,8 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/registerbutton"
                 android:layout_marginBottom="50dp"
-                android:clickable="true"
+                android:clickable="false"
+                android:paddingTop="30dp"
                 />
         </LinearLayout>
     </ScrollView>

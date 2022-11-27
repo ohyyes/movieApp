@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".EditProfileActivity"
     android:orientation="vertical"
-    android:background="@color/BG">
+    android:background="@color/BG"
+    >
 
     <!-- 헤더 -->
     <RelativeLayout
@@ -22,7 +23,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:background="@drawable/common_backbtn"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <!--마이페이지-->
         <TextView
@@ -31,7 +32,7 @@
 
 
             android:gravity="center"
-            android:text="마이페이지"
+            android:text="프로필 수정"
             android:textAlignment="center"
 
             android:textColor="@color/white"
@@ -62,11 +63,11 @@
             android:layout_marginTop="30dp"
             android:backgroundTint="#B8B8B8"
             android:ems="10"
-            android:hint=""
             android:inputType="textPersonName"
             android:textColor="@color/white"
-            android:textColorHint="#6C6B6B"
             android:textSize="22sp" />
+
+        <!-- chipGroup 들을 담을 레이아웃 -->
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,8 +75,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             android:paddingTop="20dp"
-            android:paddingBottom="10dp"
-            >
+            android:paddingBottom="20dp">
+
             <!--chipGroup - EI -->
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroupEI"
@@ -85,22 +86,32 @@
                 app:selectionRequired="true"
                 >
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MyApp.Chip.Choice"
                     android:id="@+id/btn_e"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textColor="@color/white"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
                     android:text="E"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"
                     />
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MyApp.Chip.Choice"
                     android:id="@+id/btn_i"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textColor="@color/white"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
                     android:text="I"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"
                     />
             </com.google.android.material.chip.ChipGroup>
 
@@ -112,23 +123,33 @@
                 app:singleSelection="true"
                 app:selectionRequired="true"
                 >
+
                 <com.google.android.material.chip.Chip
                     android:id="@+id/btn_s"
+                    style="@style/Widget.MyApp.Chip.Choice"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
                     android:paddingRight="20dp"
-                    android:textAlignment="center"
                     android:text="S"
-                    />
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"/>
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MyApp.Chip.Choice"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textColor="@color/white"
                     android:id="@+id/btn_n"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
                     android:text="N"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"
                     />
             </com.google.android.material.chip.ChipGroup>
 
@@ -141,22 +162,32 @@
                 app:selectionRequired="true"
                 >
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MyApp.Chip.Choice"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textColor="@color/white"
                     android:id="@+id/btn_t"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
                     android:text="T"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"
                     />
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MyApp.Chip.Choice"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textColor="@color/white"
                     android:id="@+id/btn_f"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
                     android:text="F"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"
                     />
             </com.google.android.material.chip.ChipGroup>
 
@@ -169,25 +200,34 @@
                 app:selectionRequired="true"
                 >
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MyApp.Chip.Choice"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textColor="@color/white"
                     android:id="@+id/btn_j"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
                     android:text="J"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"
                     />
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MyApp.Chip.Choice"
+                    app:chipBackgroundColor="@drawable/button_selector"
+                    android:textColor="@color/white"
                     android:id="@+id/btn_p"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    android:background="@android:color/transparent"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
                     android:text="P"
+                    android:textSize="24sp"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0.7dp"
                     />
             </com.google.android.material.chip.ChipGroup>
-
 
         </TableLayout>
 
@@ -196,11 +236,11 @@
             android:layout_width="160dp"
             android:layout_height="67dp"
             android:background="@android:color/transparent"
+            android:clickable="false"
+            android:paddingTop="0dp"
             android:scaleType="fitCenter"
             android:src="@drawable/registerbutton"
-            android:paddingTop="0dp"
-            android:clickable="false"
-            />
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </LinearLayout>
