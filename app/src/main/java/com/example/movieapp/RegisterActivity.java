@@ -208,6 +208,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (pw1.equals(pw2)) {
                         checkedMbti();
                         createUserAuth(email, pw1, name, mbti);
+
                         //firebase 서버 통신 시간동안 대기
                         try {
                             Toast.makeText(RegisterActivity.this, "잠시 기다려 주세요.", Toast.LENGTH_SHORT).show();
@@ -217,6 +218,7 @@ public class RegisterActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {

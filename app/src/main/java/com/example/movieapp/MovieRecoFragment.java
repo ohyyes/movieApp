@@ -1,35 +1,16 @@
 package com.example.movieapp;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -79,13 +60,11 @@ public class MovieRecoFragment extends Fragment {
         }
     }
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference userReference = database.getReference();
     RecyclerView mRecyclerView;
 
     public List<List<String>> dataList;
     public ArrayList<String> resultList; // 추천 알고리즘 결과값
-    public ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
+    public static ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
     private ArrayList<MovieItem> movieList; // MovieItem 타입의 리스트 for 리사이클러 뷰
 
     private RecoAdapter recoAdapter;
@@ -103,22 +82,10 @@ public class MovieRecoFragment extends Fragment {
 
         dataList = new ArrayList<>();
         resultList = new ArrayList<>();
-        MBTIList = new ArrayList<>();
         movieList = new ArrayList<>();
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String userUid = user.getUid();
 
         dataList = DataListReady.data_list;
 
-        readMbti(userUid);
-
-//        try {
-//            Thread.sleep(10000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         int cnt = 0;
         for (int i = 0; i < dataList.size(); i++) {
                     if (dataList.get(i).get(1).equals(MBTIList.get(0))) cnt++;
@@ -130,7 +97,6 @@ public class MovieRecoFragment extends Fragment {
                     if (cnt >= 3) resultList.add(dataList.get(i).get(0));
                 }
                 System.out.println("1 resultList" + resultList);
-        inputResultList(userUid, resultList);
 
         recoAdapter = new RecoAdapter(movieList);
 
@@ -143,122 +109,5 @@ public class MovieRecoFragment extends Fragment {
 
         return rootView;
     }
-
-    //mbti 읽어오기
-    private String readMbti(String userUid) {
-        String mbti = null;
-        try {
-            FileInputStream fs = new FileInputStream(userUid);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fs));
-            reader.readLine();
-            mbti = reader.readLine();
-            mbti = mbti.replace("[", "");
-            mbti = mbti.replace("]", "");
-            MBTIList = new ArrayList<>(Arrays.asList(mbti.split(",")));
-            Log.d("mbti", mbti);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return mbti;
-    }
-
-    //resultList DB에 저장
-    private void inputResultList(String userUid, ArrayList<String> resultList) {
-        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserAccount user = snapshot.getValue(UserAccount.class);
-
-                //값 수정
-                //나중에 text 받아서 괄호안에 값 바꿔야됨
-                user.setResultList(resultList);
-
-                //값 바뀐거 확인 완료되면 지우기
-                ArrayList result = user.getResultList();
-                Log.d("result", String.valueOf(result));
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    //resultList DB에서 읽어오기
-    private void readResultList(String userUid, ArrayList<String> resultList) {
-        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserAccount user = snapshot.getValue(UserAccount.class);
-
-                ArrayList result = user.getResultList();
-                Log.d("result", String.valueOf(result));
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-//    private void readMbti(){
-//        mAuth = FirebaseAuth.getInstance();
-//        final FirebaseUser user = mAuth.getCurrentUser();
-//        String userUid = user.getUid();
-//
-//        
-//        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                UserAccount user = snapshot.getValue(UserAccount.class);
-//
-//                String mbti = user.getMbti();
-//                mbti = mbti.replace("[", "");
-//                mbti = mbti.replace("]", "");
-//
-//                MBTIList = new ArrayList<>(Arrays.asList(mbti.split(",")));
-//
-//                int cnt = 0;
-//                for (int i = 0; i < dataList.size(); i++) {
-//                    if (dataList.get(i).get(1).equals(MBTIList.get(0))) cnt++;
-//                    if (dataList.get(i).get(2).equals(MBTIList.get(1))) cnt++;
-//                    if (dataList.get(i).get(3).equals(MBTIList.get(2))) cnt++;
-//
-//                    if (dataList.get(i).get(4).equals(MBTIList.get(3))) cnt++;
-//
-//                    if (cnt >= 3) resultList.add(dataList.get(i).get(0));
-//                }
-//                System.out.println("1 resultList" + resultList);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
-//    public class Thread1 extends Thread {
-//        int idx;
-//
-//        public Thread1 (int idx) {
-//            this.idx = idx;
-//        }
-//
-//        public void run() {
-//            if (idx == 1) {
-//                readMbti();
-//            }
-//            else if (idx == 2) {
-//                recoAdapter = new RecoAdapter(movieList);
-//
-//                System.out.println("2 resultList" + resultList);
-//                for (int i = 0; i < resultList.size(); i++) {
-//                    movieList.add(new MovieItem(R.drawable.movie_black, resultList.get(i)));
-//                }
-//                System.out.println("3 movieList" + movieList);
-//                mRecyclerView.setAdapter(recoAdapter);
-//            }
-//        }
-//    }
 }
 

@@ -102,30 +102,26 @@ public class MypageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //Firebase 로그인한 사용자 정보
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid();
+        readUser(userUid);
+        modifyUser(userUid);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        //Firebase 로그인한 사용자 정보
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
-        String userUid = user.getUid();
-
-        readUser(userUid);
-        modifyUser(userUid);
         View view = inflater.inflate(R.layout.fragment_mypage, container, false);
 
         Thread mThread = new Thread();
         mThread.start();
 
-        TextView tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
-        tv_nickname.setText(user.getDisplayName());
-
         ArrayList<UserAccount> data_userinfo = new ArrayList<>();
 
-
+        TextView tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
+//        tv_nickname.setText(user.getDisplayName());
         return view;
     }
 

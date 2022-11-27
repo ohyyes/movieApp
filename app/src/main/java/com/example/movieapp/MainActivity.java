@@ -18,12 +18,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private EditText et_id, et_pass;
     private ImageButton btn_login, btn_goregister;
     private FirebaseAuth firebaseAuth;
+    public String name, mbti;
     FirebaseAuth mAuth;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference userReference = database.getReference();
+
 
 //    public MainActivity() {
 //        DataListReady.readMovie();
@@ -70,6 +82,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            mAuth = FirebaseAuth.getInstance();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String userUid = user.getUid();
+
+                            getFirebase(userUid);
+                            DataListReady.readMovie();
+
+                            try {
+                                Toast.makeText(MainActivity.this, "잠시 기다려 주세요.", Toast.LENGTH_SHORT).show();
+                                Thread.sleep(2000); //2초 대기
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
                             Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(intent);
@@ -78,5 +104,27 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void getFirebase(String userUid){
+        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserAccount user = snapshot.getValue(UserAccount.class);
+
+                String fb_name = user.getName();
+                String fb_mbti = user.getMbti();
+                name = fb_name;
+                mbti = fb_mbti;
+
+                mbti = mbti.replace("[", "");
+                mbti = mbti.replace("]", "");
+                MovieRecoFragment.MBTIList = new ArrayList<>(Arrays.asList(mbti.split(", ")));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

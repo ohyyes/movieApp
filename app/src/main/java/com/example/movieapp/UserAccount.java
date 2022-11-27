@@ -20,7 +20,9 @@ public class UserAccount {
      * @param
      */
 
+    public UserAccount(){
 
+    }
     //값을 추가할 때 씀
     public UserAccount(String email, String pwd, String name, String mbti){
         this.email = email;
