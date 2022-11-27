@@ -132,11 +132,11 @@ public class SearchFragment extends Fragment {
 
 
         // 테스트용 임시 original_list
-        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.movie_avatar, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.movie_avatar, "Avatar", "9.27", "SF", "2009", "162분"); //아이템 추가하는 코드
         original_list.add(mainData1);
-        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.movie_minari, "minari", "20", "200", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.movie_minari, "Minari", "8.32", "드라마", "2021", "115분"); //아이템 추가하는 코드
         original_list.add(mainData2);
-        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.movie_black, "black", "30", "300", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.movie_black, "Black Panther", "7.08", "액션", "2022", "161분"); //아이템 추가하는 코드
         original_list.add(mainData3);
         SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.mipmap.ic_launcher, "1234", "40", "400", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData4);
