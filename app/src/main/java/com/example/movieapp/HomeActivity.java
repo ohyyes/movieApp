@@ -59,17 +59,26 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    //프래그먼트 to 프래그먼트 화면 전환 메소드
     public void onFragmentChange(int index) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
+        // index = 0 : fragmentMovieDetail 로 이동 (영화 상세 페이지)
+        // index = 1 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
+        // index = 2 : fragmentReview 로 이동 (감상평 목록 페이지)
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        if(index == 0) { //감상평 목록 화면으로 이동
+        //index
+        if(index == 0) {
             bottomNavigationView.setSelectedItemId(R.id.menu_review);
-            transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
-        }else if(index == 1) { //감상평 상세 화면으로 이동
+            transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
+        }
+        else if(index == 1) {
             transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
         }
-
+        else if(index == 2) {
+            transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
+        }
     }
 }
 

@@ -27,20 +27,21 @@ public class MypageFragment extends Fragment {
         return new MypageFragment();
     }
 
-    HomeActivity activity;
+    //홈 엑티비티 선언 (화면 전환시 필요)
+    HomeActivity homeActivity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        activity = (HomeActivity)getActivity();
+        homeActivity = (HomeActivity)getActivity();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
 
-        activity = null;
+        homeActivity = null;
     }
 
 
@@ -127,7 +128,7 @@ public class MypageFragment extends Fragment {
         review_list = new ArrayList<>();
 
         //어댑터 생성
-        adapter = new MyPageFragmentAdapter(review_list);
+        adapter = new MyPageFragmentAdapter(review_list, homeActivity);
 
 
         // 테스트용 임시 original_list
@@ -162,7 +163,8 @@ public class MypageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Edit_profile.xml 로 이동
-                Intent intent = new Intent(activity.getApplicationContext(), EditProfileActivity.class);
+                //
+                Intent intent = new Intent(homeActivity.getApplicationContext(), EditProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -172,7 +174,7 @@ public class MypageFragment extends Fragment {
         ib_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.onFragmentChange(0);
+                homeActivity.onFragmentChange(2);
             }
         });
         return rootView;

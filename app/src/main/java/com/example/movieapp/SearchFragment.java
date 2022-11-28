@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,27 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
+
+    //홈 엑티비티 선언 (화면 전환시 필요)
+    HomeActivity homeActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //홈 엑티비티 생성
+        homeActivity = (HomeActivity)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        //홈 엑티비티 제거
+        homeActivity = null;
+    }
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,16 +127,16 @@ public class SearchFragment extends Fragment {
         search_list = new ArrayList<>();
 
         //어댑터 생성
-        adapter = new SearchFragmentAdapter(search_list);
+        adapter = new SearchFragmentAdapter(original_list, homeActivity);
 
 
 
         // 테스트용 임시 original_list
-        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.movie_avatar, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.movie_avatar, "Avatar", "9.27", "SF", "2009", "162분"); //아이템 추가하는 코드
         original_list.add(mainData1);
-        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.movie_minari, "minari", "20", "200", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.movie_minari, "Minari", "8.32", "드라마", "2021", "115분"); //아이템 추가하는 코드
         original_list.add(mainData2);
-        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.movie_black, "black", "30", "300", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.movie_black, "Black Panther", "7.08", "액션", "2022", "161분"); //아이템 추가하는 코드
         original_list.add(mainData3);
         SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.mipmap.ic_launcher, "1234", "40", "400", "2019", "139분"); //아이템 추가하는 코드
         original_list.add(mainData4);

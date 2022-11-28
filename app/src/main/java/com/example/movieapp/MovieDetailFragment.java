@@ -64,15 +64,15 @@ public class MovieDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
-        ib_back = (ImageButton) rootView.findViewById(R.id.ib_more);
-
-        ib_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //나중에 이 버튼 실행되는지 확인해야 함 지금은 데이터 연결이 안돼서 확인 안됨
-                //(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, new MovieDetailFragment()).addToBackStack(null).commit();
-            }
-        });
+//        ib_back = (ImageButton) rootView.findViewById(R.id.ib_more);
+//
+//        ib_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //나중에 이 버튼 실행되는지 확인해야 함 지금은 데이터 연결이 안돼서 확인 안됨
+//                //(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, new MovieDetailFragment()).addToBackStack(null).commit();
+//            }
+//        });
         return rootView;
     }
 }

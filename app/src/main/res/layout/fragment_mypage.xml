@@ -53,10 +53,10 @@
                 <!--프로필사진-->
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_profile_img"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_weight="4"
+                    android:layout_weight="5"
                     android:src="@drawable/profile_img"
                     />
 
@@ -65,7 +65,7 @@
                     android:id="@+id/tv_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"
+                    android:layout_weight="5"
 
                     android:textAlignment="center"
                     android:gravity="center"
@@ -80,7 +80,7 @@
                     android:id="@+id/ib_edit_profile"
                     android:layout_width="230dp"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_gravity="center"
                     android:background="@drawable/mypage_btn_changeprofile"
                     />

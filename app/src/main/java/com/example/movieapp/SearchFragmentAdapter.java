@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,17 @@ import java.util.ArrayList;
 
 public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAdapter.CustomViewHolder> {
 
+    //홈액티비티 가져오기 (선언)
+    HomeActivity homeActivity;
+
     //리스트뷰의 아이템들을 담을 리스트
     private ArrayList<SearchFragmentMainData> arrayList;
     //생성자
-    public SearchFragmentAdapter(ArrayList<SearchFragmentMainData> arrayList) {
+    public SearchFragmentAdapter(ArrayList<SearchFragmentMainData> arrayList, Context mContext) {
         this.arrayList = arrayList;
+
+        // 어댑터에서는 다른 엑티비티를 가져올 때 Context 로 가져옴 !
+        this.homeActivity = ((HomeActivity) mContext);
     }
 
     @NonNull
@@ -51,9 +58,11 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //현재 클릭된 아이템의 제목 가져오기
                 String curName = holder.tv_name.getText().toString();
-                //curName이 토스트 메뉴로 클릭되게
-                Toast.makeText(view.getContext(), curName, Toast.LENGTH_SHORT).show();
+
+                //homeActivity.java 에서 선언된 onFragmentChange 메소드에 접근해서 index=0 을 전달해 fragmentReview 로 이동 (영화 상세 페이지)
+                homeActivity.onFragmentChange(0);
             }
         });
 
