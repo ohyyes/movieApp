@@ -70,13 +70,15 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         //index
         if(index == 0) {
-            bottomNavigationView.setSelectedItemId(R.id.menu_review);
+            bottomNavigationView.setSelectedItemId(R.id.menu_search); //네비바 아이콘 활성화
             transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
         }
         else if(index == 1) {
+            bottomNavigationView.setSelectedItemId(R.id.menu_review);
             transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
         }
         else if(index == 2) {
+            bottomNavigationView.setSelectedItemId(R.id.menu_review);
             transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
         }
     }
