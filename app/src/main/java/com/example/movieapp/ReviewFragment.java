@@ -5,11 +5,14 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -65,19 +68,29 @@ public class ReviewFragment extends Fragment {
     private ArrayList<ReviewFragmentMainData> all_review;
     private ReviewFragmentAdapter adapter;
 
-
-
+    //감상평 목록 정렬 기준 스피너 리스트
+    String[] sortItems = {"최신순", "이름순", "별점높은순", "별점낮은순"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_review, container, false);
+
+        //스피너 연결 후 어댑터 지정 -> 어댑터는 android 라이브러리에 정의된 것 사용
+        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, sortItems);
+        spinner.setAdapter(spinnerAdapter);
+
+
         RecyclerView review_list = (RecyclerView) rootView.findViewById(R.id.review_list);
         LinearLayout lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
 
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); //???
         review_list.setLayoutManager(layoutManager);
+
+
 
 
         all_review = new ArrayList<>();
@@ -104,6 +117,30 @@ public class ReviewFragment extends Fragment {
             review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
             lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
         }
+
+
+        //스피너 아이템 선택했을 때
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //선택된 아이템은 sortItems[i] 사용하면 됨
+                if(i == 0){
+                    //최신순
+                }else if (i == 1){
+                    //이름순
+                }else if(i==2){
+                    //별점높은순
+                }else if(i==3){
+                    //별점낮은순
+                }
+            }
+
+            //아무것도 선택되지 않았을 때
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         return rootView;
     }
 }
