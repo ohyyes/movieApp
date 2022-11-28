@@ -39,6 +39,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
     public void onBindViewHolder(@NonNull ReviewFragmentAdapter.CustomViewHolder holder, int position) {
         //프로필 사진 가져오기
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
+        holder.iv_profile.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         holder.tv_name.setText(arrayList.get(position).getTv_name());
         holder.tv_rate.setText(arrayList.get(position).getTv_rate());
         holder.tv_gerne.setText(arrayList.get(position).getTv_gerne());
