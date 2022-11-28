@@ -26,9 +26,8 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
     //리스트뷰가 처음으로 생성될 때 생명주기
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        // mypage_recycleview_items.xml 과 연동하기
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_recyclerview_items, parent, false);
-        //holder로 mypage_recycleview_items.xml 의 뷰를 컨택할 수 있음.
+        //holder로 review_recycleview_items.xml 의 뷰를 컨택할 수 있음.
         CustomViewHolder holder = new CustomViewHolder(view);
 
         return holder;
@@ -41,10 +40,16 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
         holder.iv_profile.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         holder.tv_name.setText(arrayList.get(position).getTv_name());
-        holder.tv_rate.setText(arrayList.get(position).getTv_rate());
-        holder.tv_gerne.setText(arrayList.get(position).getTv_gerne());
-        holder.tv_date.setText(arrayList.get(position).getTv_date());
-        holder.tv_running_time.setText(arrayList.get(position).getTv_running_time());
+        holder.tv_my_rate.setText(arrayList.get(position).getTv_my_rate());
+        holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
+
+        if(arrayList.get(position).getTv_review().length() > 35){
+            holder.tv_review.setText(arrayList.get(position).getTv_review().substring(0,34)+"...");
+        }else{
+            holder.tv_review.setText(arrayList.get(position).getTv_review());
+        }
+
+
 
 
         //리스트뷰가 클릭되었을 때,
@@ -80,16 +85,15 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
         protected ImageView iv_profile;
-        protected TextView tv_name, tv_rate, tv_gerne, tv_date, tv_running_time;
+        protected TextView tv_name, tv_my_rate, tv_review_date, tv_review;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
-            this.tv_rate = (TextView) itemView.findViewById(R.id.tv_rate);
-            this.tv_gerne = (TextView) itemView.findViewById(R.id.tv_gerne);
-            this.tv_date = (TextView) itemView.findViewById(R.id.tv_date);
-            this.tv_running_time = (TextView) itemView.findViewById(R.id.tv_running_time);
+            this.tv_my_rate = (TextView) itemView.findViewById(R.id.tv_my_rate);
+            this.tv_review_date = (TextView) itemView.findViewById(R.id.tv_review_date);
+            this.tv_review = (TextView) itemView.findViewById(R.id.tv_review);
 
         }
     }

@@ -37,15 +37,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:layout_weight="2"
+                android:layout_weight="1"
+                android:layout_marginBottom="8dp"
                 >
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
-                    android:layout_weight="2"
-                    android:textSize="25sp"
+                    android:layout_weight="1"
+                    android:textSize="23sp"
                     />
             </LinearLayout>
 
@@ -61,52 +62,30 @@
                     android:layout_height="20dp"
                     android:src="@drawable/star" />
                 <TextView
-                    android:id="@+id/tv_rate"
+                    android:id="@+id/tv_my_rate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="#FF8700"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="5dp"
-                    />
-
-            </LinearLayout>
-
-            <!-- 영화 장르 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-
-                >
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ticket" />
-                <TextView
-                    android:id="@+id/tv_gerne"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/white"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     />
 
             </LinearLayout>
 
-            <!-- 영화 개봉일 -->
+            <!-- 감상평 작성 날짜 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
                 android:layout_weight="1"
+                android:layout_marginBottom="10dp"
                 >
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/calender" />
                 <TextView
-                    android:id="@+id/tv_date"
+                    android:id="@+id/tv_review_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
@@ -122,20 +101,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 >
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/clock" />
+
                 <TextView
-                    android:id="@+id/tv_running_time"
+                    android:id="@+id/tv_review"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="2"
                     android:textColor="@color/white"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    />
+                    android:layout_marginRight="15dp"/>
             </LinearLayout>
         </LinearLayout>
 

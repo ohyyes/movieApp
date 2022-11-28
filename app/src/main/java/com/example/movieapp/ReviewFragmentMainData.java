@@ -2,17 +2,14 @@ package com.example.movieapp;
 
 public class ReviewFragmentMainData {
     private int iv_profile;  //이미지뷰는 int 값임.
-    private String tv_name, tv_rate, tv_gerne, tv_date, tv_running_time;
+    private String tv_name, tv_my_rate, tv_review_date, tv_review;
 
-    //생성자
-    public ReviewFragmentMainData(int iv_profile, String tv_name, String tv_rate, String tv_gerne, String tv_date, String tv_running_time) {
+    public ReviewFragmentMainData(int iv_profile, String tv_name, String tv_my_rate, String tv_review_date, String tv_review) {
         this.iv_profile = iv_profile;
         this.tv_name = tv_name;
-        this.tv_rate = tv_rate;
-        this.tv_gerne = tv_gerne;
-        this.tv_date = tv_date;
-        this.tv_running_time = tv_running_time;
-
+        this.tv_my_rate = tv_my_rate;
+        this.tv_review_date = tv_review_date;
+        this.tv_review = tv_review;
     }
 
     public int getIv_profile() {
@@ -31,35 +28,27 @@ public class ReviewFragmentMainData {
         this.tv_name = tv_name;
     }
 
-    public String getTv_rate() {
-        return tv_rate;
+    public String getTv_my_rate() {
+        return tv_my_rate;
     }
 
-    public void setTv_rate(String tv_rate) {
-        this.tv_rate = tv_rate;
+    public void setTv_my_rate(String tv_my_rate) {
+        this.tv_my_rate = tv_my_rate;
     }
 
-    public String getTv_gerne() {
-        return tv_gerne;
+    public String getTv_review_date() {
+        return tv_review_date;
     }
 
-    public void setTv_gerne(String tv_gerne) {
-        this.tv_gerne = tv_gerne;
+    public void setTv_review_date(String tv_review_date) {
+        this.tv_review_date = tv_review_date;
     }
 
-    public String getTv_date() {
-        return tv_date;
+    public String getTv_review() {
+        return tv_review;
     }
 
-    public void setTv_date(String tv_date) {
-        this.tv_date = tv_date;
-    }
-
-    public String getTv_running_time() {
-        return tv_running_time;
-    }
-
-    public void setTv_running_time(String tv_running_time) {
-        this.tv_running_time = tv_running_time;
+    public void setTv_review(String tv_review) {
+        this.tv_review = tv_review;
     }
 }

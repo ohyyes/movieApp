@@ -85,11 +85,11 @@ public class ReviewFragment extends Fragment {
 
 
         //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
-        ReviewFragmentMainData mainData1 = new ReviewFragmentMainData(R.drawable.movie1, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        ReviewFragmentMainData mainData1 = new ReviewFragmentMainData(R.drawable.movie1, "쥬라기 월드", "10", "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData1);
-        ReviewFragmentMainData mainData2 = new ReviewFragmentMainData(R.drawable.movie2, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        ReviewFragmentMainData mainData2 = new ReviewFragmentMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", "10", "2022.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData2);
-        ReviewFragmentMainData mainData3 = new ReviewFragmentMainData(R.drawable.movie3, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        ReviewFragmentMainData mainData3 = new ReviewFragmentMainData(R.drawable.movie3, "소닉 2", "10", "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData3);
 
         adapter = new ReviewFragmentAdapter(all_review);
