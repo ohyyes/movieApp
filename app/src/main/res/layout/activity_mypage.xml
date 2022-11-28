@@ -28,12 +28,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-
             android:gravity="center"
             android:text="마이페이지"
             android:textAlignment="center"
-
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -44,7 +41,6 @@
         android:id="@+id/body_wrap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_below="@id/rel_header"
         android:orientation="vertical">
 
@@ -71,10 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
-
                 android:textAlignment="center"
                 android:gravity="center"
-
                 android:textSize="30sp"
                 android:textColor="@color/white"
                 android:text="모구모구"
@@ -99,7 +93,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-
             android:src="@drawable/center_line"
         />
 
@@ -132,6 +125,8 @@
                     android:layout_height="25dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="56dp"
+                    android:layout_marginBottom="12dp"
                     android:background="@drawable/mypage_btn_more" />
             </RelativeLayout>
             <!--리사이클러뷰-->
