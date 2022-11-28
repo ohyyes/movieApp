@@ -46,6 +46,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     public void onBindViewHolder(@NonNull SearchFragmentAdapter.CustomViewHolder holder, int position) {
         //프로필 사진 가져오기
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
+        holder.iv_profile.setClipToOutline(true);
         holder.tv_name.setText(arrayList.get(position).getTv_name());
         holder.tv_rate.setText(arrayList.get(position).getTv_rate());
         holder.tv_gerne.setText(arrayList.get(position).getTv_gerne());

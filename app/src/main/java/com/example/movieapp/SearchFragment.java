@@ -122,6 +122,7 @@ public class SearchFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext()); //???
         rec_search_list.setLayoutManager(linearLayoutManager);
 
+
         //리스트 생성
         original_list = new ArrayList<>();
         search_list = new ArrayList<>();
