@@ -90,7 +90,6 @@ public class MovieRecoFragment extends Fragment {
                     if (dataList.get(i).get(1).equals(MBTIList.get(0))) cnt++;
                     if (dataList.get(i).get(2).equals(MBTIList.get(1))) cnt++;
                     if (dataList.get(i).get(3).equals(MBTIList.get(2))) cnt++;
-
                     if (dataList.get(i).get(4).equals(MBTIList.get(3))) cnt++;
 
                     if (cnt >= 3) resultList.add(dataList.get(i).get(0));

@@ -52,4 +52,25 @@ public class DataListReady {
             });
         }
     }
+    
+    public static void readMBTI() {
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid();
+
+        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserAccount user = snapshot.getValue(UserAccount.class);
+
+                String mbti = user.getMbti();
+                mbti_list.add(mbti);
+                Log.d("mbti: ", mbti);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

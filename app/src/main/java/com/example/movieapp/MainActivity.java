@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 public class MainActivity extends AppCompatActivity {
     private EditText et_id, et_pass;
     private ImageButton btn_login, btn_goregister;
@@ -35,11 +36,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference userReference = database.getReference();
-
-
-//    public MainActivity() {
-//        DataListReady.readMovie();
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
