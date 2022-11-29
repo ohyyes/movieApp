@@ -17,16 +17,11 @@ import java.util.List;
 
 public class DataListReady {
     public static List<List<String>> data_list = new ArrayList<>();
-    public static ArrayList<String> mbti_list = new ArrayList<>();
 
-    static FirebaseAuth mAuth;
-    static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference userReference = database.getReference();
-    static MovieRecoFragment movieRecoFragment = new MovieRecoFragment();
 
     public static void readMovie() {
-        Log.d("readMovie = ", "readmovie");
         for (int i = 0; i < 63; i++) {
             userReference.child("movie").child(String.valueOf(i)).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -39,7 +34,6 @@ public class DataListReady {
                     String TF = movie.getTF();
                     String JP = movie.getJP();
                     String Img = movie.getImg();
-                    Log.d("title = ", title);
 
                     data.add(title);
                     data.add(IE);
@@ -58,7 +52,7 @@ public class DataListReady {
             });
         }
     }
-
+    
     public static void readMBTI() {
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();

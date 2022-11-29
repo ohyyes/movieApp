@@ -2,23 +2,13 @@ package com.example.movieapp;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,57 +63,49 @@ public class MovieRecoFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     public List<List<String>> dataList;
-    private ArrayList<String> resultList; // 추천 알고리즘 결과값
-    public ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
+    public ArrayList<String> resultList; // 추천 알고리즘 결과값
+    public static ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
     private ArrayList<MovieItem> movieList; // MovieItem 타입의 리스트 for 리사이클러 뷰
 
     private RecoAdapter recoAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_movie_reco, container, false);
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewReco);
+        mRecyclerView = rootView.findViewById(R.id.recyclerViewReco);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
         dataList = new ArrayList<>();
         resultList = new ArrayList<>();
-        MBTIList = new ArrayList<>();
         movieList = new ArrayList<>();
 
-//        MBTIList.add("E");
-//        MBTIList.add("S");
-//        MBTIList.add("F");
-//        MBTIList.add("J");
-
         dataList = DataListReady.data_list;
-        MBTIList = DataListReady.mbti_list;
+        for (int i = 0; i < dataList.size(); i++) {
+                    int cnt = 0;
+                    if (dataList.get(i).get(1).equals(MBTIList.get(0))) cnt++;
+                    if (dataList.get(i).get(2).equals(MBTIList.get(1))) cnt++;
+                    if (dataList.get(i).get(3).equals(MBTIList.get(2))) cnt++;
+                    if (dataList.get(i).get(4).equals(MBTIList.get(3))) cnt++;
 
-        for (int i=0; i<dataList.size(); i++) {
-            int cnt = 0;
-
-            if (dataList.get(i).get(1).equals(MBTIList.get(0))) { cnt++; }
-            if (dataList.get(i).get(2).equals(MBTIList.get(1))) { cnt++; }
-            if (dataList.get(i).get(3).equals(MBTIList.get(2))) { cnt++; }
-            if (dataList.get(i).get(4).equals(MBTIList.get(3))) { cnt++; }
-
-            if (cnt >= 3) {
-                resultList.add(dataList.get(i).get(0));
-            }
-        }
+                    if (cnt >= 3) resultList.add(dataList.get(i).get(0));
+                }
+                System.out.println("1 resultList" + resultList);
 
         recoAdapter = new RecoAdapter(movieList);
 
-        System.out.println(MBTIList);
-        System.out.println(resultList);
-        for(int i=0; i<resultList.size(); i++){
+        System.out.println("2 resultList" + resultList);
+        for (int i = 0; i < resultList.size(); i++) {
             movieList.add(new MovieItem(R.drawable.movie_black, resultList.get(i)));
         }
-
+        System.out.println("3 movieList" + movieList);
         mRecyclerView.setAdapter(recoAdapter);
+
         return rootView;
     }
 }
+

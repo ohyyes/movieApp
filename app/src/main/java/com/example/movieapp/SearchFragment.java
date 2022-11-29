@@ -89,8 +89,8 @@ public class SearchFragment extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_search, container, false);
 
         //여기서부터 만짐//
-        rec_search_list = (RecyclerView) rootView.findViewById(R.id.rec_search_list);
-        lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
+//        rec_search_list = (RecyclerView) rootView.findViewById(R.id.rec_search_list);
+//        lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
         ib_search = (ImageButton) rootView.findViewById(R.id.ib_search);
         et_search = (EditText)  rootView.findViewById(R.id.et_search);
 
