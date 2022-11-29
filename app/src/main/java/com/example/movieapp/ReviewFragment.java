@@ -3,10 +3,15 @@ package com.example.movieapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,12 +60,50 @@ public class ReviewFragment extends Fragment {
         }
     }
 
+
+    //데이터 리스트
+    private ArrayList<ReviewFragmentMainData> all_review;
+    private ReviewFragmentAdapter adapter;
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_review, container, false);
+        RecyclerView review_list = (RecyclerView) rootView.findViewById(R.id.review_list);
+        LinearLayout lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
 
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); //???
+        review_list.setLayoutManager(layoutManager);
+
+
+        all_review = new ArrayList<>();
+
+
+
+        //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
+        ReviewFragmentMainData mainData1 = new ReviewFragmentMainData(R.drawable.movie1, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        all_review.add(mainData1);
+        ReviewFragmentMainData mainData2 = new ReviewFragmentMainData(R.drawable.movie2, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        all_review.add(mainData2);
+        ReviewFragmentMainData mainData3 = new ReviewFragmentMainData(R.drawable.movie3, "avatar", "10", "100", "2019", "139분"); //아이템 추가하는 코드
+        all_review.add(mainData3);
+
+        adapter = new ReviewFragmentAdapter(all_review);
+        review_list.setAdapter(adapter);
+
+        if(all_review.isEmpty()){
+            review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
+            lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+        }
+        // 있을 땐, 리사이클러뷰가 보이게 !
+        else{
+            review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
+            lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+        }
         return rootView;
     }
 }

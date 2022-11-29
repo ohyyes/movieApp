@@ -1,17 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ReviewFragment">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clipToOutline="true"
+    android:background="@color/BG" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <!-- 헤더 -->
+    <RelativeLayout
+        android:id="@+id/review_header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:text="나의 감상평"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <!-- 중앙 콘텐트 -->
+    <FrameLayout
+        android:id="@+id/frame_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="감상평목록"
-        android:gravity="center"
-        android:textColor="@color/main"
-        android:textSize="50sp"
-        />
-</FrameLayout>
+        android:layout_below="@id/review_header"
+        android:orientation="vertical">
+
+        <!-- 리사이클러 뷰 레이아웃 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/review_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@color/white"
+            android:scrollbars="vertical"
+            android:layout_marginTop="30dp"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <!--검색결과가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
+        <LinearLayout
+            android:id="@+id/lin_no_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="invisible"
+            >
+            <TextView
+                android:paddingTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="작성한 감상평이 없어요"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+</RelativeLayout>

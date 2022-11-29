@@ -1,39 +1,12 @@
 package com.example.movieapp;
 
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-
-import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +14,27 @@ import kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
+
+    //홈 엑티비티 선언 (화면 전환시 필요)
+    HomeActivity homeActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //홈 엑티비티 생성
+        homeActivity = (HomeActivity)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        //홈 엑티비티 제거
+        homeActivity = null;
+    }
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

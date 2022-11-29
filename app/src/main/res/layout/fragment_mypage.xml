@@ -17,14 +17,7 @@
             android:layout_height="70dp"
             android:layout_alignParentTop="true"
             >
-            <!-- 뒤로가기 버튼 -->
-            <ImageButton
-                android:id="@+id/ib_back"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/common_backbtn"
-                />
+
 
             <!--마이페이지-->
             <TextView
@@ -60,10 +53,10 @@
                 <!--프로필사진-->
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_profile_img"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_weight="4"
+                    android:layout_weight="5"
                     android:src="@drawable/profile_img"
                     />
 
@@ -72,7 +65,7 @@
                     android:id="@+id/tv_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"
+                    android:layout_weight="5"
 
                     android:textAlignment="center"
                     android:gravity="center"
@@ -87,7 +80,7 @@
                     android:id="@+id/ib_edit_profile"
                     android:layout_width="230dp"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_gravity="center"
                     android:background="@drawable/mypage_btn_changeprofile"
                     />
@@ -138,17 +131,43 @@
                         android:layout_marginBottom="8dp"
                         android:background="@drawable/mypage_btn_more" />
                 </RelativeLayout>
-                <!--리사이클러뷰-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/vertical_list"
+
+                <!-- 리사이클러뷰 & lin_mypage_list 레이아웃 -->
+                <FrameLayout
+                    android:id="@+id/frame_body"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:orientation="vertical"
                     android:layout_weight="5"
-                    />
+                    >
 
+                    <!-- 리사이클러 뷰 레이아웃 -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rec_review_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                    <!--기존에 작성한 리뷰가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
+                    <LinearLayout
+                        android:id="@+id/lin_no_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        >
+                        <TextView
+                            android:paddingTop="60dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="작성한 감상평이 없네요!\n지금 작성하러 가실래요?"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
-
         </LinearLayout>
-
     </RelativeLayout>
 </FrameLayout>
