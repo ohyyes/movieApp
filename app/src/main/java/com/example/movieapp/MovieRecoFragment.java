@@ -1,111 +1,97 @@
 package com.example.movieapp;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MovieRecoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MovieRecoFragment extends Fragment {
+    RecyclerView recoRecyclerView;
+    RecyclerView.Adapter recoAdapter;
+    RecyclerView.LayoutManager layoutManager;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MovieRecoFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MovieRecoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MovieRecoFragment newInstance(String param1, String param2) {
-        MovieRecoFragment fragment = new MovieRecoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    RecyclerView mRecyclerView;
-
+    public ArrayList<MovieItem> movieList;
     public List<List<String>> dataList;
     public ArrayList<String> resultList; // 추천 알고리즘 결과값
     public static ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
-    private ArrayList<MovieItem> movieList; // MovieItem 타입의 리스트 for 리사이클러 뷰
 
-    private RecoAdapter recoAdapter;
+    private View view;
 
-
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_movie_reco, container, false);
-
-        mRecyclerView = rootView.findViewById(R.id.recyclerViewReco);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
+    public View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container,
+                             @NonNull Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_movie_reco, container, false);
+        recoRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewReco);
+        recoRecyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recoRecyclerView.setLayoutManager(layoutManager);
 
         dataList = new ArrayList<>();
         resultList = new ArrayList<>();
         movieList = new ArrayList<>();
 
         dataList = DataListReady.data_list;
+
         for (int i = 0; i < dataList.size(); i++) {
-                    int cnt = 0;
-                    if (dataList.get(i).get(1).equals(MBTIList.get(0))) cnt++;
-                    if (dataList.get(i).get(2).equals(MBTIList.get(1))) cnt++;
-                    if (dataList.get(i).get(3).equals(MBTIList.get(2))) cnt++;
-                    if (dataList.get(i).get(4).equals(MBTIList.get(3))) cnt++;
+            int cnt = 0;
+            if (dataList.get(i).get(1).equals(MBTIList.get(0))) cnt++;
+            if (dataList.get(i).get(2).equals(MBTIList.get(1))) cnt++;
+            if (dataList.get(i).get(3).equals(MBTIList.get(2))) cnt++;
+            if (dataList.get(i).get(4).equals(MBTIList.get(3))) cnt++;
 
-                    if (cnt >= 3) resultList.add(dataList.get(i).get(0));
-                }
-                System.out.println("1 resultList" + resultList);
-
-        recoAdapter = new RecoAdapter(movieList);
-
-        System.out.println("2 resultList" + resultList);
-        for (int i = 0; i < resultList.size(); i++) {
-            movieList.add(new MovieItem(R.drawable.movie_black, resultList.get(i)));
+            if (cnt >= 3) resultList.add(dataList.get(i).get(0));
         }
-        System.out.println("3 movieList" + movieList);
-        mRecyclerView.setAdapter(recoAdapter);
 
-        return rootView;
+        System.out.println("1 resultList" + resultList);
+
+        // 파이어베이스 구현부
+        for (int i = 0; i < resultList.size(); i++) {
+            getFirebase(resultList.get(i));
+        }
+
+//        String str = "메멘토, 플립, 아멜리에, 어린왕자, 이터널 선샤인, 500일의 썸머, 비포 선셋, 미드나잇 인 파리, 매트릭스 : 리저렉션, 반지의 제왕 : 왕의 귀환, 스타워즈 : 라이즈 오브 스카이워커, 인생은 아름다워, 미녀와 야수, 월터의 상상은 현실이 된다, 록산느, 꼬마 돼지 베이브, 컨택트, 페인 앤 글로리, 프로메테우스, 그레이트 뷰티";
+//        resultList = new ArrayList<>(Arrays.asList(str.split(", ")));
+//
+//        recoAdapter = new RecoAdapter(movieList, getContext());
+//
+//        System.out.println("2 resultList" + resultList);
+//        for (int i = 0; i < resultList.size(); i++) {
+//            movieList.add(new MovieItem(R.drawable.movie_black, resultList.get(i)));
+//        }
+
+        System.out.println("3 movieList" + movieList);
+        recoRecyclerView.setAdapter(recoAdapter);
+
+        return view;
+    }
+
+    private void getFirebase(String name){
+        String movieName = name;
+        userReference.child("user").child(movieName).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserAccount user = snapshot.getValue(UserAccount.class);
+                String imgUrl = user.getImgUrl(); // 이미지 링크 따오는 함수 !!
+
+                movieList.add(new MovieItem(imgUrl, movieName));
+            }
+            recoAdapter.notifyDataSetChanged();
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) { }
     }
 }
+
 
