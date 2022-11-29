@@ -1,23 +1,14 @@
 package com.example.movieapp;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,13 +18,13 @@ import java.util.ArrayList;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecyclerViewClickListener{
+public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecyclerViewClickListener{
 
     ViewGroup rootView;
-    ArrayList<ItemData> dataList;
+    ArrayList<HomeFragmentMainData> dataList;
     int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
-    private MyRecyclerAdapter adapter;
+    private HomeFragmentAdapter adapter;
     static int i=0;
 
     //private FragmentManager fragmentManager = getChildFragmentManager();
@@ -96,9 +87,9 @@ public class HomeFragment extends Fragment implements MyRecyclerAdapter.MyRecycl
         recyclerView.setLayoutManager(layoutManager);
 
         dataList = new ArrayList<>();
-        adapter = new MyRecyclerAdapter(dataList);
+        adapter = new HomeFragmentAdapter(dataList);
         for (int i=0; i<5; i++) {
-            dataList.add(new ItemData(cat[i], "movie "+(i+1)));
+            dataList.add(new HomeFragmentMainData(cat[i], "movie "+(i+1)));
         }
 
 

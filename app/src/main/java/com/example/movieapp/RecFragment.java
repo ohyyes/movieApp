@@ -3,7 +3,6 @@ package com.example.movieapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,10 +20,10 @@ import java.util.ArrayList;
 public class RecFragment extends Fragment {
 
     ViewGroup rootView;
-    ArrayList<ItemData> dataList = new ArrayList<>();
+    ArrayList<HomeFragmentMainData> dataList = new ArrayList<>();
     int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
-    final MyRecyclerAdapter adapter = new MyRecyclerAdapter(dataList);
+    final HomeFragmentAdapter adapter = new HomeFragmentAdapter(dataList);
     static int i=0;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -79,7 +78,7 @@ public class RecFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         for (int i=0; i<5; i++) {
-            dataList.add(new ItemData(cat[i], "movie "+(i+1)));
+            dataList.add(new HomeFragmentMainData(cat[i], "movie "+(i+1)));
         }
         recyclerView.setAdapter(adapter);
         return rootView;

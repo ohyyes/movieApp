@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
+class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder> {
 
-    private ArrayList<ItemData> itemData;
-    public MyRecyclerAdapter(ArrayList<ItemData> itemData) {
-        this.itemData = itemData;
+    private ArrayList<HomeFragmentMainData> homeFragmentMainData;
+    public HomeFragmentAdapter(ArrayList<HomeFragmentMainData> homeFragmentMainData) {
+        this.homeFragmentMainData = homeFragmentMainData;
     }
 
     public interface MyRecyclerViewClickListener{
@@ -43,9 +43,10 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ItemData item = itemData.get(position);
+        HomeFragmentMainData item = homeFragmentMainData.get(position);
         holder.name.setText(item.getmName());
         holder.poster.setImageResource(item.getmPoster());
+        holder.poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
 
         if (mListener != null) {
             final int pos = position;
@@ -79,7 +80,7 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
 
     @Override
     public int getItemCount() {
-        return itemData.size();
+        return homeFragmentMainData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -98,7 +99,7 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
     //리스트 삭제 이벤트
     public void remove(int position){
         try {
-            itemData.remove(position);
+            homeFragmentMainData.remove(position);
             notifyDataSetChanged();
         } catch (IndexOutOfBoundsException e){
             e.printStackTrace();

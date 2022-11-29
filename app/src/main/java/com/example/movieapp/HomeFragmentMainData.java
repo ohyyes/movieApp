@@ -1,10 +1,10 @@
 package com.example.movieapp;
 
-public class ItemData {
+public class HomeFragmentMainData {
     private int mPoster;
     private String mName;
 
-    public ItemData(int mPoster, String mName) {
+    public HomeFragmentMainData(int mPoster, String mName) {
         this.mPoster = mPoster;
         this.mName = mName;
     }
