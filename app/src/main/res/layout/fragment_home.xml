@@ -23,7 +23,6 @@
                     android:gravity="center"
                     android:text="박스오피스"
                     android:textColor="@color/white"
-
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
@@ -45,7 +44,6 @@
                     android:gravity="center"
                     android:text="오늘의 추천"
                     android:textColor="@color/white"
-
                     android:textSize="30sp"
                     android:textStyle="bold" />
 

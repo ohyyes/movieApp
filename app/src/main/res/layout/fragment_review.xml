@@ -29,35 +29,37 @@
 
     </RelativeLayout>
 
-    <!--미들 바-->
-    <RelativeLayout
-        android:id="@+id/rev_middle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/review_header"
-        >
+
         <!--정렬 기준 스피너-->
         <LinearLayout
+            android:id="@+id/rev_middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_below="@id/review_header">
 
-            <Spinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" />
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:background="@drawable/spinner_custom"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@color/BG"
+                />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="편집"
-                android:paddingLeft="200dp"
+                android:paddingLeft="210dp"
                 android:background="@android:color/transparent"
                 android:textColor="@color/white"/>
         </LinearLayout>
 
-    </RelativeLayout>
 
     <!-- 중앙 콘텐트 -->
     <FrameLayout
@@ -91,7 +93,6 @@
             android:visibility="invisible"
             >
             <TextView
-                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="작성한 감상평이 없어요"

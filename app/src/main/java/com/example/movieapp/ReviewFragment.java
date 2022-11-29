@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -66,7 +68,10 @@ public class ReviewFragment extends Fragment {
 
     //데이터 리스트
     private ArrayList<ReviewFragmentMainData> all_review;
+
+    //어댑터 선언
     private ReviewFragmentAdapter adapter;
+    private ArrayAdapter<String> spinnerAdapter;
 
     //감상평 목록 정렬 기준 스피너 리스트
     String[] sortItems = {"최신순", "이름순", "별점높은순", "별점낮은순"};
@@ -79,7 +84,7 @@ public class ReviewFragment extends Fragment {
 
         //스피너 연결 후 어댑터 지정 -> 어댑터는 android 라이브러리에 정의된 것 사용
         Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, sortItems);
+        spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, sortItems);
         spinner.setAdapter(spinnerAdapter);
 
 
