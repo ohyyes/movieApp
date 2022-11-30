@@ -33,10 +33,10 @@ public class RecoAdapter extends RecyclerView.Adapter<RecoAdapter.CustomViewHold
     @Override
     public void onBindViewHolder(@NonNull RecoAdapter.CustomViewHolder holder, int position) {
 
-//        Glide.with(holder.itemView)
-//                .load(movieList.get(position).getImg())
-//                .into(holder.img);
-        holder.img.setImageResource(movieList.get(position).getImg());
+        Glide.with(holder.itemView)
+                .load(movieList.get(position).getImg())
+                .into(holder.img);
+        //holder.img.setImageResource(movieList.get(position).getImg());
         holder.name.setText(movieList.get(position).getName());
     }
 
