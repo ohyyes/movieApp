@@ -6,7 +6,6 @@
     tools:context=".HomeFragment">
 
     <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/BG"
@@ -17,16 +16,14 @@
             android:id="@+id/rel_header"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_alignParentTop="true"
-            >
+            android:layout_alignParentTop="true">
             <!-- 뒤로가기 버튼 -->
             <ImageButton
                 android:id="@+id/ib_back"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/common_backbtn"
-                />
+                android:background="@drawable/common_backbtn" />
 
             <!--마이페이지-->
             <TextView
@@ -45,15 +42,13 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rel_header"
-            >
+            android:layout_below="@id/rel_header">
 
             <!-- 중앙 콘텐트 -->
             <LinearLayout
                 android:id="@+id/lin_body"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:layout_below="@id/rel_header"
                 android:orientation="vertical">
 
@@ -61,15 +56,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4"
-                    >
+                    android:layout_weight="4">
+
                     <ImageView
                         android:id="@+id/iv_poster"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/movie_minari"
-                        />
+                        android:src="@drawable/movie_minari" />
                 </LinearLayout>
 
                 <!--제목/별점/간단정보/버튼-->
@@ -94,8 +88,7 @@
                         android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
                         <!--별-->
                         <ImageView
                             android:layout_width="wrap_content"
@@ -119,8 +112,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginBottom="5dp"
-                        >
+                        android:layout_marginBottom="5dp">
                         <!--개봉일/상영시간/장르-->
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -207,11 +199,10 @@
                     <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:layout_marginRight="90dp"
-                        android:layout_marginLeft="90dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/detail_btn_gotomyreview"
-                        />
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginRight="90dp"
+                        android:background="@drawable/detail_btn_gotomyreview" />
 
                 </LinearLayout>
 
@@ -219,50 +210,46 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:orientation="vertical"
-                    >
+                    android:layout_weight="3"
+                    android:orientation="vertical">
                     <!--줄거리-->
                     <TextView
                         android:id="@+id/tv_summary"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="5"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="5"
                         android:gravity="center"
                         android:text="‘미스테리오’의 계략으로 세상에 정체가 탄로난 스파이더맨 ‘피터 파커’는 하루 아침에 평범한 일상을 잃게 된다. 문제를 해결하기 위해 ‘닥터 스트레인지’를 찾아가 도움을 청하지만 뜻하지 않게 멀티버스가 열리면서 각기 다른 차원의 불청객들이 나타난다. ‘닥터 옥토퍼스’를 비롯해 스파이더맨에게 깊은 원한을 가진 숙적들의 강력한 공격에 ‘피터 파커’는 사상 최악의 위기를 맞게 되는데…"
                         android:textColor="@color/white"
-                        android:textSize="13sp"
-                        />
+                        android:textSize="13sp" />
                     <!--갇독-->
                     <TextView
                         android:id="@+id/tv_director"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="감독 : 조 펄맨, 에란 크리비, 케이시 패터슨.."
                         android:textColor="@color/white"
-                        android:textSize="13sp"
-                        />
+                        android:textSize="13sp" />
                     <!--출연배우-->
                     <TextView
                         android:id="@+id/tv_actor"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:text="배우 : 다니엘 래드클리프, 루퍼트 크린트, 엠마 왓슨..."
                         android:textColor="@color/white"
-                        android:textSize="13sp"
-                        />
+                        android:textSize="13sp" />
 
 
                 </LinearLayout>
