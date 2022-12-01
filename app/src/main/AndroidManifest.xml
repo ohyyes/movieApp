@@ -27,13 +27,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".EditProfileActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:noHistory="true"
@@ -47,7 +40,9 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
