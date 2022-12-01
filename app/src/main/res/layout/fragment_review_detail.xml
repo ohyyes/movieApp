@@ -1,14 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ReviewDetailFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/BG"
+    android:clipToOutline="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <!-- 헤더 -->
+    <RelativeLayout
+        android:id="@+id/review_header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp">
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_backbtn" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:text="나의 감상평"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+        <!--데이터가 있을 때 보이는 수정 버튼-->
+        <Button
+            android:id="@+id/btn_amend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="13dp"
+            android:background="@android:color/transparent"
+            android:text="수정"
+            android:textColor="@color/white" />
+        <!--데이터가 없을 때 보이는 등록 버튼-->
+        <Button
+            android:id="@+id/btn_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="13dp"
+            android:background="@android:color/transparent"
+            android:text="등록"
+            android:textColor="@color/white"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <!-- 감상평 -->
+    <FrameLayout
+        android:id="@+id/frame_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/review_header"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/review_header"
+            android:orientation="vertical">
+
+            <!--포스터-->
+            <ImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/movie_minari"
+                android:background="@drawable/movie_image"/>
+            <!--제목-->
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="영화 제목"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+            <!--데이터 있을 때의 레이아웃 lin_review-->
+            <LinearLayout
+                android:id="@+id/lin_review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--별점레이아웃-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <!--별-->
+                    <ImageView
+                        android:id="@+id/star1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/star2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/star3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/star4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/star5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+                </LinearLayout>
+                <!-- 감상평-->
+                <TextView
+                    android:id="@+id/tv_review"
+                    android:layout_width="350dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp"
+                    android:scrollbarThumbVertical="@color/white"
+                    android:scrollbars="vertical"
+                    android:text="스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!--데이터 없을 때 나오는 레이아웃 lin_no_review-->
+            <LinearLayout
+                android:id="@+id/lin_no_review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!-- 별 수평레이아웃-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <!--별-->
+                    <ImageView
+                        android:id="@+id/emptystar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/emptystar2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/emptystar3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/emptystar4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                    <ImageView
+                        android:id="@+id/emptystar5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/star" />
+
+                </LinearLayout>
+                <!--데이터 없을 때의 감상평 수정 EditText-->
+                <EditText
+                    android:id="@+id/et_review"
+                    android:layout_width="350dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/textview_review"
+                    android:focusable="true"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp"
+                    android:privateImeOptions="defaultInputmode=korean"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbarThumbVertical="@color/white"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</RelativeLayout>

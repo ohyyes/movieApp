@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +48,7 @@ public class ReviewDetailFragment extends Fragment {
         return fragment;
     }
 
+    private TextView tv_review;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,9 @@ public class ReviewDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_review_detail, container, false);
+        tv_review = rootView.findViewById(R.id.tv_review);
+        tv_review.setMovementMethod(new ScrollingMovementMethod());
+        return rootView;
     }
 }
