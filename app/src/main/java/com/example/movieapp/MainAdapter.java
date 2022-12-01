@@ -1,7 +1,6 @@
 package com.example.movieapp;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
     //리스트뷰가 처음으로 생성될 때 생명주기
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // search_recycleview_items.xml 과 연동하기
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_recycleview_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_recyclerview_items, parent, false);
         // holder로 mypage_recycleview_items.xml 의 뷰를 컨택할 수 있음.
         CustomViewHolder holder = new CustomViewHolder(view);
 
@@ -40,7 +39,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
     // 실제 추가될 때 생명주기
     public void onBindViewHolder(@NonNull MainAdapter.CustomViewHolder holder, int position) {
         // 해당 위치의 영화 정보를 뷰에 설정
-        holder.iv_poster.setImageBitmap(arrayList.get(position).getPoster());
+        if (arrayList.get(position).getPoster() != null)
+            holder.iv_poster.setImageBitmap(arrayList.get(position).getPoster());
         holder.tv_title.setText(arrayList.get(position).getTitle());
         holder.tv_userRating.setText(arrayList.get(position).getUserRating());
         holder.tv_genre.setText(arrayList.get(position).getGenre());
@@ -58,7 +58,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
             }
         });
     }
-
 
     @Override
     public int getItemCount() {
@@ -83,11 +82,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
-            this.tv_title = (TextView) itemView.findViewById(R.id.tv_title);
-            this.tv_userRating = (TextView) itemView.findViewById(R.id.tv_userRating);
+            this.tv_title = (TextView) itemView.findViewById(R.id.tv_name);
+            this.tv_userRating = (TextView) itemView.findViewById(R.id.tv_rating);
             this.tv_genre = (TextView) itemView.findViewById(R.id.tv_genre);
-            this.tv_openYear = (TextView) itemView.findViewById(R.id.tv_openYear);
-            this.tv_runningTime = (TextView) itemView.findViewById(R.id.tv_runningTime);
+            this.tv_openYear = (TextView) itemView.findViewById(R.id.tv_date);
+            this.tv_runningTime = (TextView) itemView.findViewById(R.id.tv_running_time);
         }
     }
 }

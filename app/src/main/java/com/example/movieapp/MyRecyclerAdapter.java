@@ -47,7 +47,7 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         ItemData item = itemData.get(position);
         holder.name.setText(item.getmName());
-        holder.poster.setImageResource(item.getmPoster());
+        holder.poster.setImageBitmap(item.getmPoster());
 
         if (mListener != null) {
             final int pos = position;

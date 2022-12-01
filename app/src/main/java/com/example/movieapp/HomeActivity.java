@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
+
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private SearchFragment fragmentSearch = new SearchFragment();
     private ReviewFragment fragmentReview = new ReviewFragment();
@@ -20,6 +21,8 @@ public class HomeActivity extends AppCompatActivity {
     private HomeFragment fragmentHome = new HomeFragment();
     private MovieDetailFragment fragmentMovieDetail = new MovieDetailFragment();
     private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +71,10 @@ public class HomeActivity extends AppCompatActivity {
         // index = 2 : fragmentReview 로 이동 (감상평 목록 페이지)
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        //index
-        if(index == 0) {
+        if(index == 0) { //감상평 상세 화면으로 이동
             bottomNavigationView.setSelectedItemId(R.id.menu_review);
             transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
-        }
-        else if(index == 1) {
+        }else if(index == 1) {
             transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
         }
         else if(index == 2) {

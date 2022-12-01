@@ -82,7 +82,7 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ticket" />
                 <TextView
-                    android:id="@+id/tv_gerne"
+                    android:id="@+id/tv_genre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"

@@ -1,12 +1,39 @@
 package com.example.movieapp;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +103,6 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     private static final String TAG = "moviesearch";
     public static final int LOAD_SUCCESS = 101;
 
@@ -88,11 +114,11 @@ public class SearchFragment extends Fragment {
     private final String API_ID = "BEOHWoFfrwf9hxeYp1_1";
     private final String API_SECRET = "1SQEUT5QF6";
 
+    // 로딩중 표시
     private Process progressDialog;
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     private LinearLayoutManager linearLayoutManager;
-    private RecyclerView rec_searchList;    // 리사이클러 뷰
+    private RecyclerView rec_search_list;    // 리사이클러 뷰
     private LinearLayout lin_no_result;     // 검색결과 없음 레이아웃
     private EditText et_search;         // 검색창 입력값
     private ArrayList<MainData> resultMovieList;    // 검색 결과 리스트
@@ -105,10 +131,9 @@ public class SearchFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
 
         //여기서부터 만짐//
-        rec_searchList = (RecyclerView) rootView.findViewById(R.id.rec_searchList);
+        rec_search_list = (RecyclerView) rootView.findViewById(R.id.rec_search_list);
         lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
         et_search = (EditText) rootView.findViewById(R.id.et_search);
-        //리스트 생성
         resultMovieList = new ArrayList<>();
         //어댑터 생성
         mainAdapter = new MainAdapter(resultMovieList);
@@ -116,7 +141,7 @@ public class SearchFragment extends Fragment {
         mainAdapter.setItems(resultMovieList);
 
         linearLayoutManager = new LinearLayoutManager(getContext());     // ???
-        rec_searchList.setLayoutManager(linearLayoutManager);
+        rec_search_list.setLayoutManager(linearLayoutManager);
 
         // [돋보기] 버튼을 누르면 해당 키워드를 포함하는 아이템 검색해서 보여줌
         ImageView ib_search = (ImageButton) rootView.findViewById(R.id.ib_search);
@@ -141,22 +166,23 @@ public class SearchFragment extends Fragment {
         // 메시지 큐의 메시지 처리
         @Override
         public void handleMessage(Message msg) {
-
+            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
+            mainAdapter.setItems(resultMovieList);
 
             // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
             if (resultMovieList.isEmpty()) {
-                rec_searchList.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
+                rec_search_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
                 lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
             }
             // 있을 땐, 리사이클러뷰가 보이게 !
             else {
-                rec_searchList.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
+                rec_search_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
                 lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
             }
 
             // 리사이클러뷰에게 어댑터 객체를 전송한다.
             // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
-            rec_searchList.setAdapter(mainAdapter);
+            rec_search_list.setAdapter(mainAdapter);
         }
     }
     // 영화목록 조회 API 호출 및 응답결과 파싱 함수 호출
@@ -298,7 +324,8 @@ public class SearchFragment extends Fragment {
             JSONObject movies = result.getJSONObject("movieInfo");   // (2)안에 "movieInfo"에 대응되는 value {} : JSON ---(2)
 
             resultMovieList.get(position).setTitle(movies.getString("movieNm"));     // 제목
-            resultMovieList.get(position).setOpenYear(movies.getString("openDt"));      // 개봉연도
+            if (!movies.getString("openDt").equals(""))
+                resultMovieList.get(position).setOpenYear(movies.getString("openDt").substring(0,4));      // 개봉연도
             resultMovieList.get(position).setRunningTime(movies.getString("showTm"));    // 상영시간
 
             JSONArray genresArray = movies.getJSONArray("genres");
@@ -368,6 +395,8 @@ public class SearchFragment extends Fragment {
             httpURLConnection.disconnect();
 
             jsonString = sb.toString().trim();
+            // 응답 결과 확인 -------------------
+            System.out.println(jsonString);
 
         } catch (Exception e) {
             Log.d(TAG, e.toString());
@@ -381,6 +410,7 @@ public class SearchFragment extends Fragment {
         if (jsonString == null) return;
 
         try {
+            System.out.println("첫번째 구간 - 네이버 api 호출");       // 1
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.getJSONArray("items");
             if (jsonArray.length() == 0) return;            // 검색 결과 없을 시 리턴
@@ -389,11 +419,14 @@ public class SearchFragment extends Fragment {
             String imageUrl = items.getString("image");
             String userRating = items.getString("userRating");
 
-            // 이미지링크를 비트맵으로 변환(6)
-            Bitmap poster = getPosterFromURL(imageUrl);
+            if (!imageUrl.equals("")) {
+                // 이미지링크를 비트맵으로 변환(6)
+                Bitmap poster = getBitmapFromURL(imageUrl);
+                // 해당 위치의 영화에 이미지 저장
+                resultMovieList.get(position).setPoster(poster);
+            }
 
-            // 해당 위치의 영화에 이미지와 평점 정보 저장
-            resultMovieList.get(position).setPoster(poster);
+            // 해당 위치의 영화에 평점 저장
             resultMovieList.get(position).setUserRating(userRating);
 
         } catch (JSONException e) {
@@ -401,10 +434,11 @@ public class SearchFragment extends Fragment {
         }
     }
     // (6) 이미지 링크를 받아서 비트맵으로 반환
-    public Bitmap getPosterFromURL(final String imageURL) {
+    public static Bitmap getBitmapFromURL(final String imageURL) {
         if (imageURL == null) return null;
 
         Bitmap posterBitmap = null;
+        System.out.println("두번째 구간 - 네이버 api 호출 결과 파싱");       // 2
 
         try {
             URL url = new URL(imageURL);

@@ -1,19 +1,21 @@
 package com.example.movieapp;
 
+import android.graphics.Bitmap;
+
 public class ItemData {
-    private int mPoster;
+    private Bitmap mPoster;
     private String mName;
 
-    public ItemData(int mPoster, String mName) {
+    public ItemData(Bitmap mPoster, String mName) {
         this.mPoster = mPoster;
         this.mName = mName;
     }
 
-    public int getmPoster() {
+    public Bitmap getmPoster() {
         return mPoster;
     }
 
-    public void setmPoster(int mPoster) {
+    public void setmPoster(Bitmap mPoster) {
         this.mPoster = mPoster;
     }
 
