@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -75,6 +77,13 @@ public class ReviewFragment extends Fragment {
     //감상평 목록 정렬 기준 스피너 리스트
     String[] sortItems = {"최신순", "이름순", "별점높은순", "별점낮은순"};
 
+    //버튼 선언
+    private Button btn_edit, btn_back, btn_delete;
+    private CheckBox checkbox;
+
+    //편집모드 여부 변수
+    private int editMode = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,6 +94,12 @@ public class ReviewFragment extends Fragment {
         Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
         spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, sortItems);
         spinner.setAdapter(spinnerAdapter);
+
+        //버튼 연결
+        btn_edit = rootView.findViewById(R.id.btn_edit);
+        btn_back = rootView.findViewById(R.id.btn_back);
+        btn_delete = rootView.findViewById(R.id.btn_delete);
+        checkbox = rootView.findViewById(R.id.checkbox);
 
 
         RecyclerView review_list = (RecyclerView) rootView.findViewById(R.id.review_list);
@@ -116,6 +131,7 @@ public class ReviewFragment extends Fragment {
         //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
         review_list.setAdapter(adapter);
 
+        //데이터 유무에 따라 보이는 리사이클러뷰 다름
         if (all_review.isEmpty()) {
             review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
             lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
@@ -125,6 +141,7 @@ public class ReviewFragment extends Fragment {
             review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
             lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
         }
+
 
         //스피너 아이템 선택했을 때
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -189,7 +206,41 @@ public class ReviewFragment extends Fragment {
                 //바뀌는 것 없음
             }
         });
+
+
+        //편집 버튼 눌렀을 때
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                changeMode(1);
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeMode(0);
+            }
+        });
+
         return rootView;
+    }
+
+    private void changeMode(int n) {
+        adapter.updateCheckbox(n);
+
+        if (n == 1) { //편집 모드
+            btn_edit.setVisibility(View.GONE);
+            btn_delete.setVisibility(View.VISIBLE);
+            btn_back.setVisibility(View.VISIBLE);
+            editMode = 1;
+        } else {
+            btn_edit.setVisibility(View.VISIBLE);
+            btn_delete.setVisibility(View.GONE);
+            btn_back.setVisibility(View.GONE);
+        }
+
     }
 }
 

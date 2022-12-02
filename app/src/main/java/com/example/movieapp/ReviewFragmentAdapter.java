@@ -1,9 +1,9 @@
 package com.example.movieapp;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +17,12 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
     //리스트뷰의 아이템들을 담을 리스트
     private ArrayList<ReviewFragmentMainData> arrayList;
+
     //생성자
     public ReviewFragmentAdapter(ArrayList<ReviewFragmentMainData> arrayList) {
         this.arrayList = arrayList;
     }
+
 
     @NonNull
     @Override
@@ -44,13 +46,12 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
         holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
 
-        if(arrayList.get(position).getTv_review().length() > 35){
-            holder.tv_review.setText(arrayList.get(position).getTv_review().substring(0,34)+"...");
-        }else{
+
+        if (arrayList.get(position).getTv_review().length() > 35) {
+            holder.tv_review.setText(arrayList.get(position).getTv_review().substring(0, 34) + "...");
+        } else {
             holder.tv_review.setText(arrayList.get(position).getTv_review());
         }
-
-
 
 
         //리스트뷰가 클릭되었을 때,
@@ -64,30 +65,46 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
             }
         });
 
-    }
+        //편집 버튼 클릭 여부에 따라 체크박스 표시
+        if (ck == 1){ //수정모드이므로 체크박스 보이게
+            holder.checkbox.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.checkbox.setVisibility(View.GONE);
+            holder.checkbox.setChecked(false);
+        }
 
+
+
+    }
 
 
     @Override
     public int getItemCount() {
-        if (arrayList!=null){
+        if (arrayList != null) {
             return arrayList.size();
-        }
-        else return 0;
+        } else return 0;
     }
 
     // SearchFragment.java 에서 검색 for문 후 만들어진 search_list 를 어댑터의 data 로 바꿀 때 쓰임.
     // 어댑터의 data 를 newList 로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
-    public void setItems(ArrayList<ReviewFragmentMainData> newList){
+    public void setItems(ArrayList<ReviewFragmentMainData> newList) {
         this.arrayList = newList;
         notifyDataSetChanged();
-        Log.e("ddd","리스트 값 바뀜");
     }
+
+    int ck = 0;
+
+    public void updateCheckbox(int n){
+        ck = n;
+        notifyDataSetChanged();}
+
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
         protected ImageView iv_profile;
         protected TextView tv_name, tv_my_rate, tv_review_date, tv_review;
+        protected CheckBox checkbox;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +113,8 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
             this.tv_my_rate = (TextView) itemView.findViewById(R.id.tv_my_rate);
             this.tv_review_date = (TextView) itemView.findViewById(R.id.tv_review_date);
             this.tv_review = (TextView) itemView.findViewById(R.id.tv_review);
+            this.checkbox = (CheckBox) itemView.findViewById(R.id.checkbox);
+
 
         }
     }
