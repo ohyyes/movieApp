@@ -1,10 +1,10 @@
 package com.example.movieapp;
 
-public class MovieItem {
+public class RecFragmentMainData {
     private int img;
     private String name;
 
-    public MovieItem(int mImg, String mName) {
+    public RecFragmentMainData(int mImg, String mName) {
         this.img = mImg;
         this.name = mName;
     }
