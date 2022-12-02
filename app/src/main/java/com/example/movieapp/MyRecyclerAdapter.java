@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 
 class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<ItemData> itemData;
-    public MyRecyclerAdapter(ArrayList<ItemData> itemData) {
-        this.itemData = itemData;
+    private ArrayList<ItemData> dataList;
+    public MyRecyclerAdapter(ArrayList<ItemData> dataList) {
+        this.dataList = dataList;
     }
 
     public interface MyRecyclerViewClickListener{
@@ -45,7 +46,7 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ItemData item = itemData.get(position);
+        ItemData item = dataList.get(position);
         holder.name.setText(item.getmName());
         holder.poster.setImageBitmap(item.getmPoster());
 
@@ -81,7 +82,13 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
 
     @Override
     public int getItemCount() {
-        return itemData.size();
+        return dataList.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setItems(ArrayList<ItemData> arrayList){
+        this.dataList = arrayList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -100,7 +107,7 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
     //리스트 삭제 이벤트
     public void remove(int position){
         try {
-            itemData.remove(position);
+            dataList.remove(position);
             notifyDataSetChanged();
         } catch (IndexOutOfBoundsException e){
             e.printStackTrace();
