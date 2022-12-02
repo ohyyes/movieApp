@@ -13,15 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class MovieRecoFragment extends Fragment {
+public class RecFragment extends Fragment {
     RecyclerView recoRecyclerView;
     RecyclerView.Adapter recoAdapter;
     RecyclerView.LayoutManager layoutManager;
 
-    public ArrayList<MovieItem> movieList;
+    public ArrayList<RecFragmentMainData> movieList;
     public List<List<String>> dataList;
     public ArrayList<String> resultList; // 추천 알고리즘 결과값
     public static ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
@@ -85,7 +84,7 @@ public class MovieRecoFragment extends Fragment {
                 UserAccount user = snapshot.getValue(UserAccount.class);
                 String imgUrl = user.getImgUrl(); // 이미지 링크 따오는 함수 !!
 
-                movieList.add(new MovieItem(imgUrl, movieName));
+                movieList.add(new RecFragmentMainData(imgUrl, movieName));
             }
             recoAdapter.notifyDataSetChanged();
         }

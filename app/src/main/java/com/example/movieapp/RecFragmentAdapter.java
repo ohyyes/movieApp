@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecoAdapter extends RecyclerView.Adapter<RecoAdapter.CustomViewHolder> {
-    private ArrayList<MovieItem> movieList;
+public class RecFragmentAdapter extends RecyclerView.Adapter<RecFragmentAdapter.CustomViewHolder> {
+    private ArrayList<RecFragmentMainData> movieList;
     private Context context;
 
-    public RecoAdapter(ArrayList<MovieItem> mMovieList, Context context) {
+    public RecFragmentAdapter(ArrayList<RecFragmentMainData> mMovieList, Context context) {
         this.movieList = mMovieList;
         this.context = context;
     }
@@ -25,13 +25,13 @@ public class RecoAdapter extends RecyclerView.Adapter<RecoAdapter.CustomViewHold
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_recyclerview_items, parent, false);
-        CustomViewHolder holder = new RecoAdapter.CustomViewHolder(view);
+        CustomViewHolder holder = new RecFragmentAdapter.CustomViewHolder(view);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecoAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecFragmentAdapter.CustomViewHolder holder, int position) {
 
         Glide.with(holder.itemView)
                 .load(movieList.get(position).getImg())

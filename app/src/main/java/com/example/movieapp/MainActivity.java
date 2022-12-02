@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mbti = mbti.replace("[", "");
                 mbti = mbti.replace("]", "");
-                MovieRecoFragment.MBTIList = new ArrayList<>(Arrays.asList(mbti.split(", ")));
+                RecFragment.MBTIList = new ArrayList<>(Arrays.asList(mbti.split(", ")));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
