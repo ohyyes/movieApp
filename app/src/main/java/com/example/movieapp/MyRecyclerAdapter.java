@@ -1,11 +1,14 @@
 package com.example.movieapp;
 
 import android.annotation.SuppressLint;
+import android.graphics.Outline;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -100,6 +103,12 @@ class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolde
             poster = itemView.findViewById(R.id.iv_poster);
 
             //이미지뷰 원형으로 표시
+            poster.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setRoundRect(0,0, view.getWidth(), view.getHeight(), 40);
+                }
+            });
             poster.setClipToOutline(true);
         }
     }

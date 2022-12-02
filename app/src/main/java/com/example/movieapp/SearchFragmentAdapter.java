@@ -65,7 +65,6 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
                 homeActivity.onFragmentChange(0);
             }
         });
-
     }
 
 
