@@ -121,8 +121,8 @@ public class SearchFragment extends Fragment {
     private RecyclerView rec_search_list;    // 리사이클러 뷰
     private LinearLayout lin_no_result;     // 검색결과 없음 레이아웃
     private EditText et_search;         // 검색창 입력값
-    private ArrayList<MainData> resultMovieList;    // 검색 결과 리스트
-    private MainAdapter mainAdapter;
+    private ArrayList<SearchFragmentMainData> resultMovieList;    // 검색 결과 리스트
+    private SearchFragmentAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,9 +136,9 @@ public class SearchFragment extends Fragment {
         et_search = (EditText) rootView.findViewById(R.id.et_search);
         resultMovieList = new ArrayList<>();
         //어댑터 생성
-        mainAdapter = new MainAdapter(resultMovieList);
-        // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
-        mainAdapter.setItems(resultMovieList);
+        adapter = new SearchFragmentAdapter(resultMovieList);
+        // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현 되어있음)
+        adapter.setItems(resultMovieList);
 
         linearLayoutManager = new LinearLayoutManager(getContext());     // ???
         rec_search_list.setLayoutManager(linearLayoutManager);
@@ -166,8 +166,8 @@ public class SearchFragment extends Fragment {
         // 메시지 큐의 메시지 처리
         @Override
         public void handleMessage(Message msg) {
-            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 MainAdapter.java 에 구현 되어있음)
-            mainAdapter.setItems(resultMovieList);
+            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현 되어있음)
+            adapter.setItems(resultMovieList);
 
             // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
             if (resultMovieList.isEmpty()) {
@@ -182,7 +182,7 @@ public class SearchFragment extends Fragment {
 
             // 리사이클러뷰에게 어댑터 객체를 전송한다.
             // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
-            rec_search_list.setAdapter(mainAdapter);
+            rec_search_list.setAdapter(adapter);
         }
     }
     // 영화목록 조회 API 호출 및 응답결과 파싱 함수 호출
@@ -255,7 +255,7 @@ public class SearchFragment extends Fragment {
                 JSONObject movieObject = movies.getJSONObject(i);       // (3)안에 하나의 영화 정보 {} : JSON
                 String code = movieObject.getString("movieCd");
 
-                MainData movie = new MainData();
+                SearchFragmentMainData movie = new SearchFragmentMainData();
                 resultMovieList.add(movie);     // 빈 영화 일단 추가!
                 searchMovieInfo(code, i);       // 상세정보 api 호출(2) - 추가한 영화에 정보 업데이트
             }
