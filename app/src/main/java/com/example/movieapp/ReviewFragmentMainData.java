@@ -1,6 +1,8 @@
 package com.example.movieapp;
 
-public class ReviewFragmentMainData {
+import java.util.Comparator;
+
+public class ReviewFragmentMainData implements Comparator<ReviewFragmentMainData> {
     private int iv_profile, tv_my_rate;  //이미지뷰는 int 값임.
     private String tv_name, tv_review_date, tv_review;
 
@@ -50,6 +52,12 @@ public class ReviewFragmentMainData {
 
     public void setTv_review(String tv_review) {
         this.tv_review = tv_review;
+    }
+
+    //비교 함수 사용을 위해 함수 오버라이딩
+    @Override
+    public int compare(ReviewFragmentMainData reviewFragmentMainData, ReviewFragmentMainData t1) {
+        return 0;
     }
 }
 

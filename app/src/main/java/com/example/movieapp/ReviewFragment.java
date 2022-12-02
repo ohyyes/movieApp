@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -78,7 +79,7 @@ public class ReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_review, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_review, container, false);
 
         //스피너 연결 후 어댑터 지정 -> 어댑터는 android 라이브러리에 정의된 것 사용
         Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
@@ -94,10 +95,7 @@ public class ReviewFragment extends Fragment {
         review_list.setLayoutManager(layoutManager);
 
 
-
-
         all_review = new ArrayList<>();
-
 
 
         //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
@@ -107,43 +105,91 @@ public class ReviewFragment extends Fragment {
         all_review.add(mainData2);
         ReviewFragmentMainData mainData3 = new ReviewFragmentMainData(R.drawable.movie3, "소닉 2", 9, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData3);
+        ReviewFragmentMainData mainData4 = new ReviewFragmentMainData(R.drawable.movie1, "ㄱ", 3, "2022.02.20", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData4);
+        ReviewFragmentMainData mainData5 = new ReviewFragmentMainData(R.drawable.movie2, "ㅁ", 1, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData5);
+        ReviewFragmentMainData mainData6 = new ReviewFragmentMainData(R.drawable.movie3, "ㄴ", 2, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData6);
 
         adapter = new ReviewFragmentAdapter(all_review);
+        //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
         review_list.setAdapter(adapter);
 
-        if(all_review.isEmpty()){
+        if (all_review.isEmpty()) {
             review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
             lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
         }
         // 있을 땐, 리사이클러뷰가 보이게 !
-        else{
+        else {
             review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
             lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
         }
-
 
         //스피너 아이템 선택했을 때
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //선택된 아이템은 sortItems[i] 사용하면 됨
-                if(i == 0){
-                    //최신순
-                }else if (i == 1){
-                    //이름순
-                }else if(i==2){
-                    //별점높은순
-                }else if(i==3){
-                    //별점낮은순
+                if (i == 0) {//최신순
+                    Comparator<ReviewFragmentMainData> timeDesc = new Comparator<ReviewFragmentMainData>() {
+                        @Override
+                        public int compare(ReviewFragmentMainData item1, ReviewFragmentMainData item2) {
+                            return item2.getTv_review_date().compareTo(item1.getTv_review_date());
+                        }
+                    };
+                    Collections.sort(all_review, timeDesc);
+                    adapter.setItems(all_review);
+                } else if (i == 1) {//이름순
+                    Comparator<ReviewFragmentMainData> textAsc = new Comparator<ReviewFragmentMainData>() {
+                        @Override
+                        public int compare(ReviewFragmentMainData item1, ReviewFragmentMainData item2) {
+                            return item1.getTv_name().compareTo(item2.getTv_name());
+                        }
+                    };
+                    Collections.sort(all_review, textAsc);
+                    adapter.setItems(all_review);
+                } else if (i == 2) { //별점높은순
+                    Comparator<ReviewFragmentMainData> starDesc = new Comparator<ReviewFragmentMainData>() {
+                        int ret; //변수 선언은 함수 밖에서 해줘야 함
+
+                        @Override
+                        public int compare(ReviewFragmentMainData d1, ReviewFragmentMainData d2) {
+                            if (d1.getTv_my_rate() < d2.getTv_my_rate())
+                                ret = 1;
+                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                                ret = 0;
+                            else ret = -1;
+                            return ret;
+                        }
+                    };
+                    Collections.sort(all_review, starDesc);
+                    adapter.setItems(all_review);
+                } else if (i == 3) { //별점낮은순
+                    Comparator<ReviewFragmentMainData> starAsc = new Comparator<ReviewFragmentMainData>() {
+                        int ret; //변수 선언은 함수 밖에서 해줘야 함
+
+                        @Override
+                        public int compare(ReviewFragmentMainData d1, ReviewFragmentMainData d2) {
+                            if (d1.getTv_my_rate() < d2.getTv_my_rate())
+                                ret = -1;
+                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                                ret = 0;
+                            else ret = 1;
+                            return ret;
+                        }
+                    };
+                    Collections.sort(all_review, starAsc);
+                    adapter.setItems(all_review);
                 }
             }
 
             //아무것도 선택되지 않았을 때
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                //바뀌는 것 없음
             }
         });
         return rootView;
     }
 }
+

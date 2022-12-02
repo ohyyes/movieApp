@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
         holder.iv_profile.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         holder.tv_name.setText(arrayList.get(position).getTv_name());
-        holder.tv_my_rate.setText(arrayList.get(position).getTv_my_rate());
+        holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
         holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
 
         if(arrayList.get(position).getTv_review().length() > 35){
@@ -80,6 +81,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
     public void setItems(ArrayList<ReviewFragmentMainData> newList){
         this.arrayList = newList;
         notifyDataSetChanged();
+        Log.e("ddd","리스트 값 바뀜");
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
