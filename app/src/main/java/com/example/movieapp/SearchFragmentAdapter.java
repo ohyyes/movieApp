@@ -42,12 +42,12 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     public void onBindViewHolder(@NonNull SearchFragmentAdapter.CustomViewHolder holder, int position) {
         // 해당 위치의 영화 정보를 뷰에 설정
         if (arrayList.get(position).getPoster() != null)
-            holder.iv_poster.setImageBitmap(arrayList.get(position).getPoster());
+            holder.iv_profile.setImageBitmap(arrayList.get(position).getPoster());
         holder.tv_name.setText(arrayList.get(position).getTitle());
-        holder.tv_userRating.setText(arrayList.get(position).getUserRating());
+        holder.tv_rate.setText(arrayList.get(position).getUserRating());
         holder.tv_genre.setText(arrayList.get(position).getGenre());
-        holder.tv_openYear.setText(arrayList.get(position).getOpenYear());
-        holder.tv_runningTime.setText(arrayList.get(position).getRunningTime());
+        holder.tv_date.setText(arrayList.get(position).getOpenYear());
+        holder.tv_running_time.setText(arrayList.get(position).getRunningTime());
 
         // 리스트뷰가 클릭되었을 때
         holder.itemView.setTag(position);
@@ -80,17 +80,17 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView iv_poster;
-        protected TextView tv_name, tv_userRating, tv_genre, tv_openYear, tv_runningTime;
+        protected ImageView iv_profile;
+        protected TextView tv_name, tv_rate, tv_genre, tv_date, tv_running_time;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
+            this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
-            this.tv_userRating = (TextView) itemView.findViewById(R.id.tv_rating);
+            this.tv_rate = (TextView) itemView.findViewById(R.id.tv_rate);
             this.tv_genre = (TextView) itemView.findViewById(R.id.tv_genre);
-            this.tv_openYear = (TextView) itemView.findViewById(R.id.tv_date);
-            this.tv_runningTime = (TextView) itemView.findViewById(R.id.tv_running_time);
+            this.tv_date = (TextView) itemView.findViewById(R.id.tv_date);
+            this.tv_running_time = (TextView) itemView.findViewById(R.id.tv_running_time);
         }
     }
 }
