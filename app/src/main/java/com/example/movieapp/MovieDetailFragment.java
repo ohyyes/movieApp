@@ -25,13 +25,15 @@ public class MovieDetailFragment extends Fragment {
 
     //홈 엑티비티 선언 (화면 전환시 필요)
     HomeActivity homeActivity;
+    //뒤로가기 버튼 선언
+    private ImageButton ib_back;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         //홈 엑티비티 생성
-        homeActivity = (HomeActivity)getActivity();
+        homeActivity = (HomeActivity) getActivity();
     }
 
     @Override
@@ -85,13 +87,24 @@ public class MovieDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // fragment_movie_detail.xml 과 연결하기!
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_movie_detail, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
         //뷰 선언
         ImageButton btn_gotoReview;
         ImageView iv_poster;
         TextView tv_name, tv_rate, tv_date, tv_time, tv_gerne, tv_summary, tv_director, tv_actor;
 
+        //뒤로가기버튼 연결
+        ib_back = (ImageButton) rootView.findViewById(R.id.ib_back);
+
+        //뒤로가기버튼클릭시
+        ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //나중에 이 버튼 실행되는지 확인해야 함 지금은 데이터 연결이 안돼서 확인 안됨
+                (getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, new SearchFragment()).commit();
+            }
+        });
         //뷰 불러오기
         btn_gotoReview = (ImageButton) rootView.findViewById(R.id.ib_gotomyreview);
         iv_poster = (ImageView) rootView.findViewById(R.id.iv_poster);
@@ -121,18 +134,17 @@ public class MovieDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //만약 해당 감상평이 있다면, 감상평 상세 프래그먼트로 화면 전환
-                if(has_review){
+                if (has_review) {
                     homeActivity.onFragmentChange(1);
                 }
                 //없다면, 팝업창 띄우기
-                else{
+                else {
 
                     final View popupView = getLayoutInflater().inflate(R.layout.popup_no_review, null);
                     final AlertDialog.Builder AlertBuilder = new AlertDialog.Builder(getContext());
                     AlertBuilder.setView(popupView);
 
                     final AlertDialog alertDialog = AlertBuilder.create();
-
 
 
                     //팝업창 크기 조정
@@ -147,10 +159,9 @@ public class MovieDetailFragment extends Fragment {
                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //팝업창이 둥글게 나올 수 있도록 기본 팝업 영역을 투명하게 설정
 
 
-
                     //닫기 버튼
                     Button btn_close = popupView.findViewById(R.id.btn_close);
-                    btn_close.setOnClickListener(new View.OnClickListener(){
+                    btn_close.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             alertDialog.dismiss();  //팝업창 닫기

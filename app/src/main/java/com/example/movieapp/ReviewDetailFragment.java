@@ -5,6 +5,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class ReviewDetailFragment extends Fragment {
+
+    private ImageButton ib_back;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,6 +67,19 @@ public class ReviewDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_review_detail, container, false);
         tv_review = rootView.findViewById(R.id.tv_review);
         tv_review.setMovementMethod(new ScrollingMovementMethod());
+
+
+        //뒤로가기버튼 연결
+        ib_back = (ImageButton) rootView.findViewById(R.id.ib_back);
+
+        //뒤로가기버튼클릭시
+        ib_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //나중에 이 버튼 실행되는지 확인해야 함 지금은 데이터 연결이 안돼서 확인 안됨
+                (getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, new ReviewFragment()).commit();
+            }
+        });
         return rootView;
     }
 }
