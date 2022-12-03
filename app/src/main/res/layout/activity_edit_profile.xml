@@ -22,7 +22,7 @@
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/common_backbtn"
+            android:background="@drawable/btn_back"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <!--마이페이지-->
@@ -52,7 +52,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/profile_img"
+            android:src="@drawable/testdata_profile"
             />
 
 
@@ -89,7 +89,7 @@
                     android:id="@+id/btn_e"
                     android:layout_width="101dp"
                     android:layout_height="67dp"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textColor="@color/text_color"
                     android:paddingRight="20dp"
                     android:textAlignment="center"
@@ -100,7 +100,7 @@
                     />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MyApp.Chip.Choice"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textColor="@color/text_color"
                     android:id="@+id/btn_i"
                     android:layout_width="101dp"
@@ -132,13 +132,13 @@
                     android:text="S"
                     android:textAlignment="center"
                     android:textColor="@color/text_color"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textSize="24sp"
                     app:chipStrokeColor="@color/white"
                     app:chipStrokeWidth="0.7dp"/>
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MyApp.Chip.Choice"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textColor="@color/text_color"
                     android:id="@+id/btn_n"
                     android:layout_width="101dp"
@@ -162,7 +162,7 @@
                 >
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MyApp.Chip.Choice"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textColor="@color/text_color"
                     android:id="@+id/btn_t"
                     android:layout_width="101dp"
@@ -176,7 +176,7 @@
                     />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MyApp.Chip.Choice"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textColor="@color/text_color"
                     android:id="@+id/btn_f"
                     android:layout_width="101dp"
@@ -200,7 +200,7 @@
                 >
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MyApp.Chip.Choice"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textColor="@color/text_color"
                     android:id="@+id/btn_j"
                     android:layout_width="101dp"
@@ -214,7 +214,7 @@
                     />
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MyApp.Chip.Choice"
-                    app:chipBackgroundColor="@drawable/button_selector"
+                    app:chipBackgroundColor="@drawable/bg_btn_selector"
                     android:textColor="@color/text_color"
                     android:id="@+id/btn_p"
                     android:layout_width="101dp"

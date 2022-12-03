@@ -69,7 +69,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/star" />
+                    android:src="@drawable/icon_star" />
                 <TextView
                     android:id="@+id/tv_my_rate"
                     android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/calender" />
+                    android:src="@drawable/icon_calender" />
                 <TextView
                     android:id="@+id/tv_review_date"
                     android:layout_width="match_parent"

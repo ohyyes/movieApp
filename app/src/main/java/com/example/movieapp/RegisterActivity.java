@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(email && pw1 && pw2 && name && EI && SN && TF && JP){
             ib_register.setEnabled(true);
-            ib_register.setImageResource(R.drawable.registerbutton2);
+            ib_register.setImageResource(R.drawable.btn_done);
 
             ib_register.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -132,11 +132,11 @@ public class MypageFragment extends Fragment {
 
 
         // 테스트용 임시 original_list
-        MyPageFragmentMainData MainData1 = new MyPageFragmentMainData(R.drawable.movie_avatar); //아이템 추가하는 코드
+        MyPageFragmentMainData MainData1 = new MyPageFragmentMainData(R.drawable.testdata_avatar); //아이템 추가하는 코드
         review_list.add(MainData1);
-        MyPageFragmentMainData MainData2 = new MyPageFragmentMainData(R.drawable.movie_minari); //아이템 추가하는 코드
+        MyPageFragmentMainData MainData2 = new MyPageFragmentMainData(R.drawable.testdata_minari); //아이템 추가하는 코드
         review_list.add(MainData2);
-        MyPageFragmentMainData MainData3 = new MyPageFragmentMainData(R.drawable.movie_black); //아이템 추가하는 코드
+        MyPageFragmentMainData MainData3 = new MyPageFragmentMainData(R.drawable.testdata_blackpenser); //아이템 추가하는 코드
         review_list.add(MainData3);
         MyPageFragmentMainData MainData4 = new MyPageFragmentMainData(R.mipmap.ic_launcher); //아이템 추가하는 코드
         review_list.add(MainData4);

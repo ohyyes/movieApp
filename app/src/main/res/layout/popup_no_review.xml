@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@drawable/popup_background"
+    android:background="@drawable/bg_popup"
     android:orientation="vertical"
     >
     <TextView
@@ -28,7 +28,7 @@
             android:id="@+id/btn_close"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_lightgray"
+            android:background="@drawable/bg_btn_lightgray"
             android:text="닫기"
             android:textSize="17dp"
             android:textColor="@color/black"
@@ -38,7 +38,7 @@
             android:id="@+id/btn_writeReview"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/blue_button"
+            android:background="@drawable/bg_btn_skyblue"
             android:text="리뷰 작성"
             android:textSize="17dp"
             android:textColor="@color/white"

@@ -57,7 +57,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/star" />
+                    android:src="@drawable/icon_star" />
                 <TextView
                     android:id="@+id/tv_rate"
                     android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ticket" />
+                    android:src="@drawable/icon_ticket" />
                 <TextView
                     android:id="@+id/tv_gerne"
                     android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/calender" />
+                    android:src="@drawable/icon_calender" />
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/clock" />
+                    android:src="@drawable/icon_clock" />
                 <TextView
                     android:id="@+id/tv_running_time"
                     android:layout_width="match_parent"

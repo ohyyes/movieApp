@@ -53,7 +53,7 @@
             android:textColor="@color/white"
             android:paddingLeft="10dp"
             android:inputType="textEmailAddress"
-            android:background="@drawable/search_edittext"
+            android:background="@drawable/bg_search"
             />
 
         <!--검색 버튼 -->
@@ -62,8 +62,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignEnd="@id/et_search"
-            android:background="@drawable/search_edittext"
-            android:src="@drawable/moviesearch_search_btn" />
+            android:background="@drawable/bg_search"
+            android:src="@drawable/btn_search" />
     </RelativeLayout>
 
 
@@ -102,7 +102,7 @@
                 android:layout_marginTop="60dp"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:src="@drawable/search_sadface"
+                android:src="@drawable/icon_sadface"
                 />
             <TextView
                 android:paddingTop="30dp"

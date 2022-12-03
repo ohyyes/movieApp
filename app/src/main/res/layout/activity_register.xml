@@ -158,7 +158,7 @@
                         android:id="@+id/btn_e"
                         android:layout_width="101dp"
                         android:layout_height="67dp"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textColor="@color/text_color"
                         android:paddingRight="20dp"
                         android:textAlignment="center"
@@ -169,7 +169,7 @@
                         />
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MyApp.Chip.Choice"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textColor="@color/text_color"
                         android:id="@+id/btn_i"
                         android:layout_width="101dp"
@@ -201,13 +201,13 @@
                         android:text="S"
                         android:textAlignment="center"
                         android:textColor="@color/text_color"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textSize="24sp"
                         app:chipStrokeColor="@color/white"
                         app:chipStrokeWidth="0.7dp"/>
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MyApp.Chip.Choice"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textColor="@color/text_color"
                         android:id="@+id/btn_n"
                         android:layout_width="101dp"
@@ -231,7 +231,7 @@
                     >
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MyApp.Chip.Choice"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textColor="@color/text_color"
                         android:id="@+id/btn_t"
                         android:layout_width="101dp"
@@ -245,7 +245,7 @@
                         />
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MyApp.Chip.Choice"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textColor="@color/text_color"
                         android:id="@+id/btn_f"
                         android:layout_width="101dp"
@@ -269,7 +269,7 @@
                     >
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MyApp.Chip.Choice"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textColor="@color/text_color"
                         android:id="@+id/btn_j"
                         android:layout_width="101dp"
@@ -283,7 +283,7 @@
                         />
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MyApp.Chip.Choice"
-                        app:chipBackgroundColor="@drawable/button_selector"
+                        app:chipBackgroundColor="@drawable/bg_btn_selector"
                         android:textColor="@color/text_color"
                         android:id="@+id/btn_p"
                         android:layout_width="101dp"

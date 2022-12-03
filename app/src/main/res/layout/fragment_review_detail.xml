@@ -19,7 +19,7 @@
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/common_backbtn" />
+            android:background="@drawable/btn_back" />
 
         <TextView
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginBottom="15dp"
-                android:src="@drawable/movie_minari"
+                android:src="@drawable/testdata_minari"
                 android:background="@drawable/movie_image"/>
             <!--제목-->
             <TextView
@@ -115,7 +115,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/star2"
@@ -124,7 +124,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/star3"
@@ -133,7 +133,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/star4"
@@ -142,7 +142,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/star5"
@@ -151,7 +151,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
                 </LinearLayout>
                 <!-- 감상평-->
                 <TextView
@@ -192,7 +192,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/emptystar2"
@@ -201,7 +201,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/emptystar3"
@@ -210,7 +210,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/emptystar4"
@@ -219,7 +219,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                     <ImageView
                         android:id="@+id/emptystar5"
@@ -228,7 +228,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/star" />
+                        android:src="@drawable/icon_star" />
 
                 </LinearLayout>
                 <!--데이터 없을 때의 감상평 수정 EditText-->

@@ -122,7 +122,7 @@ public class MovieDetailFragment extends Fragment {
         tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
 
         //데이터 값 설정하기
-        iv_poster.setImageResource(R.drawable.movie_minari);
+        iv_poster.setImageResource(R.drawable.testdata_minari);
         tv_name.setText("미나리");
         tv_rate.setText("8.04");
         tv_date.setText("2022");
