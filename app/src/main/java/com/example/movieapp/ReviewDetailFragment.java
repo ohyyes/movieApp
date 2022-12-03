@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +20,25 @@ import androidx.fragment.app.Fragment;
 public class ReviewDetailFragment extends Fragment {
 
     private ImageButton ib_back;
+
+    HomeActivity homeActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //홈 엑티비티 생성
+        homeActivity = (HomeActivity)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        //홈 엑티비티 제거
+        homeActivity = null;
+    }
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +50,6 @@ public class ReviewDetailFragment extends Fragment {
     private String mParam2;
 
     public ReviewDetailFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -53,6 +73,9 @@ public class ReviewDetailFragment extends Fragment {
     private TextView tv_review;
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -65,6 +88,7 @@ public class ReviewDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_review_detail, container, false);
+
         tv_review = rootView.findViewById(R.id.tv_review);
         tv_review.setMovementMethod(new ScrollingMovementMethod());
 
@@ -76,8 +100,11 @@ public class ReviewDetailFragment extends Fragment {
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //나중에 이 버튼 실행되는지 확인해야 함 지금은 데이터 연결이 안돼서 확인 안됨
-                (getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, new ReviewFragment()).commit();
+                //BackStack 에 저장된 이전 프래그먼트로 이동하기
+                FragmentManager homeActivityFM= homeActivity.getSupportFragmentManager(); //프래그먼트 매니저 생성
+                homeActivityFM.beginTransaction().addToBackStack(null); // BackStack 에 현재 프래그먼트 저장
+                homeActivityFM.beginTransaction().remove(ReviewDetailFragment.this).commit(); //현재 프래그먼트 삭제
+                homeActivityFM.popBackStack(); //이전 프래그먼트 불러오기
             }
         });
         return rootView;
