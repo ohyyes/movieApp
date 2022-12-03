@@ -65,6 +65,8 @@ public class HomeActivity extends AppCompatActivity {
         // index = 0 : fragmentMovieDetail 로 이동 (영화 상세 페이지)
         // index = 1 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
         // index = 2 : fragmentReview 로 이동 (감상평 목록 페이지)
+        // index = 3 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         //index
@@ -79,6 +81,10 @@ public class HomeActivity extends AppCompatActivity {
         else if(index == 2) {
             bottomNavigationView.setSelectedItemId(R.id.menu_review);
             transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
+        }
+        else if(index == 3) {
+            bottomNavigationView.setSelectedItemId(R.id.menu_review);
+            transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
         }
     }
 }
