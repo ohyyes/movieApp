@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="horizontal"
-        android:layout_marginBottom="20dp"
-    >
+        android:layout_marginBottom="20dp" >
         <!--포스터-->
         <ImageView
             android:id="@+id/iv_poster"
@@ -28,8 +27,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginLeft="20dp"
-            android:layout_weight="2"
-            >
+            android:layout_weight="2" >
             <!-- 영화 제목 -->
             <LinearLayout
                 android:layout_width="match_parent"

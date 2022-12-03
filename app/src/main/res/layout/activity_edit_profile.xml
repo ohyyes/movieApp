@@ -22,7 +22,7 @@
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/common_backbtn"
+            android:background="@drawable/btn_back"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <!--마이페이지-->

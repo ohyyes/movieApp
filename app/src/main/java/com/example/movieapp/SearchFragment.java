@@ -336,8 +336,8 @@ public class SearchFragment extends Fragment {
             JSONArray directorsArray = movies.getJSONArray("directors");
             JSONArray actorsArray = movies.getJSONArray("actors");
 
-            resultMovieList.get(position).setDirectors("감독: " + getPeopleStr(directorsArray));   // 감독
-            resultMovieList.get(position).setActors("배우: " + getPeopleStr(actorsArray));      // 출연진
+            resultMovieList.get(position).setDirectors("감독:  " + getPeopleStr(directorsArray));   // 감독
+            resultMovieList.get(position).setActors("배우:  " + getPeopleStr(actorsArray));      // 출연진
 
             // 제목으로 네이버 영화 API 호출(4)
             searchNaver(resultMovieList.get(position).getTitle(), position);       // 포스터, 평점
@@ -354,6 +354,10 @@ public class SearchFragment extends Fragment {
         for (int i=1; i< peoplesArray.length(); i++) {
             String people = peoplesArray.getJSONObject(i).getString("peopleNm");
             peoples = peoples.concat(", " + people);
+            if (i > 10) {           // 최대 10명까지만
+                peoples += " 외 다수";
+                break;
+            }
         }
         return peoples;
     }
