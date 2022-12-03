@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -132,21 +131,21 @@ public class SearchFragment extends Fragment {
 
 
         // 테스트용 임시 original_list
-        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.testdata_spiderman, "Spiderman", "9.27", "슈퍼히어로", "2002", "121분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.testdata_spiderman, "스파이더맨", "9.27", "슈퍼히어로", "2002", "121분"); //아이템 추가하는 코드
         original_list.add(mainData1);
-        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.testdata_spiderman2, "Spiderman2", "8.32", "슈퍼히어로", "2004", "115분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.testdata_spiderman2, "스파이더맨2", "8.32", "슈퍼히어로", "2004", "115분"); //아이템 추가하는 코드
         original_list.add(mainData2);
-        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.testdata_spiderman3, "Spiderman3", "7.08", "슈퍼히어로", "2007", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.testdata_spiderman3, "스파이더맨3", "7.08", "슈퍼히어로", "2007", "139분"); //아이템 추가하는 코드
         original_list.add(mainData3);
-        SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman, "The amazing Spiderman", "8.02", "슈퍼히어로", "2012", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman, "어메이징 스파이더맨", "8.02", "슈퍼히어로", "2012", "139분"); //아이템 추가하는 코드
         original_list.add(mainData4);
-        SearchFragmentMainData mainData5 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman2, "The amazing Spiderman2", "7.71", "슈퍼히어로", "2014", "109분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData5 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman2, "어메이징 스파이더맨 2", "7.71", "슈퍼히어로", "2014", "109분"); //아이템 추가하는 코드
         original_list.add(mainData5);
-        SearchFragmentMainData mainData6 = new SearchFragmentMainData(R.drawable.testdata_spiderman_homecomming, "Spiderman : Homecomming", "8.94", "슈퍼히어로", "2017", "110분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData6 = new SearchFragmentMainData(R.drawable.testdata_spiderman_homecomming, "스파이더맨 : 홈 커밍", "8.94", "슈퍼히어로", "2017", "110분"); //아이템 추가하는 코드
         original_list.add(mainData6);
-        SearchFragmentMainData mainData7 = new SearchFragmentMainData(R.drawable.testdata_spiderman_farfromhome, "Spiderman : Far from home", "8.36", "슈퍼히어로", "2019", "119분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData7 = new SearchFragmentMainData(R.drawable.testdata_spiderman_farfromhome, "스파이더맨 : 파 프롬 홈", "8.36", "슈퍼히어로", "2019", "119분"); //아이템 추가하는 코드
         original_list.add(mainData7);
-        SearchFragmentMainData mainData8 = new SearchFragmentMainData(R.drawable.testdata_spiderman_nowayhome, "Spiderman : No way home", "9.54", "슈퍼히어로", "2022", "148분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData8 = new SearchFragmentMainData(R.drawable.testdata_spiderman_nowayhome, "스파이더맨 : 노 웨이 홈", "9.54", "슈퍼히어로", "2022", "148분"); //아이템 추가하는 코드
         original_list.add(mainData8);
 
 
