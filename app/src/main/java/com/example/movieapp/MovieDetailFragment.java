@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,8 +102,11 @@ public class MovieDetailFragment extends Fragment {
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //나중에 이 버튼 실행되는지 확인해야 함 지금은 데이터 연결이 안돼서 확인 안됨
-                (getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame_layout, new SearchFragment()).commit();
+                //BackStack 에 저장된 이전 프래그먼트로 이동하기
+                FragmentManager homeActivityFM= homeActivity.getSupportFragmentManager(); //프래그먼트 매니저 생성
+                homeActivityFM.beginTransaction().addToBackStack(null); // BackStack 에 현재 프래그먼트 저장
+                homeActivityFM.beginTransaction().remove(MovieDetailFragment.this).commit(); //현재 프래그먼트 삭제
+                homeActivityFM.popBackStack(); //이전 프래그먼트 불러오기
             }
         });
         //뷰 불러오기
@@ -129,7 +133,7 @@ public class MovieDetailFragment extends Fragment {
         tv_actor.setText("스티븐 연, 한예리, 윤여정, 앨런 김, 노엘 조, 윌 패튼");
 
         //임시 변수 (원래는 여기에 데이터를 담아 확인해야함)
-        boolean has_review = false;
+        boolean has_review = true;
         btn_gotoReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +182,6 @@ public class MovieDetailFragment extends Fragment {
                             alertDialog.dismiss();  //팝업창 닫기
                         }
                     });
-
 
                     //보이기
                     alertDialog.show();
