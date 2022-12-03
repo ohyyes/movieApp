@@ -19,7 +19,8 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:background="@drawable/movie_image" />
 
         <!-- 텍스트 -->
         <LinearLayout
@@ -55,7 +56,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/star" />
+                    android:src="@drawable/icon_star" />
                 <TextView
                     android:id="@+id/tv_rating"
                     android:layout_width="match_parent"
@@ -77,7 +78,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ticket" />
+                    android:src="@drawable/icon_ticket" />
                 <TextView
                     android:id="@+id/tv_genre"
                     android:layout_width="match_parent"
@@ -99,7 +100,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/calender" />
+                    android:src="@drawable/icon_calender" />
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="match_parent"
@@ -122,7 +123,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/clock" />
+                    android:src="@drawable/icon_clock" />
                 <TextView
                     android:id="@+id/tv_running_time"
                     android:layout_width="match_parent"

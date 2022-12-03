@@ -95,7 +95,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/star" />
+                            android:src="@drawable/icon_star" />
                         <!--별점의 숫자-->
                         <TextView
                             android:id="@+id/tv_rating"
@@ -125,7 +125,7 @@
                                 android:layout_marginTop="12dp"
                                 android:layout_marginBottom="12dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/calender" />
+                                android:src="@drawable/icon_calender" />
 
                             <TextView
                                 android:id="@+id/tv_date"
@@ -152,7 +152,7 @@
                                 android:layout_marginTop="12dp"
                                 android:layout_marginBottom="10dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/clock" />
+                                android:src="@drawable/icon_clock" />
 
                             <TextView
                                 android:id="@+id/tv_running_time"
@@ -180,7 +180,7 @@
                                 android:layout_marginTop="12dp"
                                 android:layout_marginBottom="12dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/ticket" />
+                                android:src="@drawable/icon_ticket" />
 
                             <TextView
                                 android:id="@+id/tv_genre"

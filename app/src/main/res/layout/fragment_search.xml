@@ -104,7 +104,7 @@
                 android:layout_marginTop="60dp"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:src="@drawable/search_sadface"
+                android:src="@drawable/icon_sadface"
                 />
             <TextView
                 android:paddingTop="30dp"
