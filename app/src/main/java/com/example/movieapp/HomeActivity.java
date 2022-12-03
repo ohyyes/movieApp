@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.Serializable;
+
 public class HomeActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -66,20 +68,28 @@ public class HomeActivity extends AppCompatActivity {
     public void onFragmentChange(int index) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        // index = 0 : fragmentMovieDetail 로 이동 (영화 상세 페이지)
-        // index = 1 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
-        // index = 2 : fragmentReview 로 이동 (감상평 목록 페이지)
+        // index = 0 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
+        // index = 1 : fragmentReview 로 이동 (감상평 목록 페이지)
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        if(index == 0) { //감상평 상세 화면으로 이동
-            bottomNavigationView.setSelectedItemId(R.id.menu_review);
-            transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
-        }else if(index == 1) {
+        if (index == 0) {
             transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
-        }
-        else if(index == 2) {
+        } else if (index == 1) {
             transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
         }
+    }
+    // fragmentMovieDetail 로 이동 (영화 상세 페이지)
+    public void onFragmentChange(SearchFragmentMainData movieData) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.menu_review);
+
+        // Bundle 로 fragmentMovieDetail 에 영화 객체 전달하기
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("fromSearchFragment", movieData);
+        fragmentMovieDetail.setArguments(bundle);
+
+        transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
     }
 }
 

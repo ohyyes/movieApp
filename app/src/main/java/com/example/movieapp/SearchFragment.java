@@ -136,7 +136,7 @@ public class SearchFragment extends Fragment {
         et_search = (EditText) rootView.findViewById(R.id.et_search);
         resultMovieList = new ArrayList<>();
         //어댑터 생성
-        adapter = new SearchFragmentAdapter(resultMovieList);
+        adapter = new SearchFragmentAdapter(resultMovieList, homeActivity);
         // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현 되어있음)
         adapter.setItems(resultMovieList);
 
@@ -332,15 +332,15 @@ public class SearchFragment extends Fragment {
             if (genresArray.length() != 0)
                 resultMovieList.get(position).setGenre(genresArray.getJSONObject(0).getString("genreNm"));    // 장르 (하나만)
 
-            // 상세 페이지에서 추가로 필요한 정보들
+            // 상세 페이지에서 추가로 필요한 정보들 - 감독, 출연진
             JSONArray directorsArray = movies.getJSONArray("directors");
             JSONArray actorsArray = movies.getJSONArray("actors");
 
-            resultMovieList.get(position).setDirectors(getPeopleStr(directorsArray));          // 감독
-            resultMovieList.get(position).setActors(getPeopleStr(actorsArray));                // 출연진
+            resultMovieList.get(position).setDirectors("감독: " + getPeopleStr(directorsArray));   // 감독
+            resultMovieList.get(position).setActors("배우: " + getPeopleStr(actorsArray));      // 출연진
 
             // 제목으로 네이버 영화 API 호출(4)
-            searchNaver(resultMovieList.get(position).getTitle(), position);               // 포스터, 평점
+            searchNaver(resultMovieList.get(position).getTitle(), position);       // 포스터, 평점
 
         } catch (Exception e) {
             Log.d(TAG, e.toString());
@@ -349,7 +349,7 @@ public class SearchFragment extends Fragment {
     // JSON 배열에 담긴 정보들 하나의 문자열로
     private String getPeopleStr(JSONArray peoplesArray) throws Exception {
         if (peoplesArray.length() == 0)
-            return null;
+            return "정보 없음";
         String peoples = peoplesArray.getJSONObject(0).getString("peopleNm");
         for (int i=1; i< peoplesArray.length(); i++) {
             String people = peoplesArray.getJSONObject(i).getString("peopleNm");

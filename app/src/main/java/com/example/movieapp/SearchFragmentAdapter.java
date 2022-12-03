@@ -1,6 +1,8 @@
 package com.example.movieapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +23,11 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     private ArrayList<SearchFragmentMainData> arrayList;
 
     //생성자
-    public SearchFragmentAdapter(ArrayList<SearchFragmentMainData> arrayList) {
+    public SearchFragmentAdapter(ArrayList<SearchFragmentMainData> arrayList, Context mContext) {
         this.arrayList = arrayList;
+
+        // 어댑터에서는 다른 엑티비티를 가져올 때 Context 로 가져옴 !
+        this.homeActivity = ((HomeActivity) mContext);
     }
 
     @NonNull
@@ -41,13 +46,14 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     // 실제 추가될 때 생명주기
     public void onBindViewHolder(@NonNull SearchFragmentAdapter.CustomViewHolder holder, int position) {
         // 해당 위치의 영화 정보를 뷰에 설정
-        if (arrayList.get(position).getPoster() != null)
-            holder.iv_profile.setImageBitmap(arrayList.get(position).getPoster());
-        holder.tv_name.setText(arrayList.get(position).getTitle());
-        holder.tv_rate.setText(arrayList.get(position).getUserRating());
-        holder.tv_genre.setText(arrayList.get(position).getGenre());
-        holder.tv_date.setText(arrayList.get(position).getOpenYear());
-        holder.tv_running_time.setText(arrayList.get(position).getRunningTime());
+        SearchFragmentMainData movie = arrayList.get(position);
+        if (movie.getPoster() != null)
+            holder.iv_poster.setImageBitmap(movie.getPoster());
+        holder.tv_name.setText(movie.getTitle());
+        holder.tv_rating.setText(movie.getUserRating());
+        holder.tv_genre.setText(movie.getGenre());
+        holder.tv_date.setText(movie.getOpenYear());
+        holder.tv_running_time.setText(movie.getRunningTime());
 
         // 리스트뷰가 클릭되었을 때
         holder.itemView.setTag(position);
@@ -58,7 +64,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
                 String curName = holder.tv_name.getText().toString();
 
                 //homeActivity.java 에서 선언된 onFragmentChange 메소드에 접근해서 index=0 을 전달해 fragmentReview 로 이동 (영화 상세 페이지)
-                homeActivity.onFragmentChange(0);
+                homeActivity.onFragmentChange(movie);
             }
         });
     }
@@ -80,14 +86,14 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView iv_profile;
-        protected TextView tv_name, tv_rate, tv_genre, tv_date, tv_running_time;
+        protected ImageView iv_poster;
+        protected TextView tv_name, tv_rating, tv_genre, tv_date, tv_running_time;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
+            this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
-            this.tv_rate = (TextView) itemView.findViewById(R.id.tv_rate);
+            this.tv_rating = (TextView) itemView.findViewById(R.id.tv_rating);
             this.tv_genre = (TextView) itemView.findViewById(R.id.tv_genre);
             this.tv_date = (TextView) itemView.findViewById(R.id.tv_date);
             this.tv_running_time = (TextView) itemView.findViewById(R.id.tv_running_time);

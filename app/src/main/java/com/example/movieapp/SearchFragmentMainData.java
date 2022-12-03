@@ -2,7 +2,9 @@ package com.example.movieapp;
 
 import android.graphics.Bitmap;
 
-public class SearchFragmentMainData {
+import java.io.Serializable;
+
+public class SearchFragmentMainData implements Serializable {
     private Bitmap poster;
     private String title, userRating, genre, openYear, runningTime, directors, actors;
 

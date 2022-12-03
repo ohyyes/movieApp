@@ -16,7 +16,7 @@
     >
         <!--포스터-->
         <ImageView
-            android:id="@+id/iv_profile"
+            android:id="@+id/iv_poster"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
                     android:layout_height="24dp"
                     android:src="@drawable/star" />
                 <TextView
-                    android:id="@+id/tv_rate"
+                    android:id="@+id/tv_rating"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
