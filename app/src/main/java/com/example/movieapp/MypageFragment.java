@@ -33,6 +33,7 @@ public class MypageFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
+        //홈 엑티비티 생성
         homeActivity = (HomeActivity)getActivity();
     }
 
