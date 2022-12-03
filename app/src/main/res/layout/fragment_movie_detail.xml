@@ -6,6 +6,7 @@
     tools:context=".HomeFragment">
 
     <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/BG"
@@ -16,15 +17,8 @@
             android:id="@+id/rel_header"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_alignParentTop="true">
-            <!-- 뒤로가기 버튼 -->
-            <ImageButton
-                android:id="@+id/ib_back"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/common_backbtn" />
-
+            android:layout_alignParentTop="true"
+            >
             <!--마이페이지-->
             <TextView
                 android:layout_width="match_parent"
@@ -36,13 +30,14 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
-
         </RelativeLayout>
+
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rel_header">
+            android:layout_below="@id/rel_header"
+            >
 
             <!-- 중앙 콘텐트 -->
             <LinearLayout
@@ -56,14 +51,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4">
-
+                    android:layout_weight="4"
+                    >
                     <ImageView
                         android:id="@+id/iv_poster"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/movie_minari" />
+                        android:src="@drawable/movie_minari"
+                        />
                 </LinearLayout>
 
                 <!--제목/별점/간단정보/버튼-->
@@ -88,7 +84,8 @@
                         android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        >
                         <!--별-->
                         <ImageView
                             android:layout_width="wrap_content"
@@ -99,7 +96,7 @@
                             android:src="@drawable/star" />
                         <!--별점의 숫자-->
                         <TextView
-                            android:id="@+id/tv_rating"
+                            android:id="@+id/tv_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -112,7 +109,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="5dp"
+                        >
                         <!--개봉일/상영시간/장르-->
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -197,6 +195,7 @@
                     </RelativeLayout>
                     <!--버튼-->
                     <ImageButton
+                        android:id="@+id/ib_gotomyreview"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_gravity="center"
