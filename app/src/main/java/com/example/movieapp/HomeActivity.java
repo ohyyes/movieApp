@@ -65,26 +65,30 @@ public class HomeActivity extends AppCompatActivity {
         // index = 0 : fragmentMovieDetail 로 이동 (영화 상세 페이지)
         // index = 1 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
         // index = 2 : fragmentReview 로 이동 (감상평 목록 페이지)
-        // index = 3 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
 
+        //인덱스 0, 1 인 영화 상세 페이지, 감상평 상세 페이지는 뒤로가기 버튼 때문에 replace 대신 add 를 사용해야했음
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         //index
         if(index == 0) {
-            bottomNavigationView.setSelectedItemId(R.id.menu_search); //네비바 아이콘 활성화
-            transaction.replace(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
+            //bottomNavigationView 값이 설정되어있으면 영화상세페이지의 [<] 버튼 눌렀을 때, 해당 페이지로 자꾸 이동해서 삭제헀더니 문제 해결됨
+            //이미 이 프래그먼트가 BackStack 에 추가 되어있다면 삭제 후 다시 추가
+            if(fragmentMovieDetail.isAdded()){
+                transaction.remove(fragmentMovieDetail);
+            }
+            transaction.add(R.id.menu_frame_layout, fragmentMovieDetail).commitAllowingStateLoss();
         }
         else if(index == 1) {
-            bottomNavigationView.setSelectedItemId(R.id.menu_review);
-            transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
+            //bottomNavigationView 값이 설정되어있으면 리뷰상세페이지의 [<] 버튼 눌렀을 때, 해당 페이지로 자꾸 이동해서 삭제헀더니 문제 해결됨
+            //이미 이 프래그먼트가 BackStack 에 추가 되어있다면 삭제 후 다시 추가
+            if(fragmentReviewDetail.isAdded()){
+                transaction.remove(fragmentReviewDetail);
+            }
+            transaction.add(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
         }
         else if(index == 2) {
             bottomNavigationView.setSelectedItemId(R.id.menu_review);
             transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
-        }
-        else if(index == 3) {
-            bottomNavigationView.setSelectedItemId(R.id.menu_review);
-            transaction.replace(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();
         }
     }
 }
