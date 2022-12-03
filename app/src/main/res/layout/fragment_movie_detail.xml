@@ -39,7 +39,7 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/rel_header">
@@ -234,7 +234,7 @@
                         android:gravity="center"
                         android:text="감독 : 조 펄맨, 에란 크리비, 케이시 패터슨.."
                         android:textColor="@color/white"
-                        android:textSize="13sp" />
+                        android:textSize="16sp" />
                     <!--출연배우-->
                     <TextView
                         android:id="@+id/tv_actor"
@@ -245,7 +245,7 @@
                         android:gravity="center"
                         android:text="배우 : 다니엘 래드클리프, 루퍼트 크린트, 엠마 왓슨..."
                         android:textColor="@color/white"
-                        android:textSize="13sp" />
+                        android:textSize="16sp" />
 
 
                 </LinearLayout>
@@ -253,7 +253,7 @@
             </LinearLayout>
 
 
-        </LinearLayout>
+        </ScrollView>
 
     </RelativeLayout>
 </FrameLayout>
