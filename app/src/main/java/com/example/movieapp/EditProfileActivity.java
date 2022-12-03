@@ -90,6 +90,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        //뒤로가기버튼 클릭시
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
