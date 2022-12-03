@@ -132,21 +132,21 @@ public class SearchFragment extends Fragment {
 
 
         // 테스트용 임시 original_list
-        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.movie_avatar, "Avatar", "9.27", "SF", "2009", "162분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.testdata_spiderman, "Spiderman", "9.27", "슈퍼히어로", "2002", "121분"); //아이템 추가하는 코드
         original_list.add(mainData1);
-        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.movie_minari, "Minari", "8.32", "드라마", "2021", "115분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.testdata_spiderman2, "Spiderman2", "8.32", "슈퍼히어로", "2004", "115분"); //아이템 추가하는 코드
         original_list.add(mainData2);
-        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.movie_black, "Black Panther", "7.08", "액션", "2022", "161분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.testdata_spiderman3, "Spiderman3", "7.08", "슈퍼히어로", "2007", "139분"); //아이템 추가하는 코드
         original_list.add(mainData3);
-        SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.mipmap.ic_launcher, "1234", "40", "400", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman, "The amazing Spiderman", "8.02", "슈퍼히어로", "2012", "139분"); //아이템 추가하는 코드
         original_list.add(mainData4);
-        SearchFragmentMainData mainData5 = new SearchFragmentMainData(R.mipmap.ic_launcher, "12345", "50", "500", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData5 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman2, "The amazing Spiderman2", "7.71", "슈퍼히어로", "2014", "109분"); //아이템 추가하는 코드
         original_list.add(mainData5);
-        SearchFragmentMainData mainData6 = new SearchFragmentMainData(R.mipmap.ic_launcher, "123456", "60", "600", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData6 = new SearchFragmentMainData(R.drawable.testdata_spiderman_homecomming, "Spiderman : Homecomming", "8.94", "슈퍼히어로", "2017", "110분"); //아이템 추가하는 코드
         original_list.add(mainData6);
-        SearchFragmentMainData mainData7 = new SearchFragmentMainData(R.mipmap.ic_launcher, "1234567", "70", "700", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData7 = new SearchFragmentMainData(R.drawable.testdata_spiderman_farfromhome, "Spiderman : Far from home", "8.36", "슈퍼히어로", "2019", "119분"); //아이템 추가하는 코드
         original_list.add(mainData7);
-        SearchFragmentMainData mainData8 = new SearchFragmentMainData(R.mipmap.ic_launcher, "12345678", "80", "700", "2019", "139분"); //아이템 추가하는 코드
+        SearchFragmentMainData mainData8 = new SearchFragmentMainData(R.drawable.testdata_spiderman_nowayhome, "Spiderman : No way home", "9.54", "슈퍼히어로", "2022", "148분"); //아이템 추가하는 코드
         original_list.add(mainData8);
 
 
@@ -159,11 +159,13 @@ public class SearchFragment extends Fragment {
                 search_list.clear(); //search_list 초기화 (기존에 검색된 값이 있을 수 있으므로)
 
 
-                //original_list에 있는 모든 아이템을 for 문으로 돌면서 검색
-                for(int i=0; i<original_list.size(); i++){
-                    //키워드를 포함하면 search_list에 해당 아이템 (= SearchFragmentMainData 객체) 을 추가함
-                    if(original_list.get(i).getTv_name().contains(search_keyword)){
-                        search_list.add(original_list.get(i));
+                if(search_keyword.length() > 0){
+                    //original_list에 있는 모든 아이템을 for 문으로 돌면서 검색
+                    for(int i=0; i<original_list.size(); i++){
+                        //키워드를 포함하면 search_list에 해당 아이템 (= SearchFragmentMainData 객체) 을 추가함
+                        if(original_list.get(i).getTv_name().contains(search_keyword)){
+                            search_list.add(original_list.get(i));
+                        }
                     }
                 }
 
