@@ -30,34 +30,55 @@
     </RelativeLayout>
 
 
-        <!--정렬 기준 스피너-->
+
         <LinearLayout
             android:id="@+id/rev_middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@id/review_header">
-
+            <!--정렬 기준 스피너-->
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner"
                 android:layout_width="100dp"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:background="@drawable/spinner_custom"
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
-                android:spinnerMode="dropdown"
+                android:background="@drawable/spinner_custom"
+                android:gravity="center"
                 android:popupBackground="@color/BG"
-                />
+                android:spinnerMode="dropdown" />
 
             <Button
+                android:id="@+id/btn_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="편집"
-                android:paddingLeft="210dp"
+                android:layout_marginLeft="200dp"
                 android:background="@android:color/transparent"
                 android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="취소"
+                android:layout_marginLeft="170dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="삭제"
+                android:textColor="@color/white"
+                android:visibility="gone"/>
+
+
         </LinearLayout>
 
 
