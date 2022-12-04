@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,24 @@ import java.util.Comparator;
  */
 public class ReviewFragment extends Fragment {
 
+    //홈 엑티비티 선언 (화면 전환시 필요)
+    HomeActivity homeActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //홈 엑티비티 생성
+        homeActivity = (HomeActivity)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        //홈 엑티비티 제거
+        homeActivity = null;
+    }
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -129,7 +148,7 @@ public class ReviewFragment extends Fragment {
         ReviewFragmentMainData mainData6 = new ReviewFragmentMainData(R.drawable.movie3, "ㄴ", 2, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData6);
 
-        adapter = new ReviewFragmentAdapter(all_review);
+        adapter = new ReviewFragmentAdapter(all_review, homeActivity);
         //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
         review_list.setAdapter(adapter);
 

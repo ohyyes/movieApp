@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,17 @@ import java.util.ArrayList;
 
 public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAdapter.CustomViewHolder> {
 
+
+    HomeActivity homeActivity;
     //리스트뷰의 아이템들을 담을 리스트
     private ArrayList<ReviewFragmentMainData> arrayList;
 
     //생성자
-    public ReviewFragmentAdapter(ArrayList<ReviewFragmentMainData> arrayList) {
+    public ReviewFragmentAdapter(ArrayList<ReviewFragmentMainData> arrayList, Context mContext) {
         this.arrayList = arrayList;
+
+        // 어댑터에서는 다른 엑티비티를 가져올 때 Context 로 가져옴 !
+        this.homeActivity = ((HomeActivity) mContext);
     }
 
 
@@ -57,17 +63,16 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         }
 
 
-        //리스트뷰가 클릭되었을 때,
+        //감상평 아이템 클릭시
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ck == 0) { //일반모드일 때
                     String curName = holder.tv_name.getText().toString();
-                    //curName이 토스트 메뉴로 클릭되게
-                    Toast.makeText(view.getContext(), curName, Toast.LENGTH_SHORT).show();
+                    //영화 이름을 인자로 이동할 프래그먼트에 데이터 전달
+                    homeActivity.onFragmentChange(1);
                 } else { //편집모드일 땐 이동 X
-
                 }
             }
         });
