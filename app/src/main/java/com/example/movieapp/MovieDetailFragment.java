@@ -121,16 +121,11 @@ public class MovieDetailFragment extends Fragment {
         tv_director = (TextView) rootView.findViewById(R.id.tv_director);
         tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
 
+
         //데이터 값 설정하기
-        iv_poster.setImageResource(R.drawable.testdata_minari);
-        tv_name.setText("미나리");
-        tv_rate.setText("8.04");
-        tv_date.setText("2022");
-        tv_time.setText("103분");
-        tv_gerne.setText("드라마");
-        tv_summary.setText("\"미나리는 어디서든 잘 자라\" 낯선 미국, 아칸소로 떠나온 한국 가족. 가족들에게 뭔가 해내는 걸 보여주고 싶은 아빠 '제이콥'(스티븐 연)은 자신만의 농장을 가꾸기 시작하고 엄마 '모니카'(한예리)도 다시 일자리를 찾는다. 아직 어린 아이들을 위해 ‘모니카’의 엄마 ‘순자’(윤여정)가 함께 살기로 하고 가방 가득 고춧가루, 멸치, 한약 그리고 미나리씨를 담은 할머니가 도착한다. 의젓한 큰딸 '앤'(노엘 케이트 조)과 장난꾸러기 막내아들 '데이빗'(앨런 김)은 여느 그랜마같지 않은 할머니가 영- 못마땅한데… 함께 있다면, 새로 시작할 수 있다는 희망으로 하루하루 뿌리 내리며 살아가는 어느 가족의 아주 특별한 여정이 시작된다!");
-        tv_director.setText("정이삭");
-        tv_actor.setText("스티븐 연, 한예리, 윤여정, 앨런 김, 노엘 조, 윌 패튼");
+        MovieDetailFragmentMainData mainData1 = new MovieDetailFragmentMainData(R.drawable.testdata_minari, "미나리", "8.04", "2022", "103분", "드라마", "\"미나리는 어디서든 잘 자라\" 낯선 미국, 아칸소로 떠나온 한국 가족. 가족들에게 뭔가 해내는 걸 보여주고 싶은 아빠 '제이콥'(스티븐 연)은 자신만의 농장을 가꾸기 시작하고 엄마 '모니카'(한예리)도 다시 일자리를 찾는다. 아직 어린 아이들을 위해 ‘모니카’의 엄마 ‘순자’(윤여정)가 함께 살기로 하고 가방 가득 고춧가루, 멸치, 한약 그리고 미나리씨를 담은 할머니가 도착한다. 의젓한 큰딸 '앤'(노엘 케이트 조)과 장난꾸러기 막내아들 '데이빗'(앨런 김)은 여느 그랜마같지 않은 할머니가 영- 못마땅한데… 함께 있다면, 새로 시작할 수 있다는 희망으로 하루하루 뿌리 내리며 살아가는 어느 가족의 아주 특별한 여정이 시작된다!", "정이삭", "스티븐 연, 한예리, 윤여정, 앨런 김, 노엘 조, 윌 패튼");
+
+
 
         //임시 변수 (원래는 여기에 데이터를 담아 확인해야함)
         boolean has_review = true;
