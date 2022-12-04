@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.examaple.movieapp.R;
+
 public class EditProfileActivity extends AppCompatActivity {
 
     // 입력창 : 이메일, 비번, 비번 확인, 닉네임

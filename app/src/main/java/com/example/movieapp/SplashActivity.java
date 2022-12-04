@@ -1,3 +1,5 @@
+
+
 package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.examaple.movieapp.R;
 
 public class SplashActivity extends AppCompatActivity {
 
