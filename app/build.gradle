@@ -26,10 +26,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    // progressBar 를 위한 뷰바인딩 허용
-    viewBinding {
-        enabled = true
-    }
 }
 
 dependencies {
