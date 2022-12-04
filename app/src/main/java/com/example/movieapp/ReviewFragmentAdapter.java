@@ -69,9 +69,9 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
             @Override
             public void onClick(View view) {
                 if (ck == 0) { //일반모드일 때
-                    String curName = holder.tv_name.getText().toString();
+                    String movie_title = holder.tv_name.getText().toString();
                     //영화 이름을 인자로 이동할 프래그먼트에 데이터 전달
-                    homeActivity.onFragmentChange(1);
+                    homeActivity.onFragmentChange(1, movie_title);
                 } else { //편집모드일 땐 이동 X
                 }
             }
