@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,6 +21,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
+import com.example.movieapp.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +38,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 /**
@@ -114,15 +120,15 @@ public class SearchFragment extends Fragment {
     private final String API_ID = "BEOHWoFfrwf9hxeYp1_1";
     private final String API_SECRET = "1SQEUT5QF6";
 
-    // 로딩중 표시
-    private Process progressDialog;
-
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView rec_search_list;    // 리사이클러 뷰
     private LinearLayout lin_no_result;     // 검색결과 없음 레이아웃
     private EditText et_search;         // 검색창 입력값
     private ArrayList<SearchFragmentMainData> resultMovieList;    // 검색 결과 리스트
     private SearchFragmentAdapter adapter;
+
+    // 로딩중 표시를 위한 다이얼로그
+    private ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -150,6 +156,11 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
                 Log.v("검색버튼", "클릭!");
 
+                // 로딩중 표시
+                progressDialog = new ProgressDialog(homeActivity);
+                progressDialog.setMessage("Please wait...");
+                progressDialog.show();      // 시작
+
                 // 검색 결과 리스트 초기화
                 resultMovieList.clear();
                 // 검색
@@ -168,6 +179,9 @@ public class SearchFragment extends Fragment {
         public void handleMessage(Message msg) {
             // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현 되어있음)
             adapter.setItems(resultMovieList);
+
+            // 로딩중 표시 종료
+            progressDialog.dismiss();
 
             // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
             if (resultMovieList.isEmpty()) {

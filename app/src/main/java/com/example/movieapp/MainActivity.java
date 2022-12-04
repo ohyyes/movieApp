@@ -2,6 +2,7 @@ package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import android.content.Intent;
