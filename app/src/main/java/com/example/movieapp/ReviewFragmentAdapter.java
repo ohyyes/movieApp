@@ -1,5 +1,6 @@
 package com.example.movieapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,18 +62,23 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String curName = holder.tv_name.getText().toString();
-                //curName이 토스트 메뉴로 클릭되게
-                Toast.makeText(view.getContext(), curName, Toast.LENGTH_SHORT).show();
+                if (ck == 0) { //일반모드일 때
+                    String curName = holder.tv_name.getText().toString();
+                    //curName이 토스트 메뉴로 클릭되게
+                    Toast.makeText(view.getContext(), curName, Toast.LENGTH_SHORT).show();
+                } else { //편집모드일 땐 이동 X
+
+                }
             }
         });
 
         //편집 버튼 클릭 여부에 따라 체크박스 표시
-        if (ck == 1) { //수정모드이므로 체크박스 보이게
+        if (ck == 1) { //편집모드이므로 체크박스 보이게
             holder.checkbox.setVisibility(View.VISIBLE);
         } else {
             holder.checkbox.setVisibility(View.GONE);
-            holder.checkbox.setChecked(false);
+            //일반모드일 때 체크박스 초기화
+            arrayList.get(position).setSelected(false);
         }
 
         //체크 여부 설정
@@ -87,12 +93,10 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
                 ReviewFragmentMainData contact = (ReviewFragmentMainData) cb.getTag();
 
                 contact.setSelected(cb.isChecked());
+                //체크박스와 객체의 체크유무 변수 동기화
                 arrayList.get(pos).setSelected(cb.isChecked());
-
-                Toast.makeText(view.getContext(), contact.getTv_name() + "의 체크 상태:" + cb.isChecked(), Toast.LENGTH_LONG).show();
             }
         });
-
 
     }
 
