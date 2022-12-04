@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.movieapp'
+    namespace 'com.examaple.movieapp'
     compileSdk 32
 
     defaultConfig {

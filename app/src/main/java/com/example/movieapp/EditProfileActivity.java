@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class EditProfileActivity extends AppCompatActivity {
+
     // 입력창 : 이메일, 비번, 비번 확인, 닉네임
     private EditText et_name;
     // 버튼 : 등록 버튼 (완료!)

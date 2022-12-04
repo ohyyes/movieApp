@@ -214,7 +214,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "잠시 기다려 주세요.", Toast.LENGTH_SHORT).show();
                             Log.d("잠시 대기", pw1);
                             //여기에 대기창 같은거 띄울 수 있나? 창 띄운 다음 sleep 바로 뒤에 finish 넣어서 사라지도록 하고 싶음
-                            Thread.sleep(10000); //10초 대기
+                            Thread.sleep(5000); //10초 대기
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -255,7 +255,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            createUserRealtime(email, pw1, name, mbti);
+                            createUserRealtime(email, name, mbti);
                             Toast.makeText(RegisterActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(RegisterActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
@@ -264,11 +264,11 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private void createUserRealtime(String email, String pwd, String name, String mbti) {
+    //Realtime DB 입력
+    private void createUserRealtime(String email, String name, String mbti) {
         Log.d("createuser", pw1);
         userUid = firebaseAuth.getUid();
-        signCheck(userUid, mbti);
-        UserAccount user = new UserAccount(email, pwd, name, mbti);
+        UserAccount user = new UserAccount(email, name, mbti);
         userReference.child("user").child(userUid).setValue(user);
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -283,21 +283,6 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.d("realtime DB거절", str);
             }
         });
-    }
-
-    //파일 생성, 정보 저장
-    private void  signCheck(String userUid, String mbti){
-        String memberInfo = userUid + "\n" + mbti;
-        try{
-            FileOutputStream fs = openFileOutput(userUid, Context.MODE_PRIVATE);
-            PrintWriter writer = new PrintWriter(fs);
-            writer.print(memberInfo);
-            writer.close();
-            Log.d("file에 mbti 저장", mbti);
-        } catch(FileNotFoundException e){
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
-        }
     }
 
 }

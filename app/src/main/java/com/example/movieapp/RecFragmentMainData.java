@@ -1,21 +1,21 @@
 package com.example.movieapp;
 
 public class RecFragmentMainData {
-    private int img;
+    private String img;
     private String name;
 
-    public RecFragmentMainData(int mImg, String mName) {
+    public RecFragmentMainData(String mImg, String mName) {
         this.img = mImg;
         this.name = mName;
     }
 
     //Getter
-    public int getImg() { return img;}
+    public String getImg() { return img;}
 
     public String getName() { return name; }
 
     //Setter
-    public void setImg(int mImg) { this.img = mImg; }
+    public void setImg(String mImg) { this.img = mImg; }
 
     public void setName(String mName) { this.name = mName; }
 }

@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,8 @@ public class RecFragment extends Fragment {
     public ArrayList<String> resultList; // 추천 알고리즘 결과값
     public static ArrayList<String> MBTIList; // 사용자 엠비티아이 리스트
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference userReference = database.getReference();
     private View view;
 
     @NonNull
@@ -78,18 +84,20 @@ public class RecFragment extends Fragment {
 
     private void getFirebase(String name){
         String movieName = name;
-        userReference.child("user").child(movieName).addValueEventListener(new ValueEventListener() {
+        userReference.child("movie").child("Title").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserAccount user = snapshot.getValue(UserAccount.class);
-                String imgUrl = user.getImgUrl(); // 이미지 링크 따오는 함수 !!
+                Movie movie = snapshot.getValue(Movie.class);
+                String imgUrl = movie.getImg(); // 이미지 링크 따오는 함수 !!
 
                 movieList.add(new RecFragmentMainData(imgUrl, movieName));
             }
-            recoAdapter.notifyDataSetChanged();
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) { }
+
+            //            RecFragmentAdapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 }
 

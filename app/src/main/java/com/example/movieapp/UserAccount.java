@@ -10,7 +10,6 @@ public class UserAccount {
     //    private String profile; //프로필 이미지
     private String name;     // 닉네임
     private String email;     // 이메일 아이디
-    private String pwd;
     private String mbti;    //mbti
     private String idToken; //Firebase Uid (고유 토큰정보)
     private ArrayList<String> resultList;
@@ -24,9 +23,8 @@ public class UserAccount {
 
     }
     //값을 추가할 때 씀
-    public UserAccount(String email, String pwd, String name, String mbti){
+    public UserAccount(String email,  String name, String mbti){
         this.email = email;
-        this.pwd = pwd;
         this.name = name;
         this.mbti = mbti;
 //        this.profile = profile;
@@ -38,14 +36,6 @@ public class UserAccount {
 
     public void setEmail(String email){
         this.email = email;
-    }
-
-    public String getPwd(){
-        return pwd;
-    }
-
-    public void setPwd(String pwd){
-        this.pwd = pwd;
     }
 
     public String getName(){
