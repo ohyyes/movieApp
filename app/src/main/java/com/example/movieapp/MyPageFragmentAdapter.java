@@ -53,7 +53,7 @@ public class MyPageFragmentAdapter extends RecyclerView.Adapter<MyPageFragmentAd
                 /* searchFragmentAdapter.java 참고해서 데이터 가져와서 전달하는 코드 작성 */
 
                 //homeActivity.java 에서 선언된 onFragmentChange 메소드에 접근해서 index=1 을 전달해 fragmentReview 로 이동 (감상평 상세 페이지)
-                homeActivity.onFragmentChange(1);
+                homeActivity.onFragmentChange(1, null);
             }
         });
 
