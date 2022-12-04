@@ -39,6 +39,8 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
     @Override
     //실제 추가될 때 생명주기
     public void onBindViewHolder(@NonNull ReviewFragmentAdapter.CustomViewHolder holder, int position) {
+
+        final int pos = position;
         //프로필 사진 가져오기
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
         holder.iv_profile.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
@@ -66,14 +68,30 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         });
 
         //편집 버튼 클릭 여부에 따라 체크박스 표시
-        if (ck == 1){ //수정모드이므로 체크박스 보이게
+        if (ck == 1) { //수정모드이므로 체크박스 보이게
             holder.checkbox.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             holder.checkbox.setVisibility(View.GONE);
             holder.checkbox.setChecked(false);
         }
 
+        //체크 여부 설정
+        holder.checkbox.setChecked(arrayList.get(position).isSelected());
+        holder.checkbox.setTag(arrayList.get(position));
+
+        //체크박스 클릭시
+        holder.checkbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CheckBox cb = (CheckBox) view;
+                ReviewFragmentMainData contact = (ReviewFragmentMainData) cb.getTag();
+
+                contact.setSelected(cb.isChecked());
+                arrayList.get(pos).setSelected(cb.isChecked());
+
+                Toast.makeText(view.getContext(), contact.getTv_name() + "의 체크 상태:" + cb.isChecked(), Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }
@@ -86,6 +104,20 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         } else return 0;
     }
 
+    public int getSelectedItemCount() {
+        if (arrayList != null) {
+            int count = 0;
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (arrayList.get(i).isSelected() == true) count++;
+            }
+            return count;
+        } else return 0;
+    }
+
+    public ArrayList<ReviewFragmentMainData> getArrayList() {
+        return arrayList;
+    }
+
     // SearchFragment.java 에서 검색 for문 후 만들어진 search_list 를 어댑터의 data 로 바꿀 때 쓰임.
     // 어댑터의 data 를 newList 로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
     public void setItems(ArrayList<ReviewFragmentMainData> newList) {
@@ -95,9 +127,10 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
     int ck = 0;
 
-    public void updateCheckbox(int n){
+    public void updateCheckbox(int n) {
         ck = n;
-        notifyDataSetChanged();}
+        notifyDataSetChanged();
+    }
 
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {

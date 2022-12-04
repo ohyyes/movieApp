@@ -1,6 +1,7 @@
 package com.example.movieapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -208,7 +210,7 @@ public class ReviewFragment extends Fragment {
         });
 
 
-        //편집 버튼 눌렀을 때
+        //편집 버튼 눌렀을 때-> 수정모드로 바꿈
         btn_edit.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -217,10 +219,29 @@ public class ReviewFragment extends Fragment {
             }
         });
 
+        //취소 버튼 눌렀을 때 -> 기본모드로 바꿈
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeMode(0);
+            }
+        });
+
+        //삭제 버튼 눌렀을 때 -> 알림창 띄우고 삭제
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String data = "";
+                ArrayList<ReviewFragmentMainData> RevList = ((ReviewFragmentAdapter) adapter).getArrayList();
+                int count = adapter.getSelectedItemCount();
+                for(int i = 0;i<RevList.size();i++){
+                    if(RevList.get(i).isSelected() == true) {
+                        all_review.remove(i);
+                        i--; //삭제된 인덱스가 없어지기 때문에 i--처리를 해주지 않으면 바로 다음 아이템 건너뛰게 됨
+                    }
+                }
+                adapter.notifyDataSetChanged(); //리스트 갱신
+                Toast.makeText(getActivity(), count+"개 삭제됨", Toast.LENGTH_SHORT).show();
             }
         });
 

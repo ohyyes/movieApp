@@ -5,13 +5,22 @@ import java.util.Comparator;
 public class ReviewFragmentMainData implements Comparator<ReviewFragmentMainData> {
     private int iv_profile, tv_my_rate;  //이미지뷰는 int 값임.
     private String tv_name, tv_review_date, tv_review;
-
+    private boolean isSelected = false;
     public ReviewFragmentMainData(int iv_profile, String tv_name,int tv_my_rate,  String tv_review_date, String tv_review) {
         this.iv_profile = iv_profile;
         this.tv_my_rate = tv_my_rate;
         this.tv_name = tv_name;
         this.tv_review_date = tv_review_date;
         this.tv_review = tv_review;
+    }
+
+    public ReviewFragmentMainData(int iv_profile, String tv_name,int tv_my_rate,  String tv_review_date, String tv_review, boolean isSelected) {
+        this.iv_profile = iv_profile;
+        this.tv_my_rate = tv_my_rate;
+        this.tv_name = tv_name;
+        this.tv_review_date = tv_review_date;
+        this.tv_review = tv_review;
+        this.isSelected = isSelected;
     }
 
     public int getIv_profile() {
@@ -52,6 +61,14 @@ public class ReviewFragmentMainData implements Comparator<ReviewFragmentMainData
 
     public void setTv_review(String tv_review) {
         this.tv_review = tv_review;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     //비교 함수 사용을 위해 함수 오버라이딩
