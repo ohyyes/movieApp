@@ -3,19 +3,19 @@ package com.example.movieapp;
 import java.util.Comparator;
 
 public class ReviewFragmentMainData implements Comparator<ReviewFragmentMainData> {
-    private int iv_profile, tv_my_rate;  //이미지뷰는 int 값임.
+    private int iv_poster, tv_my_rate;  //이미지뷰는 int 값임.
     private String tv_name, tv_review_date, tv_review;
     private boolean isSelected = false;
-    public ReviewFragmentMainData(int iv_profile, String tv_name,int tv_my_rate,  String tv_review_date, String tv_review) {
-        this.iv_profile = iv_profile;
+    public ReviewFragmentMainData(int iv_poster, String tv_name,int tv_my_rate,  String tv_review_date, String tv_review) {
+        this.iv_poster = iv_poster;
         this.tv_my_rate = tv_my_rate;
         this.tv_name = tv_name;
         this.tv_review_date = tv_review_date;
         this.tv_review = tv_review;
     }
 
-    public ReviewFragmentMainData(int iv_profile, String tv_name,int tv_my_rate,  String tv_review_date, String tv_review, boolean isSelected) {
-        this.iv_profile = iv_profile;
+    public ReviewFragmentMainData(int iv_poster, String tv_name,int tv_my_rate,  String tv_review_date, String tv_review, boolean isSelected) {
+        this.iv_poster = iv_poster;
         this.tv_my_rate = tv_my_rate;
         this.tv_name = tv_name;
         this.tv_review_date = tv_review_date;
@@ -23,12 +23,12 @@ public class ReviewFragmentMainData implements Comparator<ReviewFragmentMainData
         this.isSelected = isSelected;
     }
 
-    public int getIv_profile() {
-        return iv_profile;
+    public int getIv_poster() {
+        return iv_poster;
     }
 
-    public void setIv_profile(int iv_profile) {
-        this.iv_profile = iv_profile;
+    public void setIv_poster(int iv_poster) {
+        this.iv_poster = iv_poster;
     }
 
     public int getTv_my_rate() {

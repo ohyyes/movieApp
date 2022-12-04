@@ -49,8 +49,8 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
         final int pos = position;
         //프로필 사진 가져오기
-        holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
-        holder.iv_profile.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+        holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
+        holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         holder.tv_name.setText(arrayList.get(position).getTv_name());
         holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
         holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
@@ -144,13 +144,13 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView iv_profile;
+        protected ImageView iv_poster;
         protected TextView tv_name, tv_my_rate, tv_review_date, tv_review;
         protected CheckBox checkbox;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
+            this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             this.tv_my_rate = (TextView) itemView.findViewById(R.id.tv_my_rate);
             this.tv_review_date = (TextView) itemView.findViewById(R.id.tv_review_date);

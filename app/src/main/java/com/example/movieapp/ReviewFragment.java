@@ -124,7 +124,7 @@ public class ReviewFragment extends Fragment {
 
 
         RecyclerView review_list = (RecyclerView) rootView.findViewById(R.id.review_list);
-        LinearLayout lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
+        LinearLayout lin_no_review = (LinearLayout) rootView.findViewById(R.id.lin_no_review);
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); //???
@@ -155,12 +155,12 @@ public class ReviewFragment extends Fragment {
         //데이터 유무에 따라 보이는 리사이클러뷰 다름
         if (all_review.isEmpty()) {
             review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
-            lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+            lin_no_review.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
         }
         // 있을 땐, 리사이클러뷰가 보이게 !
         else {
             review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
-            lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+            lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
         }
 
 
@@ -229,7 +229,7 @@ public class ReviewFragment extends Fragment {
         });
 
 
-        //편집 버튼 눌렀을 때-> 수정모드로 바꿈
+        //편집 버튼 눌렀을 때-> 편집모드로 바꿈
         btn_edit.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -260,6 +260,11 @@ public class ReviewFragment extends Fragment {
                     }
                 }
                 adapter.notifyDataSetChanged(); //리스트 갱신
+                //데이터 유무에 따라 보이는 리사이클러뷰 다름
+                if (RevList.isEmpty()) {
+                    review_list.setVisibility(View.INVISIBLE);    // 리사이클러뷰 보이게
+                    lin_no_review.setVisibility(View.VISIBLE);    // lin_no_result 레이아웃 안 보이게
+                }
                 Toast.makeText(getActivity(), count+"개 삭제됨", Toast.LENGTH_SHORT).show();
             }
         });
@@ -267,6 +272,7 @@ public class ReviewFragment extends Fragment {
         return rootView;
     }
 
+    //일반모드or편집모드 변경
     private void changeMode(int n) {
         adapter.updateCheckbox(n);
 
@@ -281,6 +287,9 @@ public class ReviewFragment extends Fragment {
             btn_back.setVisibility(View.GONE);
         }
 
+    }
+
+    private void checkEmpty() {
     }
 }
 
