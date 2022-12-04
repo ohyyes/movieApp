@@ -1,12 +1,12 @@
 package com.example.movieapp;
 
 public class SearchFragmentMainData {
-    private int iv_profile;  //이미지뷰는 int 값임.
+    private int iv_poster;  //이미지뷰는 int 값임.
     private String tv_name, tv_rate, tv_gerne, tv_date, tv_running_time;
 
     //생성자
-    public SearchFragmentMainData(int iv_profile, String tv_name, String tv_rate, String tv_gerne, String tv_date, String tv_running_time) {
-        this.iv_profile = iv_profile;
+    public SearchFragmentMainData(int iv_poster, String tv_name, String tv_rate, String tv_gerne, String tv_date, String tv_running_time) {
+        this.iv_poster = iv_poster;
         this.tv_name = tv_name;
         this.tv_rate = tv_rate;
         this.tv_gerne = tv_gerne;
@@ -15,12 +15,12 @@ public class SearchFragmentMainData {
 
     }
 
-    public int getIv_profile() {
-        return iv_profile;
+    public int getIv_poster() {
+        return iv_poster;
     }
 
-    public void setIv_profile(int iv_profile) {
-        this.iv_profile = iv_profile;
+    public void setIv_poster(int iv_poster) {
+        this.iv_poster = iv_poster;
     }
 
     public String getTv_name() {

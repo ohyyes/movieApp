@@ -43,9 +43,10 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     @Override
     //실제 추가될 때 생명주기
     public void onBindViewHolder(@NonNull SearchFragmentAdapter.CustomViewHolder holder, int position) {
-        //프로필 사진 가져오기
-        holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
-        holder.iv_profile.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+
+        //arrayList 의 각 MainData 객체의 정보를 holder에 전달해서 해당 정보들이 화면에 보이도록 함
+        holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
+        holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         holder.tv_name.setText(arrayList.get(position).getTv_name());
         holder.tv_rate.setText(arrayList.get(position).getTv_rate());
         holder.tv_gerne.setText(arrayList.get(position).getTv_gerne());
@@ -87,12 +88,12 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView iv_profile;
+        protected ImageView iv_poster;
         protected TextView tv_name, tv_rate, tv_gerne, tv_date, tv_running_time;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
+            this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             this.tv_rate = (TextView) itemView.findViewById(R.id.tv_rate);
             this.tv_gerne = (TextView) itemView.findViewById(R.id.tv_gerne);
