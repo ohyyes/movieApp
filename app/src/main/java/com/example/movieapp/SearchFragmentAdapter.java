@@ -60,10 +60,10 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
             @Override
             public void onClick(View view) {
                 //현재 클릭된 아이템의 제목 가져오기
-                String curName = holder.tv_name.getText().toString();
+                String movie_title = holder.tv_name.getText().toString();
 
                 //homeActivity.java 에서 선언된 onFragmentChange 메소드에 접근해서 index=0 을 전달해 fragmentReview 로 이동 (영화 상세 페이지)
-                homeActivity.onFragmentChange(0);
+                homeActivity.onFragmentChange(0, movie_title);
             }
         });
 
