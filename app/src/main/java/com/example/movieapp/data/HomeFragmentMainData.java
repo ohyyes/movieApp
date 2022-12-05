@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.data;
 
 public class HomeFragmentMainData {
     private int mPoster;

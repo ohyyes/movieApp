@@ -1,35 +1,33 @@
-package com.example.movieapp;
+package com.example.movieapp.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieapp.R;
+import com.example.movieapp.adapter.HomeFragmentAdapter;
+import com.example.movieapp.data.HomeFragmentMainData;
+
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link RecFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecyclerViewClickListener{
+public class RecFragment extends Fragment {
 
     ViewGroup rootView;
-    ArrayList<HomeFragmentMainData> dataList;
+    ArrayList<HomeFragmentMainData> dataList = new ArrayList<>();
     int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
-    private HomeFragmentAdapter adapter;
+    final HomeFragmentAdapter adapter = new HomeFragmentAdapter(dataList);
     static int i=0;
-
-    //private FragmentManager fragmentManager = getChildFragmentManager();
-    //private RecFragment fragmentRec = new RecFragment();
-
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +38,7 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
     private String mParam1;
     private String mParam2;
 
-    public HomeFragment() {
+    public RecFragment() {
         // Required empty public constructor
     }
 
@@ -50,11 +48,11 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment RecFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static RecFragment newInstance(String param1, String param2) {
+        RecFragment fragment = new RecFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,7 +61,6 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
     }
 
     @Override
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -76,49 +73,17 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //FragmentTransaction transaction = fragmentManager.beginTransaction();
-        //transaction.replace(R.id.rec_frame_layout, fragmentRec).commitAllowingStateLoss();
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_rec, container, false);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        dataList = new ArrayList<>();
-        adapter = new HomeFragmentAdapter(dataList);
         for (int i=0; i<5; i++) {
             dataList.add(new HomeFragmentMainData(cat[i], "movie "+(i+1)));
         }
-
-
         recyclerView.setAdapter(adapter);
         return rootView;
     }
-    @Override
-    public void onItemClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Item : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onTitleClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Title : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onContentClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Content : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onImageViewClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Image : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onItemLongClicked(int position) {
-        adapter.remove(position);
-        Toast.makeText(getActivity().getApplicationContext(),
-                dataList.get(position).getmName()+" is removed",Toast.LENGTH_SHORT).show();
-    }
-
-
-
 }

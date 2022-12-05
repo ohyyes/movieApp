@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,6 +9,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movieapp.R;
+import com.example.movieapp.data.ReviewMainData;
+import com.example.movieapp.activity.HomeActivity;
 
 import java.util.ArrayList;
 

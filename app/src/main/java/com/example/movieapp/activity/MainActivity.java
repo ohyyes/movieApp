@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.movieapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

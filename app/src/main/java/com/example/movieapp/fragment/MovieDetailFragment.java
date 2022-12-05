@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,6 +17,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.example.movieapp.data.MovieMainData;
+import com.example.movieapp.R;
+import com.example.movieapp.data.ReviewMainData;
+import com.example.movieapp.activity.HomeActivity;
 
 import java.util.ArrayList;
 

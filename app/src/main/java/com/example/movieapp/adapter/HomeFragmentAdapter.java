@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieapp.data.HomeFragmentMainData;
+import com.example.movieapp.R;
+
 import java.util.ArrayList;
 
-class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder> {
+public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder> {
 
     private ArrayList<HomeFragmentMainData> homeFragmentMainData;
     public HomeFragmentAdapter(ArrayList<HomeFragmentMainData> homeFragmentMainData) {

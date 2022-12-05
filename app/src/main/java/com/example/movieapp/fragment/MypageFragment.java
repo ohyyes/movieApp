@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,12 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movieapp.R;
+import com.example.movieapp.data.ReviewMainData;
+import com.example.movieapp.activity.EditProfileActivity;
+import com.example.movieapp.activity.HomeActivity;
+import com.example.movieapp.adapter.MyPageFragmentAdapter;
 
 import java.util.ArrayList;
 

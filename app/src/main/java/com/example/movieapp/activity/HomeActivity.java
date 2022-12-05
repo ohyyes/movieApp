@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.activity;
 
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -9,10 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.movieapp.fragment.HomeFragment;
+import com.example.movieapp.fragment.MovieDetailFragment;
+import com.example.movieapp.fragment.MypageFragment;
+import com.example.movieapp.R;
+import com.example.movieapp.fragment.ReviewDetailFragment;
+import com.example.movieapp.fragment.ReviewFragment;
+import com.example.movieapp.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.io.Serializable;
 
 public class HomeActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
