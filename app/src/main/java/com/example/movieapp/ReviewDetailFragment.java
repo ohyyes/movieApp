@@ -6,12 +6,15 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +32,7 @@ public class ReviewDetailFragment extends Fragment {
         super.onAttach(context);
 
         //홈 엑티비티 생성
-        homeActivity = (HomeActivity)getActivity();
+        homeActivity = (HomeActivity) getActivity();
     }
 
     @Override
@@ -84,6 +87,9 @@ public class ReviewDetailFragment extends Fragment {
     private ImageView iv_poster;
     private TextView tv_name, tv_review;
 
+    //버튼 선언
+    private Button btn_amend, btn_write;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,6 +101,37 @@ public class ReviewDetailFragment extends Fragment {
         tv_name = rootView.findViewById(R.id.tv_name);
         tv_review = rootView.findViewById(R.id.tv_review);
         tv_review.setMovementMethod(new ScrollingMovementMethod());
+
+        //버튼 연결
+        btn_amend = rootView.findViewById(R.id.btn_amend);
+        btn_write = rootView.findViewById(R.id.btn_write);
+
+        //레이아웃 연결
+        LinearLayout lin_review = (LinearLayout) rootView.findViewById(R.id.lin_review);
+        LinearLayout lin_no_review = (LinearLayout) rootView.findViewById(R.id.lin_no_review);
+
+        //수정 버튼 클릭시
+        btn_amend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    btn_amend.setVisibility(View.INVISIBLE);
+                    btn_write.setVisibility(View.VISIBLE);
+                    lin_review.setVisibility(View.GONE);
+                    lin_no_review.setVisibility(View.VISIBLE);
+            }
+        });
+
+        //등록버튼 클릭시
+        btn_write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btn_amend.setVisibility(View.VISIBLE);
+                btn_write.setVisibility(View.INVISIBLE);
+                lin_review.setVisibility(View.VISIBLE);
+                lin_no_review.setVisibility(View.INVISIBLE);
+            }
+        });
+
 
         //이전 프래그먼트에서 전달된 메세지 변수에 담기
         String movie_title = this.getArguments().getString("영화 제목");
@@ -113,8 +150,6 @@ public class ReviewDetailFragment extends Fragment {
         tv_review.setText(mainData1.getTv_review());
 
 
-
-
         //뒤로가기버튼 연결
         ib_back = (ImageButton) rootView.findViewById(R.id.ib_back);
 
@@ -123,7 +158,7 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //BackStack 에 저장된 이전 프래그먼트로 이동하기
-                FragmentManager homeActivityFM= homeActivity.getSupportFragmentManager(); //프래그먼트 매니저 생성
+                FragmentManager homeActivityFM = homeActivity.getSupportFragmentManager(); //프래그먼트 매니저 생성
                 homeActivityFM.beginTransaction().addToBackStack(null); // BackStack 에 현재 프래그먼트 저장
                 homeActivityFM.beginTransaction().remove(ReviewDetailFragment.this).commit(); //현재 프래그먼트 삭제
                 homeActivityFM.popBackStack(); //이전 프래그먼트 불러오기
