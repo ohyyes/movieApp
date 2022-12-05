@@ -69,8 +69,6 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     }
 
-
-
     @Override
     public int getItemCount() {
         if (arrayList!=null){
