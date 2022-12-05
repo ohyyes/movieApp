@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="32dp"
-    >
+    android:paddingLeft="20dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         <!--포스터-->
         <ImageView
             android:id="@+id/iv_poster"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@mipmap/ic_launcher"
@@ -27,32 +26,31 @@
             android:layout_width="295dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_weight="2" >
+
             <!-- 영화 제목 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="2"
-                >
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:layout_weight="2"
-                android:textSize="25sp"
-                />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:layout_weight="2"
+                    android:textSize="25sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
             </LinearLayout>
 
             <!-- 영화 평점 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                >
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -62,19 +60,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="10dp"
-                    />
-
+                    android:layout_marginStart="10dp" />
             </LinearLayout>
 
             <!-- 영화 장르 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                >
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -84,19 +77,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    />
-
+                    android:layout_marginStart="10dp" />
             </LinearLayout>
 
             <!-- 영화 개봉일 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                >
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -106,9 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginStart="10dp" />
 
             </LinearLayout>
 
@@ -116,10 +102,8 @@
             <!-- 영화 상영시간 -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                >
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -129,9 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/white"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginStart="10dp" />
             </LinearLayout>
         </LinearLayout>
 

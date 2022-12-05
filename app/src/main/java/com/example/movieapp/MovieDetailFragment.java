@@ -23,7 +23,7 @@ public class MovieDetailFragment extends Fragment {
     private SearchFragmentMainData movieData;
     // 화면에 띄울 뷰
     private ImageView iv_poster;
-    private TextView tv_name, tv_rating, tv_date, tv_running_time, tv_genre, tv_director, tv_actor;
+    private TextView tv_name, tv_rating, tv_date, tv_running_time, tv_genre, tv_director, tv_actor, tv_summary;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -86,6 +86,7 @@ public class MovieDetailFragment extends Fragment {
         tv_genre = (TextView) rootView.findViewById(R.id.tv_genre);
         tv_director = (TextView) rootView.findViewById(R.id.tv_director);
         tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
+        tv_summary = (TextView) rootView.findViewById(R.id.tv_summary);
 
         // 영화 데이터를 뷰에 설정
         iv_poster.setImageBitmap(movieData.getPoster());
@@ -95,8 +96,9 @@ public class MovieDetailFragment extends Fragment {
         tv_running_time.setText(movieData.getRunningTime());
         tv_genre.setText(movieData.getGenre());
         tv_name.setText(movieData.getTitle());
-        tv_director.setText(movieData.getDirectors());
+        tv_director.setText(movieData.getDirector());
         tv_actor.setText(movieData.getActors());
+        tv_summary.setText(movieData.getStory());
 
         return rootView;
     }

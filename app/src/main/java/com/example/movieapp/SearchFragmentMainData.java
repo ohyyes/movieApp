@@ -6,18 +6,7 @@ import java.io.Serializable;
 
 public class SearchFragmentMainData implements Serializable {
     private Bitmap poster;
-    private String title, userRating, genre, openYear, runningTime, directors, actors;
-
-    //생성자
-    public SearchFragmentMainData() {}
-    public SearchFragmentMainData(Bitmap poster, String title, String userRating, String genre, String openYear, String runningTime) {
-        this.poster = poster;
-        this.title = title;
-        this.userRating = userRating;
-        this.genre = genre;
-        this.openYear = openYear;
-        this.runningTime = runningTime;
-    }
+    private String title, userRating, genre, openYear, runningTime, director, actors, story;
 
     public Bitmap getPoster() {
         return poster;
@@ -67,13 +56,16 @@ public class SearchFragmentMainData implements Serializable {
         this.runningTime = runningTime;
     }
 
-    public String getDirectors() { return  directors; }
-    public void setDirectors(String directors) {
-        this.directors = directors;
+    public String getDirector() { return  director; }
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public String getActors() { return  actors; }
     public void setActors(String actors) {
         this.actors = actors;
     }
+
+    public String getStory() { return story; }
+    public void setStory(String story) { this.story = story; }
 }

@@ -25,6 +25,10 @@ import android.widget.LinearLayout;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -102,6 +106,8 @@ public class SearchFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    private final static String NAVER_MOVIE_SEARCH = "https://movie.naver.com/movie/search/result.naver?section=movie&query=";
+    private final static String NAVER_MOVIE_INFO = "https://movie.naver.com/movie/bi/mi/basic.naver?code=";
 
     private static final String TAG = "moviesearch";
     public static final int LOAD_SUCCESS = 101;
@@ -171,7 +177,7 @@ public class SearchFragment extends Fragment {
         // 메시지 큐의 메시지 처리
         @Override
         public void handleMessage(Message msg) {
-            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현 되어있음)
+            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현되어 있음)
             adapter.setItems(resultMovieList);
 
             // 로딩중 표시 종료
@@ -201,256 +207,107 @@ public class SearchFragment extends Fragment {
         Thread thread = new Thread( new Runnable() {
             @Override
             public void run() {
-                // 전달받은 키워드로 API 호출하여 얻은 응답을 jsonString에 저장
-                String jsonString = null;
-
                 try {
-                    Log.d(TAG, MOVIE_URL+"?key="+KEY+"&movieNm="+keyword);
-                    URL url = new URL(MOVIE_URL+"?key="+KEY+"&movieNm="+keyword);
-                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    Document doc = Jsoup.connect(NAVER_MOVIE_SEARCH+keyword).get();	// URL 웹사이트에 있는 html 코드를 다 끌어오기
 
-                    httpURLConnection.setRequestMethod("GET");
-                    int responseStatusCode = httpURLConnection.getResponseCode();
+                    // html 에서 태그 ul, 클래스명 "search_list_1"인 값에서 태그가 dl인 값 가져오기
+                    Elements elements = doc.select("ul.search_list_1").select("dl");
+                    boolean isEmpty = elements.isEmpty();           // 빼온 값 null 체크
+                    Log.d("Tag", "isNull? : " + isEmpty);
 
-                    InputStream inputStream;
-                    if (responseStatusCode == HttpURLConnection.HTTP_OK) {
-                        inputStream = httpURLConnection.getInputStream();
-                    } else {
-                        inputStream = httpURLConnection.getErrorStream();
+                    if (!isEmpty) {          // null 이 아니면 크롤링
+                        for (int i=0; i<elements.size(); i++) {
+                            Element element = elements.get(i);
+                            Element idElement = element.select("a").first();
+                            // 영화 객체
+                            SearchFragmentMainData movie = new SearchFragmentMainData();
+
+                            // 식별 코드
+                            String codeUrl = idElement.attr("href");
+                            String code = codeUrl.split("code=")[1];
+
+                            // 기본 정보(제목, 평점, 개봉연도, 장르) 저장
+                            movie.setTitle(idElement.select("a").text());        // 제목
+
+                            Elements ratingElements = element.select("dd.point");
+                            movie.setUserRating((ratingElements.size()==0)?"0.00": ratingElements.select("em.num").text());    // 평점
+
+                            Elements etcElements = element.select("dd.etc").select("a");
+                            String openYear = null;
+                            String genres = etcElements.get(0).text();
+                            for (int j=1; j<etcElements.size(); j++) {
+                                Element etcElement = etcElements.get(j);
+                                if (etcElement.attr("href").contains("year"))
+                                    openYear = etcElement.text();
+                                else if (etcElement.attr("href").contains("genre"))
+                                    genres += ", " + etcElement.text();
+                            }
+                            movie.setOpenYear(openYear);        // 개봉연도
+                            movie.setGenre(genres);             // 장르
+
+                            // 결과 리스트에 영화 저장하기
+                            resultMovieList.add(movie);
+
+                            // (2) 영화 상세정보 추가 - 포스터, 감독, 출연진, 줄거리
+                            searchMovieInfo(code, i);
+                        }
+                        Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
+                        mHandler.sendMessage(msg);
                     }
-
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        sb.append(line);
-                    }
-
-                    bufferedReader.close();
-                    httpURLConnection.disconnect();
-
-                    jsonString = sb.toString().trim();
-
                 } catch (Exception e) {
                     Log.d(TAG, e.toString());
-                }
-
-                // 응답 결과 확인용 ---------------
-                System.out.println(jsonString);
-
-                // 응답 결과(jsonString) JSON 파싱
-                if (parseJSON(jsonString)) {
-                    System.out.println("성공!!");
-                    Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
-                    mHandler.sendMessage(msg);
                 }
             }
         });
         thread.start();
     }
-    // (1) 영화목록 응답결과 파싱
-    public boolean parseJSON(String jsonString) {
-        if (jsonString == null) return false;
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);     // 응답 결과 {} : JSON ---(1)
-            JSONObject result = jsonObject.getJSONObject("movieListResult");   // (1)안에 "movieListResult"에 대응되는 value {} : JSON ---(2)
-            JSONArray movies = result.getJSONArray("movieList");        // (2)안에 "movieList"에 대응되는 value [] : JSON 배열 ---(3)
-
-            for (int i=0; i<movies.length(); i++) {
-                JSONObject movieObject = movies.getJSONObject(i);       // (3)안에 하나의 영화 정보 {} : JSON
-                String code = movieObject.getString("movieCd");
-
-                SearchFragmentMainData movie = new SearchFragmentMainData();
-                resultMovieList.add(movie);     // 빈 영화 일단 추가!
-                searchMovieInfo(code, i);       // 상세정보 api 호출(2) - 추가한 영화에 정보 업데이트
-            }
-
-            return true;
-        } catch (JSONException e) {
-            Log.d(TAG, e.toString());
-        }
-
-        return false;
-    }
-    // (2) 영화코드로 상세정보 API 호출 (영화 한 개)
+    // (2) 영화 코드로 상세정보 (영화 한 개)
     public void searchMovieInfo(final String code, int position) {
         if (code == null) return;
 
-        // 전달받은 영화 코드로 API 호출하여 얻은 응답 저장
-        String jsonString = null;
-
         try {
-            Log.d(TAG, MOVIEINFO_URL+"?key="+KEY+"&movieCd="+code);
-            URL url = new URL(MOVIEINFO_URL+"?key="+KEY+"&movieCd="+code);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-            httpURLConnection.setRequestMethod("GET");
-            int responseStatusCode = httpURLConnection.getResponseCode();
-
-            InputStream inputStream;
-            if (responseStatusCode == HttpURLConnection.HTTP_OK) {
-                inputStream = httpURLConnection.getInputStream();
-            } else {
-                inputStream = httpURLConnection.getErrorStream();
+            Document doc = Jsoup.connect(NAVER_MOVIE_INFO + code).get();    // URL 웹사이트에 있는 html 코드를 다 끌어오기
+            // 포스터
+            Bitmap posterBitmap = null;
+            Element posterElement = doc.select("div.poster").select("img").first();
+            if (posterElement != null) {
+                posterBitmap = getBitmapFromURL(posterElement.attr("src"));
+                resultMovieList.get(position).setPoster(posterBitmap);
             }
 
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            // 상영 시간
+            Elements infoElements = doc.select("dl.info_spec").select("span");
+            String runningTime = (infoElements.size()<3)? "": infoElements.get(2).text();
 
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
+            // 감독 및 출연진
+            Elements peoples = doc.select("div.people").select("li");
+            String director = "감독: ";
+            String actors = "출연: ";
+            if (peoples.size() > 0) {
+                director += peoples.get(0).select("a").get(1).text();
+                if (peoples.size() > 1) {
+                    actors += peoples.get(1).select("a").get(1).text();
+                    for (int i = 2; i < peoples.size() - 1; i++)
+                        actors += ", " + peoples.get(i).select("a").get(1).text();
+                }
             }
+            // 줄거리
+            String story = doc.select("div.story_area").select("p").text();
 
-            bufferedReader.close();
-            httpURLConnection.disconnect();
-
-            jsonString = sb.toString().trim();
-
-        } catch (Exception e) {
-            Log.d(TAG, e.toString());
-        }
-
-        // 응답 결과 확인용 ----------------
-        System.out.println(jsonString);
-
-        // 응답 결과(jsonString) JSON 파싱(3)
-        parseJSON2(jsonString, position);
-    }
-    // (3) 영화 상세정보 파싱 및 resultMovieList 에 정보 저장
-    public void parseJSON2(String jsonString, int position) {
-        if (jsonString == null) return;
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);     // 응답 결과 {} : JSON ---(1)
-            if (!jsonObject.has("movieInfoResult")) return;     // 검색 결과 없을 시 리턴!!
-            JSONObject result = jsonObject.getJSONObject("movieInfoResult");  // (1) 안에 "movieInfo~"에 대응되는 value {}: JSON ---(2)
-            JSONObject movies = result.getJSONObject("movieInfo");   // (2)안에 "movieInfo"에 대응되는 value {} : JSON ---(2)
-
-            resultMovieList.get(position).setTitle(movies.getString("movieNm"));     // 제목
-            if (!movies.getString("openDt").equals(""))
-                resultMovieList.get(position).setOpenYear(movies.getString("openDt").substring(0,4));      // 개봉연도
-            resultMovieList.get(position).setRunningTime(movies.getString("showTm"));    // 상영시간
-
-            JSONArray genresArray = movies.getJSONArray("genres");
-            if (genresArray.length() != 0)
-                resultMovieList.get(position).setGenre(genresArray.getJSONObject(0).getString("genreNm"));    // 장르 (하나만)
-
-            // 상세 페이지에서 추가로 필요한 정보들 - 감독, 출연진
-            JSONArray directorsArray = movies.getJSONArray("directors");
-            JSONArray actorsArray = movies.getJSONArray("actors");
-
-            resultMovieList.get(position).setDirectors("감독:  " + getPeopleStr(directorsArray));   // 감독
-            resultMovieList.get(position).setActors("배우:  " + getPeopleStr(actorsArray));      // 출연진
-
-            // 제목으로 네이버 영화 API 호출(4)
-            searchNaver(resultMovieList.get(position).getTitle(), position);       // 포스터, 평점
+            resultMovieList.get(position).setRunningTime(runningTime);
+            resultMovieList.get(position).setDirector(director);
+            resultMovieList.get(position).setActors(actors);
+            resultMovieList.get(position).setStory(story);
 
         } catch (Exception e) {
             Log.d(TAG, e.toString());
         }
     }
-    // JSON 배열에 담긴 정보들 하나의 문자열로
-    private String getPeopleStr(JSONArray peoplesArray) throws Exception {
-        if (peoplesArray.length() == 0)
-            return "정보 없음";
-        String peoples = peoplesArray.getJSONObject(0).getString("peopleNm");
-        for (int i=1; i< peoplesArray.length(); i++) {
-            String people = peoplesArray.getJSONObject(i).getString("peopleNm");
-            peoples = peoples.concat(", " + people);
-            if (i > 10) {           // 최대 10명까지만
-                peoples += " 외 다수";
-                break;
-            }
-        }
-        return peoples;
-    }
-    // (4) 네이버 영화 검색 API 호출 - 포스터, 평점
-    public void searchNaver(String title, int position) {
-        if (title == null) return;
-
-        String jsonString = null;
-        title = title.replace(" ", "_");        // 제목에 띄어쓰기 _로 변환
-
-        try {
-            Log.d(TAG, NAVERMOVIE_URL+title);
-            URL url = new URL(NAVERMOVIE_URL+title);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setRequestProperty("X-Naver-Client-Id", API_ID);
-            httpURLConnection.setRequestProperty("X-Naver-Client-Secret", API_SECRET);
-
-            int responseStatusCode = httpURLConnection.getResponseCode();
-
-            InputStream inputStream;
-            if (responseStatusCode == HttpURLConnection.HTTP_OK) {
-                inputStream = httpURLConnection.getInputStream();
-            } else {
-                inputStream = httpURLConnection.getErrorStream();
-            }
-
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-
-            bufferedReader.close();
-            httpURLConnection.disconnect();
-
-            jsonString = sb.toString().trim();
-            // 응답 결과 확인 -------------------
-            System.out.println(jsonString);
-
-        } catch (Exception e) {
-            Log.d(TAG, e.toString());
-        }
-
-        // 네이버 API 응답 결과 파싱(5)
-        parseJSON3(jsonString, position);
-    }
-    // (5) 네이버 API 응답 결과에서 포스터, 평점 문자열 뽑아내기
-    public void parseJSON3(String jsonString, int position) {
-        if (jsonString == null) return;
-
-        try {
-            System.out.println("첫번째 구간 - 네이버 api 호출");       // 1
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray("items");
-            if (jsonArray.length() == 0) return;            // 검색 결과 없을 시 리턴
-            JSONObject items = jsonArray.getJSONObject(0);     // check! - 맨 처음 나온 결과가 찾던 영화라 가정
-
-            String imageUrl = items.getString("image");
-            String userRating = items.getString("userRating");
-
-            if (!imageUrl.equals("")) {
-                // 이미지링크를 비트맵으로 변환(6)
-                Bitmap poster = getBitmapFromURL(imageUrl);
-                // 해당 위치의 영화에 이미지 저장
-                resultMovieList.get(position).setPoster(poster);
-            }
-
-            // 해당 위치의 영화에 평점 저장
-            resultMovieList.get(position).setUserRating(userRating);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-    // (6) 이미지 링크를 받아서 비트맵으로 반환
+    // (3) 이미지 링크를 받아서 비트맵으로 반환
     public static Bitmap getBitmapFromURL(final String imageURL) {
         if (imageURL == null) return null;
 
         Bitmap posterBitmap = null;
-        System.out.println("두번째 구간 - 네이버 api 호출 결과 파싱");       // 2
 
         try {
             URL url = new URL(imageURL);
