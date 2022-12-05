@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="25dp"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        >
+        <!--포스터-->
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher"
+            android:background="@drawable/movie_image"/>
+
+        <!-- 텍스트 -->
+        <LinearLayout
+            android:layout_width="295dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="2"
+            >
+            <!-- 영화 제목 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/checkbox_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="false"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <!-- 영화 평점 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_star" />
+                <TextView
+                    android:id="@+id/tv_my_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#FF8700"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+            </LinearLayout>
+
+            <!-- 감상평 작성 날짜 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_calender" />
+                <TextView
+                    android:id="@+id/tv_review_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    />
+
+            </LinearLayout>
+
+
+            <!-- 영화 상영시간 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="2"
+                >
+
+                <TextView
+                    android:id="@+id/tv_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="2"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="20dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

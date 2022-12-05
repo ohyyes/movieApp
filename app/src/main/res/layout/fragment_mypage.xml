@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MypageFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/BG">
+        <!-- 헤더 -->
+        <RelativeLayout
+            android:id="@+id/rel_header"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            >
+
+
+            <!--마이페이지-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:gravity="center"
+                android:text="마이페이지"
+                android:textAlignment="center"
+
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <!-- 중앙 콘텐트 -->
+        <LinearLayout
+            android:id="@+id/body_wrap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_below="@id/rel_header"
+            android:orientation="vertical">
+
+            <!-- 중앙 콘텐트 (상단) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                >
+                <!--프로필사진-->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_profile_img"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="5"
+                    android:src="@drawable/testdata_profile"
+                    />
+
+                <!--닉네임-->
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:text="모구모구"
+                    />
+
+                <!--프로필 수정 버튼 -->
+                <ImageButton
+                    android:id="@+id/ib_edit_profile"
+                    android:layout_width="230dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_changeprofile"
+                    />
+
+
+            </LinearLayout>
+
+            <!--중앙선-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+
+                android:src="@drawable/icon_center_line"
+                />
+
+            <!-- 중앙 콘텐트 (하단) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    >
+                    <!--내 감상평-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="내 감상평"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="35dp" />
+                    <!--더보기 버튼-->
+                    <ImageButton
+                        android:id="@+id/ib_more"
+                        android:layout_width="47dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="34dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/btn_more" />
+                </RelativeLayout>
+
+                <!-- 리사이클러뷰 & lin_mypage_list 레이아웃 -->
+                <FrameLayout
+                    android:id="@+id/frame_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="5"
+                    >
+
+                    <!-- 리사이클러 뷰 레이아웃 -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rec_review_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                    <!--기존에 작성한 리뷰가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
+                    <LinearLayout
+                        android:id="@+id/lin_no_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        >
+                        <TextView
+                            android:paddingTop="60dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="작성한 감상평이 없네요!\n지금 작성하러 가실래요?"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
