@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -70,12 +71,8 @@ public class ReviewDetailFragment extends Fragment {
         return fragment;
     }
 
-    private TextView tv_review;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -83,14 +80,39 @@ public class ReviewDetailFragment extends Fragment {
         }
     }
 
+    //뷰 선언
+    private ImageView iv_poster;
+    private TextView tv_name, tv_review;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_review_detail, container, false);
 
+        //뷰 불러오기
+        iv_poster = rootView.findViewById(R.id.iv_poster);
+        tv_name = rootView.findViewById(R.id.tv_name);
         tv_review = rootView.findViewById(R.id.tv_review);
         tv_review.setMovementMethod(new ScrollingMovementMethod());
+
+        //이전 프래그먼트에서 전달된 메세지 변수에 담기
+        String movie_title = this.getArguments().getString("영화 제목");
+
+        //MainData 객체 만들기
+        ReviewDetailFragmentMainData mainData1 = new ReviewDetailFragmentMainData();
+
+        //데이터 값 설정하기
+        mainData1.setIv_poster(R.drawable.testdata_minari);
+        mainData1.setTv_name(movie_title);
+        mainData1.setTv_review("여기는 줄거리가 들어갈 공간입니다. 데베에 저장된 줄거리를 movie_title 변수를 통해 찾아와서 줄거리를 보여주는 코드를 ReviewDetailFragement.java에 작성하면 될 것 같습니다.");
+
+        //뷰에 mainData 정보 넣기
+        iv_poster.setImageResource(mainData1.getIv_poster());
+        tv_name.setText(mainData1.getTv_name());
+        tv_review.setText(mainData1.getTv_review());
+
+
 
 
         //뒤로가기버튼 연결

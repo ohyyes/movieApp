@@ -5,16 +5,16 @@ public class MovieDetailFragmentMainData {
     private String tv_name, tv_rate, tv_date, tv_time, tv_gerne, tv_summary, tv_director, tv_actor;
 
     //생성자
-    public MovieDetailFragmentMainData(int iv_poster, String tv_name, String tv_rate, String tv_date, String tv_time, String tv_gerne, String tv_summary, String tv_director, String tv_actor) {
-        this.iv_poster = iv_poster;
-        this.tv_name = tv_name;
-        this.tv_rate = tv_rate;
-        this.tv_date = tv_date;
-        this.tv_time = tv_time;
-        this.tv_gerne = tv_gerne;
-        this.tv_summary = tv_summary;
-        this.tv_director = tv_director;
-        this.tv_actor = tv_actor;
+    public MovieDetailFragmentMainData() {
+        this.iv_poster = 0;
+        this.tv_name = null;
+        this.tv_rate = null;
+        this.tv_date = null;
+        this.tv_time = null;
+        this.tv_gerne = null;
+        this.tv_summary = null;
+        this.tv_director = null;
+        this.tv_actor = null;
     }
 
     //getter
