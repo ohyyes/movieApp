@@ -99,15 +99,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <!--별점레이아웃-->
-                <LinearLayout
+                <!--별점레이아웃<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:orientation="horizontal">
-                    <!--별-->
                     <ImageView
                         android:id="@+id/star1"
                         android:layout_width="wrap_content"
@@ -152,7 +150,18 @@
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
                         android:src="@drawable/icon_star" />
-                </LinearLayout>
+                </LinearLayout>-->
+                <RatingBar
+                    android:id="@+id/ratingbar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:rating="3"
+                    android:stepSize="0.5"
+                    android:layout_gravity="center"
+                    android:isIndicator="true"
+                    android:layout_marginBottom="10dp"
+                    />
                 <!-- 감상평-->
                 <TextView
                     android:id="@+id/tv_review"
@@ -176,15 +185,13 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:visibility="gone">
-                <!-- 별 수평레이아웃-->
-                <LinearLayout
+                <!-- 별 수평레이아웃<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:orientation="horizontal">
-                    <!--별-->
                     <ImageView
                         android:id="@+id/emptystar1"
                         android:layout_width="wrap_content"
@@ -230,7 +237,17 @@
                         android:adjustViewBounds="true"
                         android:src="@drawable/icon_star" />
 
-                </LinearLayout>
+                </LinearLayout>-->
+                <RatingBar
+                    android:id="@+id/ratingbar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="0.5"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    />
                 <!--데이터 없을 때의 감상평 수정 EditText-->
                 <EditText
                     android:id="@+id/et_review"
