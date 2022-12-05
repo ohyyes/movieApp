@@ -268,7 +268,7 @@ public class SearchFragment extends Fragment {
         try {
             Document doc = Jsoup.connect(NAVER_MOVIE_INFO + code).get();    // URL 웹사이트에 있는 html 코드를 다 끌어오기
             // 포스터
-            Bitmap posterBitmap = null;
+            Bitmap posterBitmap;
             Element posterElement = doc.select("div.poster").select("img").first();
             if (posterElement != null) {
                 posterBitmap = getBitmapFromURL(posterElement.attr("src"));
