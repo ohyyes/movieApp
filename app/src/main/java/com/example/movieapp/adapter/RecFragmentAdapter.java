@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
+import com.example.movieapp.R;
+import com.example.movieapp.data.RecFragmentMainData;
 
 import java.util.ArrayList;
 

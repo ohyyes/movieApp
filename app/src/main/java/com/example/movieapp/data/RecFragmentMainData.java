@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.data;
 
 public class RecFragmentMainData {
     private String img;

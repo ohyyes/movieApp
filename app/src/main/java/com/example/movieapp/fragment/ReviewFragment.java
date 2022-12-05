@@ -1,8 +1,7 @@
-package com.example.movieapp;
+package com.example.movieapp.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,11 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movieapp.R;
+import com.example.movieapp.adapter.ReviewFragmentAdapter;
+import com.example.movieapp.activity.HomeActivity;
+import com.example.movieapp.data.ReviewMainData;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,7 +93,7 @@ public class ReviewFragment extends Fragment {
 
 
     //데이터 리스트
-    private ArrayList<ReviewFragmentMainData> all_review;
+    private ArrayList<ReviewMainData> all_review;
 
     //어댑터 선언
     private ReviewFragmentAdapter adapter;
@@ -124,7 +128,7 @@ public class ReviewFragment extends Fragment {
 
 
         RecyclerView review_list = (RecyclerView) rootView.findViewById(R.id.review_list);
-        LinearLayout lin_no_result = (LinearLayout) rootView.findViewById(R.id.lin_no_result);
+        LinearLayout lin_no_review = (LinearLayout) rootView.findViewById(R.id.lin_no_review);
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); //???
@@ -135,17 +139,17 @@ public class ReviewFragment extends Fragment {
 
 
         //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
-        ReviewFragmentMainData mainData1 = new ReviewFragmentMainData(R.drawable.movie1, "쥬라기 월드", 10, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData1);
-        ReviewFragmentMainData mainData2 = new ReviewFragmentMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 8, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData2);
-        ReviewFragmentMainData mainData3 = new ReviewFragmentMainData(R.drawable.movie3, "소닉 2", 9, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData3);
-        ReviewFragmentMainData mainData4 = new ReviewFragmentMainData(R.drawable.movie1, "ㄱ", 3, "2022.02.20", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "어메이징 스파이더맨 2", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
         all_review.add(mainData4);
-        ReviewFragmentMainData mainData5 = new ReviewFragmentMainData(R.drawable.movie2, "ㅁ", 1, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        ReviewMainData mainData5 = new ReviewMainData(R.drawable.movie2, "ㅁ", 0.5, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData5);
-        ReviewFragmentMainData mainData6 = new ReviewFragmentMainData(R.drawable.movie3, "ㄴ", 2, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "ㄴ", 1, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData6);
 
         adapter = new ReviewFragmentAdapter(all_review, homeActivity);
@@ -155,12 +159,12 @@ public class ReviewFragment extends Fragment {
         //데이터 유무에 따라 보이는 리사이클러뷰 다름
         if (all_review.isEmpty()) {
             review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
-            lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+            lin_no_review.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
         }
         // 있을 땐, 리사이클러뷰가 보이게 !
         else {
             review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
-            lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+            lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
         }
 
 
@@ -169,29 +173,29 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {//최신순
-                    Comparator<ReviewFragmentMainData> timeDesc = new Comparator<ReviewFragmentMainData>() {
+                    Comparator<ReviewMainData> timeDesc = new Comparator<ReviewMainData>() {
                         @Override
-                        public int compare(ReviewFragmentMainData item1, ReviewFragmentMainData item2) {
+                        public int compare(ReviewMainData item1, ReviewMainData item2) {
                             return item2.getTv_review_date().compareTo(item1.getTv_review_date());
                         }
                     };
                     Collections.sort(all_review, timeDesc);
                     adapter.setItems(all_review);
                 } else if (i == 1) {//이름순
-                    Comparator<ReviewFragmentMainData> textAsc = new Comparator<ReviewFragmentMainData>() {
+                    Comparator<ReviewMainData> textAsc = new Comparator<ReviewMainData>() {
                         @Override
-                        public int compare(ReviewFragmentMainData item1, ReviewFragmentMainData item2) {
+                        public int compare(ReviewMainData item1, ReviewMainData item2) {
                             return item1.getTv_name().compareTo(item2.getTv_name());
                         }
                     };
                     Collections.sort(all_review, textAsc);
                     adapter.setItems(all_review);
                 } else if (i == 2) { //별점높은순
-                    Comparator<ReviewFragmentMainData> starDesc = new Comparator<ReviewFragmentMainData>() {
+                    Comparator<ReviewMainData> starDesc = new Comparator<ReviewMainData>() {
                         int ret; //변수 선언은 함수 밖에서 해줘야 함
 
                         @Override
-                        public int compare(ReviewFragmentMainData d1, ReviewFragmentMainData d2) {
+                        public int compare(ReviewMainData d1, ReviewMainData d2) {
                             if (d1.getTv_my_rate() < d2.getTv_my_rate())
                                 ret = 1;
                             else if (d1.getTv_my_rate() == d2.getTv_my_rate())
@@ -203,11 +207,11 @@ public class ReviewFragment extends Fragment {
                     Collections.sort(all_review, starDesc);
                     adapter.setItems(all_review);
                 } else if (i == 3) { //별점낮은순
-                    Comparator<ReviewFragmentMainData> starAsc = new Comparator<ReviewFragmentMainData>() {
+                    Comparator<ReviewMainData> starAsc = new Comparator<ReviewMainData>() {
                         int ret; //변수 선언은 함수 밖에서 해줘야 함
 
                         @Override
-                        public int compare(ReviewFragmentMainData d1, ReviewFragmentMainData d2) {
+                        public int compare(ReviewMainData d1, ReviewMainData d2) {
                             if (d1.getTv_my_rate() < d2.getTv_my_rate())
                                 ret = -1;
                             else if (d1.getTv_my_rate() == d2.getTv_my_rate())
@@ -229,7 +233,7 @@ public class ReviewFragment extends Fragment {
         });
 
 
-        //편집 버튼 눌렀을 때-> 수정모드로 바꿈
+        //편집 버튼 눌렀을 때-> 편집모드로 바꿈
         btn_edit.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -251,7 +255,7 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String data = "";
-                ArrayList<ReviewFragmentMainData> RevList = ((ReviewFragmentAdapter) adapter).getArrayList();
+                ArrayList<ReviewMainData> RevList = ((ReviewFragmentAdapter) adapter).getArrayList();
                 int count = adapter.getSelectedItemCount();
                 for(int i = 0;i<RevList.size();i++){
                     if(RevList.get(i).isSelected() == true) {
@@ -260,6 +264,11 @@ public class ReviewFragment extends Fragment {
                     }
                 }
                 adapter.notifyDataSetChanged(); //리스트 갱신
+                //데이터 유무에 따라 보이는 리사이클러뷰 다름
+                if (RevList.isEmpty()) {
+                    review_list.setVisibility(View.INVISIBLE);    // 리사이클러뷰 보이게
+                    lin_no_review.setVisibility(View.VISIBLE);    // lin_no_result 레이아웃 안 보이게
+                }
                 Toast.makeText(getActivity(), count+"개 삭제됨", Toast.LENGTH_SHORT).show();
             }
         });
@@ -267,6 +276,7 @@ public class ReviewFragment extends Fragment {
         return rootView;
     }
 
+    //일반모드or편집모드 변경
     private void changeMode(int n) {
         adapter.updateCheckbox(n);
 
@@ -281,6 +291,9 @@ public class ReviewFragment extends Fragment {
             btn_back.setVisibility(View.GONE);
         }
 
+    }
+
+    private void checkEmpty() {
     }
 }
 

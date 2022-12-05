@@ -1,10 +1,11 @@
-package com.example.movieapp;
+package com.example.movieapp.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,13 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.movieapp.R;
+import com.example.movieapp.activity.HomeActivity;
+import com.example.movieapp.data.MovieMainData;
+import com.example.movieapp.data.ReviewMainData;
+
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MovieDetailFragment#newInstance} factory method to
@@ -28,6 +36,9 @@ public class MovieDetailFragment extends Fragment {
     HomeActivity homeActivity;
     //뒤로가기 버튼 선언
     private ImageButton ib_back;
+    ReviewMainData review_item;
+    boolean has_review;
+
 
     @Override
     public void onAttach(Context context) {
@@ -84,6 +95,7 @@ public class MovieDetailFragment extends Fragment {
         }
     }
 
+    ArrayList<ReviewMainData> all_review;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,20 +133,59 @@ public class MovieDetailFragment extends Fragment {
         tv_director = (TextView) rootView.findViewById(R.id.tv_director);
         tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
 
+        //이전 프래그먼트에서 전달된 메세지 변수에 담기
+        MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
 
-        //데이터 값 설정하기
-        MovieDetailFragmentMainData mainData1 = new MovieDetailFragmentMainData(R.drawable.testdata_minari, "미나리", "8.04", "2022", "103분", "드라마", "\"미나리는 어디서든 잘 자라\" 낯선 미국, 아칸소로 떠나온 한국 가족. 가족들에게 뭔가 해내는 걸 보여주고 싶은 아빠 '제이콥'(스티븐 연)은 자신만의 농장을 가꾸기 시작하고 엄마 '모니카'(한예리)도 다시 일자리를 찾는다. 아직 어린 아이들을 위해 ‘모니카’의 엄마 ‘순자’(윤여정)가 함께 살기로 하고 가방 가득 고춧가루, 멸치, 한약 그리고 미나리씨를 담은 할머니가 도착한다. 의젓한 큰딸 '앤'(노엘 케이트 조)과 장난꾸러기 막내아들 '데이빗'(앨런 김)은 여느 그랜마같지 않은 할머니가 영- 못마땅한데… 함께 있다면, 새로 시작할 수 있다는 희망으로 하루하루 뿌리 내리며 살아가는 어느 가족의 아주 특별한 여정이 시작된다!", "정이삭", "스티븐 연, 한예리, 윤여정, 앨런 김, 노엘 조, 윌 패튼");
+        //뷰에 mainData 정보 넣기
+        iv_poster.setImageResource(movie_item.getIv_poster());
+        iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+        tv_name.setText(movie_item.getTv_name());
+        tv_rate.setText(movie_item.getTv_rate());
+        tv_date.setText(movie_item.getTv_date());
+        tv_time.setText(movie_item.getTv_time());
+        tv_gerne.setText(movie_item.getTv_gerne());
+        tv_summary.setText(movie_item.getTv_summary());
+        tv_director.setText(movie_item.getTv_director());
+        tv_actor.setText(movie_item.getTv_actor());
+
+        //참조할 리뷰 데이터 리스트
+        all_review = new ArrayList<>();
+        //MainData 객체 만들기-> back이랑 연결하면 삭제하기
+        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData1);
+        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData2);
+        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData3);
+        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "어메이징 스파이더맨 2", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
+        all_review.add(mainData4);
+        ReviewMainData mainData5 = new ReviewMainData(R.drawable.movie2, "ㅁ", 0.5, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData5);
+        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "ㄴ", 1, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        all_review.add(mainData6);
 
 
+        //감상평 상세 프래그먼트로 전환하기 전에 선택한 영화의 감상평데이터가 있는지 확인
+        review_item = new ReviewMainData();
+        has_review = false;
 
-        //임시 변수 (원래는 여기에 데이터를 담아 확인해야함)
-        boolean has_review = true;
+        for(int i=0;i<all_review.size();i++){
+            //감상평데이터가 있다면 전달할 감상평 객체 담기
+            if(movie_item.getTv_name() == all_review.get(i).getTv_name()){
+                review_item = all_review.get(i);
+                has_review = true;
+            }
+            //찾으면 for문 중지
+            if (has_review == true) break;
+        }
+
+        // [내 감상평 보러가기] 버튼의 setOnClickListener
         btn_gotoReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //만약 해당 감상평이 있다면, 감상평 상세 프래그먼트로 화면 전환
+                //만약 해당 감상평이 있다면 리뷰아이템 객체 그대로 전달하며 감상평 상세 프래그먼트로 화면 전환
                 if (has_review) {
-                    homeActivity.onFragmentChange(1);
+                    homeActivity.onFragmentChange(1, review_item);
                 }
                 //없다면, 팝업창 띄우기
                 else {
@@ -172,9 +223,10 @@ public class MovieDetailFragment extends Fragment {
                     btn_writeReview.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //리뷰 작성 페이지로 이동 ! (일단 리뷰 상세 페이지로 이동하게 짬 리뷰 작성 페이지가 안 보여서)
-                            homeActivity.onFragmentChange(3);
+                            //감상평 데이터에 필요한 영화 포스터, 이름 데이터 주기 위해 영화 아이템 객체 전달
+                            Log.e("d", movie_item.getTv_name());
                             alertDialog.dismiss();  //팝업창 닫기
+                            homeActivity.onFragmentChange(1, movie_item);
                         }
                     });
 

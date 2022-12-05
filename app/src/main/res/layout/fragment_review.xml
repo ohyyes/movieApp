@@ -106,7 +106,7 @@
 
         <!--검색결과가 없을 때 리사이클러뷰 대신 나올 화면 (일단은 안 보이게 설정해둠)-->
         <LinearLayout
-            android:id="@+id/lin_no_result"
+            android:id="@+id/lin_no_review"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

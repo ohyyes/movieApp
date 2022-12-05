@@ -15,7 +15,7 @@
         >
         <!--포스터-->
         <ImageView
-            android:id="@+id/iv_profile"
+            android:id="@+id/iv_poster"
             android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -44,7 +44,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="20sp" />
 
                 <CheckBox
                     android:id="@+id/checkbox"

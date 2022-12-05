@@ -1,17 +1,19 @@
-package com.example.movieapp;
+package com.example.movieapp.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movieapp.R;
+import com.example.movieapp.activity.HomeActivity;
+import com.example.movieapp.data.ReviewMainData;
 
 import java.util.ArrayList;
 
@@ -20,10 +22,10 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
     HomeActivity homeActivity;
     //리스트뷰의 아이템들을 담을 리스트
-    private ArrayList<ReviewFragmentMainData> arrayList;
+    private ArrayList<ReviewMainData> arrayList;
 
     //생성자
-    public ReviewFragmentAdapter(ArrayList<ReviewFragmentMainData> arrayList, Context mContext) {
+    public ReviewFragmentAdapter(ArrayList<ReviewMainData> arrayList, Context mContext) {
         this.arrayList = arrayList;
 
         // 어댑터에서는 다른 엑티비티를 가져올 때 Context 로 가져옴 !
@@ -45,12 +47,12 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
     @Override
     //실제 추가될 때 생명주기
-    public void onBindViewHolder(@NonNull ReviewFragmentAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ReviewFragmentAdapter.CustomViewHolder holder,  int position) {
 
         final int pos = position;
         //프로필 사진 가져오기
-        holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile());
-        holder.iv_profile.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+        holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
+        holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         holder.tv_name.setText(arrayList.get(position).getTv_name());
         holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
         holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
@@ -69,9 +71,10 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
             @Override
             public void onClick(View view) {
                 if (ck == 0) { //일반모드일 때
-                    String curName = holder.tv_name.getText().toString();
-                    //영화 이름을 인자로 이동할 프래그먼트에 데이터 전달
-                    homeActivity.onFragmentChange(1);
+                    // 현재 눌린 아이템 arraylist의 position번째 아이템 객체 가져오기
+                    ReviewMainData review_item = arrayList.get(position);
+                    //이동할 프래그먼트에 클릭된 아이템 객체 전달
+                    homeActivity.onFragmentChange(1, review_item);
                 } else { //편집모드일 땐 이동 X
                 }
             }
@@ -95,7 +98,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
             @Override
             public void onClick(View view) {
                 CheckBox cb = (CheckBox) view;
-                ReviewFragmentMainData contact = (ReviewFragmentMainData) cb.getTag();
+                ReviewMainData contact = (ReviewMainData) cb.getTag();
 
                 contact.setSelected(cb.isChecked());
                 //체크박스와 객체의 체크유무 변수 동기화
@@ -123,13 +126,13 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         } else return 0;
     }
 
-    public ArrayList<ReviewFragmentMainData> getArrayList() {
+    public ArrayList<ReviewMainData> getArrayList() {
         return arrayList;
     }
 
     // SearchFragment.java 에서 검색 for문 후 만들어진 search_list 를 어댑터의 data 로 바꿀 때 쓰임.
     // 어댑터의 data 를 newList 로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
-    public void setItems(ArrayList<ReviewFragmentMainData> newList) {
+    public void setItems(ArrayList<ReviewMainData> newList) {
         this.arrayList = newList;
         notifyDataSetChanged();
     }
@@ -144,13 +147,13 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView iv_profile;
+        protected ImageView iv_poster;
         protected TextView tv_name, tv_my_rate, tv_review_date, tv_review;
         protected CheckBox checkbox;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_profile = (ImageView) itemView.findViewById(R.id.iv_profile);
+            this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             this.tv_my_rate = (TextView) itemView.findViewById(R.id.tv_my_rate);
             this.tv_review_date = (TextView) itemView.findViewById(R.id.tv_review_date);

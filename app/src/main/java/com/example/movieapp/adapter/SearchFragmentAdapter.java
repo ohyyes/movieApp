@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieapp.R;
+import com.example.movieapp.activity.HomeActivity;
+import com.example.movieapp.data.MovieMainData;
+
 import java.util.ArrayList;
 
 public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAdapter.CustomViewHolder> {
@@ -18,9 +22,9 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     HomeActivity homeActivity;
 
     //리스트뷰의 아이템들을 담을 리스트
-    private ArrayList<SearchFragmentMainData> arrayList;
+    private ArrayList<MovieMainData> arrayList;
     //생성자
-    public SearchFragmentAdapter(ArrayList<SearchFragmentMainData> arrayList, Context mContext) {
+    public SearchFragmentAdapter(ArrayList<MovieMainData> arrayList, Context mContext) {
         this.arrayList = arrayList;
 
         // 어댑터에서는 다른 엑티비티를 가져올 때 Context 로 가져옴 !
@@ -51,7 +55,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
         holder.tv_rate.setText(arrayList.get(position).getTv_rate());
         holder.tv_gerne.setText(arrayList.get(position).getTv_gerne());
         holder.tv_date.setText(arrayList.get(position).getTv_date());
-        holder.tv_running_time.setText(arrayList.get(position).getTv_running_time());
+        holder.tv_time.setText(arrayList.get(position).getTv_time());
 
 
         //리스트뷰가 클릭되었을 때,
@@ -59,15 +63,17 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //현재 클릭된 아이템의 제목 가져오기
-                String curName = holder.tv_name.getText().toString();
+                // 현재 눌린 아이템 (arraylist의 position번째 아이템) 객체의 tv_name 가져오기
+                MovieMainData movie_item = arrayList.get(position);
 
                 //homeActivity.java 에서 선언된 onFragmentChange 메소드에 접근해서 index=0 을 전달해 fragmentReview 로 이동 (영화 상세 페이지)
-                homeActivity.onFragmentChange(0);
+                homeActivity.onFragmentChange(0, movie_item);
             }
         });
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -79,7 +85,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     // SearchFragment.java 에서 검색 for문 후 만들어진 search_list 를 어댑터의 data 로 바꿀 때 쓰임.
     // 어댑터의 data 를 newList 로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
-    public void setItems(ArrayList<SearchFragmentMainData> newList){
+    public void setItems(ArrayList<MovieMainData> newList){
         this.arrayList = newList;
         notifyDataSetChanged();
     }
@@ -87,7 +93,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
         protected ImageView iv_poster;
-        protected TextView tv_name, tv_rate, tv_gerne, tv_date, tv_running_time;
+        protected TextView tv_name, tv_rate, tv_gerne, tv_date, tv_time, tv_summary, tv_director, tv_actor;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,7 +102,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
             this.tv_rate = (TextView) itemView.findViewById(R.id.tv_rate);
             this.tv_gerne = (TextView) itemView.findViewById(R.id.tv_gerne);
             this.tv_date = (TextView) itemView.findViewById(R.id.tv_date);
-            this.tv_running_time = (TextView) itemView.findViewById(R.id.tv_running_time);
+            this.tv_time = (TextView) itemView.findViewById(R.id.tv_time);
 
         }
     }

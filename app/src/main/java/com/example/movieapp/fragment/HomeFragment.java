@@ -1,4 +1,5 @@
-package com.example.movieapp;
+package com.example.movieapp.fragment;
+
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movieapp.R;
+import com.example.movieapp.adapter.HomeFragmentAdapter;
+import com.example.movieapp.data.HomeFragmentMainData;
 
 import java.util.ArrayList;
 

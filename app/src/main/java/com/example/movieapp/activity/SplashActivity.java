@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.movieapp.R;
+import com.example.movieapp.activity.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
