@@ -66,11 +66,4 @@ public class UserAccount {
 
     public ArrayList<String> getResultList(){return resultList;}
 
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
 }

@@ -15,14 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 /**
@@ -38,11 +30,6 @@ public class MypageFragment extends Fragment {
 
     //홈 엑티비티 선언 (화면 전환시 필요)
     HomeActivity homeActivity;
-
-    //firebase로 로그인한 사용자 정보 불러오기
-    private FirebaseAuth mAuth;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference userReference = database.getReference();
 
     @Override
     public void onAttach(Context context) {
@@ -102,12 +89,6 @@ public class MypageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        //Firebase 로그인한 사용자 정보
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
-        String userUid = user.getUid();
-        readUser(userUid);
-        modifyUser(userUid);
     }
 
     private RecyclerView rec_review_list; //리사이클러 뷰
@@ -199,53 +180,6 @@ public class MypageFragment extends Fragment {
 
 
 
-    }
-
-    //로그인 user의 name, mbti읽기
-    private void readUser(String userUid){
-        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserAccount user = snapshot.getValue(UserAccount.class);
-
-                //각각의 값 가져오기
-                //이거 화면에 옮기면 됨
-                String name = user.getName();
-                String mbti = user.getMbti();
-
-                Log.d("name", name);
-                Log.d("mbti", mbti);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    //내 프로필 수정하기 -> 값 수정 함수
-    private void modifyUser(String userUid){
-        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserAccount user = snapshot.getValue(UserAccount.class);
-
-                //값 수정
-                //나중에 text 받아서 괄호안에 값 바꿔야됨
-                user.setName("abc");
-                user.setMbti("ENFP");
-
-                //값 바뀐거 확인 완료되면 지우기
-                String name = user.getName();
-                String mbti = user.getMbti();
-//                Log.d("name", name);
-//                Log.d("mbti", mbti);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
 }

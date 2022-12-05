@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         */
+
         //firebase 통해 로그인
         firebaseAuth.signInWithEmailAndPassword(loginId, loginPasswd)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mbti = mbti.replace("[", "");
                 mbti = mbti.replace("]", "");
-//                RecFragment.MBTIList = new ArrayList<>(Arrays.asList(mbti.split(", ")));
+                RecFragment.MBTIList = new ArrayList<>(Arrays.asList(mbti.split(", ")));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
