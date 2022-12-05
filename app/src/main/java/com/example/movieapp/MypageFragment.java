@@ -97,7 +97,7 @@ public class MypageFragment extends Fragment {
     private ImageButton ib_edit_profile, ib_more; //프로필 수정 버튼, 더보기 버튼
 
     //리스트 선언
-    private ArrayList<MyPageFragmentMainData> review_list; //내 리뷰가 담긴 리스트
+    private ArrayList<ReviewMainData> review_list; //내 리뷰가 담긴 리스트
 
     //어댑터 선언
     private MyPageFragmentAdapter adapter;
@@ -131,15 +131,15 @@ public class MypageFragment extends Fragment {
         adapter = new MyPageFragmentAdapter(review_list, homeActivity);
 
 
-        // 테스트용 임시 original_list
-        MyPageFragmentMainData MainData1 = new MyPageFragmentMainData(R.drawable.testdata_avatar, "아바타"); //아이템 추가하는 코드
-        review_list.add(MainData1);
-        MyPageFragmentMainData MainData2 = new MyPageFragmentMainData(R.drawable.testdata_minari, "미나리"); //아이템 추가하는 코드
-        review_list.add(MainData2);
-        MyPageFragmentMainData MainData3 = new MyPageFragmentMainData(R.drawable.testdata_blackpenser, "블랙팬서"); //아이템 추가하는 코드
-        review_list.add(MainData3);
-        MyPageFragmentMainData MainData4 = new MyPageFragmentMainData(R.mipmap.ic_launcher, "샘플1"); //아이템 추가하는 코드
-        review_list.add(MainData4);
+        // 테스트용 임시
+        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        review_list.add(mainData1);
+        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        review_list.add(mainData2);
+        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        review_list.add(mainData3);
+        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "ㄱ", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
+        review_list.add(mainData4);
 
 
         // 저장된 리뷰가 없을 때 -> "작성한 감상평이 없네요!" 레이아웃을 보이게

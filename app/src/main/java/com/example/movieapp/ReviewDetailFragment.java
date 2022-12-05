@@ -2,7 +2,9 @@ package com.example.movieapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +12,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,9 +90,12 @@ public class ReviewDetailFragment extends Fragment {
     //뷰 선언
     private ImageView iv_poster;
     private TextView tv_name, tv_review;
+    private RatingBar ratingbar1, ratingbar2;
 
     //버튼 선언
     private Button btn_amend, btn_write;
+
+    ArrayList<ReviewMainData> all_review;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,9 +105,12 @@ public class ReviewDetailFragment extends Fragment {
 
         //뷰 불러오기
         iv_poster = rootView.findViewById(R.id.iv_poster);
+        iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         tv_name = rootView.findViewById(R.id.tv_name);
         tv_review = rootView.findViewById(R.id.tv_review);
         tv_review.setMovementMethod(new ScrollingMovementMethod());
+        ratingbar1 = rootView.findViewById(R.id.ratingbar1);
+        ratingbar2 = rootView.findViewById(R.id.ratingbar2);
 
         //버튼 연결
         btn_amend = rootView.findViewById(R.id.btn_amend);
@@ -114,10 +124,9 @@ public class ReviewDetailFragment extends Fragment {
         btn_amend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    btn_amend.setVisibility(View.INVISIBLE);
-                    btn_write.setVisibility(View.VISIBLE);
-                    lin_review.setVisibility(View.GONE);
-                    lin_no_review.setVisibility(View.VISIBLE);
+                changeMode(1);
+                lin_review.setVisibility(View.GONE);
+                lin_no_review.setVisibility(View.VISIBLE);
             }
         });
 
@@ -125,29 +134,47 @@ public class ReviewDetailFragment extends Fragment {
         btn_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_amend.setVisibility(View.VISIBLE);
-                btn_write.setVisibility(View.INVISIBLE);
+                changeMode(0);
                 lin_review.setVisibility(View.VISIBLE);
                 lin_no_review.setVisibility(View.INVISIBLE);
             }
         });
 
+        Parcelable item = this.getArguments().getParcelable("아이템");
+        Log.e("d", item.getClass().getName());
+        //이전 프래그먼트에서 전달된 영화 객체에 담기
+        if(item.getClass().getName().contains("ReviewMainData")){
+            //리뷰 아이템을 전달받았다면
+            ReviewMainData review_item = (ReviewMainData) item;
+            Log.e("d", review_item.getTv_name());
+            iv_poster.setImageResource(review_item.getIv_poster());
+            tv_name.setText(review_item.getTv_name());
+            if(review_item.getTv_review().length() <1) { //리뷰데이터가 없으면 감상평 등록 레이아웃
+                changeMode(1);
+                lin_review.setVisibility(View.GONE);
+                lin_no_review.setVisibility(View.VISIBLE);
+                ratingbar2.setRating(0);
+            }
+            else { //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
+                ratingbar1.setRating((float) review_item.getTv_my_rate());
+                tv_review.setText(review_item.getTv_review());
+            }
+        }else if(item.getClass().getName().contains("MovieMainData")) {
+            //이전 프래그먼트가 영화 상세화면일 때 감상평 데이터가 없으면 영화 아이템을 전달 받음
+            //새로 감상평 데이터를 추가하기 위해 영화 포스터와 이름이 필요하므로 영화 객체 생성해서 전달받음
+            MovieMainData movie_item =  (MovieMainData) item;
+            changeMode(1);
+            iv_poster.setImageResource(movie_item.getIv_poster());
+            tv_name.setText(movie_item.getTv_name());
+            //감상평 등록레이아웃 띄우기
+            lin_review.setVisibility(View.GONE);
+            lin_no_review.setVisibility(View.VISIBLE);
 
-        //이전 프래그먼트에서 전달된 메세지 변수에 담기
-        String movie_title = this.getArguments().getString("영화 제목");
+            //입력받은 값으로 감상평 데이터에 추가하는 코드 필요 ->다영이
+        }
 
-        //MainData 객체 만들기
-        ReviewDetailFragmentMainData mainData1 = new ReviewDetailFragmentMainData();
 
-        //데이터 값 설정하기
-        mainData1.setIv_poster(R.drawable.testdata_minari);
-        mainData1.setTv_name(movie_title);
-        mainData1.setTv_review("여기는 줄거리가 들어갈 공간입니다. 데베에 저장된 줄거리를 movie_title 변수를 통해 찾아와서 줄거리를 보여주는 코드를 ReviewDetailFragement.java에 작성하면 될 것 같습니다.");
 
-        //뷰에 mainData 정보 넣기
-        iv_poster.setImageResource(mainData1.getIv_poster());
-        tv_name.setText(mainData1.getTv_name());
-        tv_review.setText(mainData1.getTv_review());
 
 
         //뒤로가기버튼 연결
@@ -165,5 +192,17 @@ public class ReviewDetailFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    //일반모드or수정모드 변경
+    private void changeMode(int n) {
+        if (n == 1) { //수정 모드
+            btn_amend.setVisibility(View.INVISIBLE);
+            btn_write.setVisibility(View.VISIBLE);
+        } else {
+            btn_amend.setVisibility(View.VISIBLE);
+            btn_write.setVisibility(View.INVISIBLE);
+        }
+
     }
 }

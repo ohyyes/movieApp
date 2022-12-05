@@ -91,8 +91,8 @@ public class SearchFragment extends Fragment {
 
 
     //리스트 선언
-    private ArrayList<SearchFragmentMainData> original_list; //모든 영화가 담긴 리스트
-    private ArrayList<SearchFragmentMainData> search_list; //검색 시 담을 아이템 리스트
+    private ArrayList<MovieMainData> original_list; //모든 영화가 담긴 리스트
+    private ArrayList<MovieMainData> search_list; //검색 시 담을 아이템 리스트
 
 
     //어댑터 선언
@@ -131,21 +131,21 @@ public class SearchFragment extends Fragment {
 
 
         // 테스트용 임시 original_list
-        SearchFragmentMainData mainData1 = new SearchFragmentMainData(R.drawable.testdata_spiderman, "스파이더맨", "9.27", "슈퍼히어로", "2002", "121분"); //아이템 추가하는 코드
+        MovieMainData mainData1 = new MovieMainData(R.drawable.testdata_spiderman, "스파이더맨", "9.27", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData1);
-        SearchFragmentMainData mainData2 = new SearchFragmentMainData(R.drawable.testdata_spiderman2, "스파이더맨2", "8.32", "슈퍼히어로", "2004", "115분"); //아이템 추가하는 코드
+        MovieMainData mainData2 = new MovieMainData(R.drawable.testdata_spiderman2, "스파이더맨2", "8.32", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData2);
-        SearchFragmentMainData mainData3 = new SearchFragmentMainData(R.drawable.testdata_spiderman3, "스파이더맨3", "7.08", "슈퍼히어로", "2007", "139분"); //아이템 추가하는 코드
+        MovieMainData mainData3 = new MovieMainData(R.drawable.testdata_spiderman3, "스파이더맨3", "7.08", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData3);
-        SearchFragmentMainData mainData4 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman, "어메이징 스파이더맨", "8.02", "슈퍼히어로", "2012", "139분"); //아이템 추가하는 코드
+        MovieMainData mainData4 = new MovieMainData(R.drawable.testdata_the_amazing_spiderman, "어메이징 스파이더맨", "8.02", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData4);
-        SearchFragmentMainData mainData5 = new SearchFragmentMainData(R.drawable.testdata_the_amazing_spiderman2, "어메이징 스파이더맨 2", "7.71", "슈퍼히어로", "2014", "109분"); //아이템 추가하는 코드
+        MovieMainData mainData5 = new MovieMainData(R.drawable.testdata_the_amazing_spiderman2, "어메이징 스파이더맨 2", "7.71", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData5);
-        SearchFragmentMainData mainData6 = new SearchFragmentMainData(R.drawable.testdata_spiderman_homecomming, "스파이더맨 : 홈 커밍", "8.94", "슈퍼히어로", "2017", "110분"); //아이템 추가하는 코드
+        MovieMainData mainData6 = new MovieMainData(R.drawable.testdata_spiderman_homecomming, "스파이더맨 : 홈 커밍", "8.94", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData6);
-        SearchFragmentMainData mainData7 = new SearchFragmentMainData(R.drawable.testdata_spiderman_farfromhome, "스파이더맨 : 파 프롬 홈", "8.36", "슈퍼히어로", "2019", "119분"); //아이템 추가하는 코드
+        MovieMainData mainData7 = new MovieMainData(R.drawable.testdata_spiderman_farfromhome, "스파이더맨 : 파 프롬 홈", "8.36", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData7);
-        SearchFragmentMainData mainData8 = new SearchFragmentMainData(R.drawable.testdata_spiderman_nowayhome, "스파이더맨 : 노 웨이 홈", "9.54", "슈퍼히어로", "2022", "148분"); //아이템 추가하는 코드
+        MovieMainData mainData8 = new MovieMainData(R.drawable.testdata_spiderman_nowayhome, "스파이더맨 : 노 웨이 홈", "9.54", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
         original_list.add(mainData8);
 
 
