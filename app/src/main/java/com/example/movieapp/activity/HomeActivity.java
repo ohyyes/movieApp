@@ -13,6 +13,7 @@ import com.example.movieapp.fragment.HomeFragment;
 import com.example.movieapp.fragment.MovieDetailFragment;
 import com.example.movieapp.fragment.MypageFragment;
 import com.example.movieapp.R;
+import com.example.movieapp.fragment.RecFragment;
 import com.example.movieapp.fragment.ReviewDetailFragment;
 import com.example.movieapp.fragment.ReviewFragment;
 import com.example.movieapp.fragment.SearchFragment;
@@ -29,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     private HomeFragment fragmentHome = new HomeFragment();
     private MovieDetailFragment fragmentMovieDetail = new MovieDetailFragment();
     private ReviewDetailFragment fragmentReviewDetail = new ReviewDetailFragment();
+    private RecFragment recFragment = new RecFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
                         transaction.replace(R.id.menu_frame_layout, fragmentMypage).commitAllowingStateLoss();
                         break;
                     case R.id.menu_home:
-                        transaction.replace(R.id.menu_frame_layout, fragmentHome).commitAllowingStateLoss();
+                        transaction.replace(R.id.menu_frame_layout, recFragment).commitAllowingStateLoss();
                         break;
 
                 }

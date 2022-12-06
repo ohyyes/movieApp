@@ -6,19 +6,19 @@
     tools:context=".fragment.RecFragment"
     android:background="@color/BG">
 
-
-        <ImageView
-            android:id="@+id/iv_poster"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            tools:src="@drawable/movie0"
-            android:background="@drawable/movie_image"/>
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="추천 영화"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerView"/>
+            android:id="@+id/recyclerViewReco"/>
 
 
 </FrameLayout>

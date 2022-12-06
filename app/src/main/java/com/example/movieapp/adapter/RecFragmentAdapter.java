@@ -36,11 +36,7 @@ public class RecFragmentAdapter extends RecyclerView.Adapter<RecFragmentAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecFragmentAdapter.CustomViewHolder holder, int position) {
-
-//        Glide.with(holder.itemView)
-//                .load(movieList.get(position).getImg())
-//                .into(holder.img);
-        //holder.img.setImageResource(movieList.get(position).getImg());
+        holder.img.setImageResource(movieList.get(position).getImg());
         holder.name.setText(movieList.get(position).getName());
     }
 
