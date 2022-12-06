@@ -8,16 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
+import com.example.movieapp.UserAccount;
 import com.example.movieapp.activity.EditProfileActivity;
 import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.adapter.MyPageFragmentAdapter;
 import com.example.movieapp.data.ReviewMainData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -101,6 +111,7 @@ public class MypageFragment extends Fragment {
     private RecyclerView rec_review_list; //리사이클러 뷰
     private LinearLayout lin_no_review; //리뷰 없음 레이아웃
     private ImageButton ib_edit_profile, ib_more; //프로필 수정 버튼, 더보기 버튼
+    private TextView tv_nickname; //닉네임
 
     //리스트 선언
     private ArrayList<ReviewMainData> review_list; //내 리뷰가 담긴 리스트
@@ -122,8 +133,16 @@ public class MypageFragment extends Fragment {
         lin_no_review = (LinearLayout) rootView.findViewById(R.id.lin_no_review);
         ib_more = (ImageButton) rootView.findViewById(R.id.ib_more);
         ib_edit_profile = (ImageButton) rootView.findViewById(R.id.ib_edit_profile);
+        tv_nickname = (TextView) rootView.findViewById(R.id.tv_nickname);
 
+        //firebase에서 닉네임 가져오기 -다영-
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid();
 
+        //닉네임 화면에 띄워주는 함수
+        readUser(userUid);
 
         //수평 스크롤뷰로 설정하기 ㅎㅎ
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false); //???
@@ -187,5 +206,24 @@ public class MypageFragment extends Fragment {
 
 
 
+    }
+
+    //로그인 user의 name, mbti읽기
+    private void readUser(String userUid){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference();
+
+        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserAccount user = snapshot.getValue(UserAccount.class);
+                String name = user.getName();
+                tv_nickname.setText(name);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
