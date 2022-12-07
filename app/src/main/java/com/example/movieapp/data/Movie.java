@@ -1,4 +1,4 @@
-package com.example.movieapp;
+package com.example.movieapp.data;
 
 import java.util.List;
 //다영 - 규원이 로직 돌릴 때 mbti firebase에서 읽어오는 작업 시 필요

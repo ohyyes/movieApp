@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.movieapp.R;
-import com.example.movieapp.data.RecFragmentMainData;
+import com.example.movieapp.data.MovieMainData;
 
 import java.util.ArrayList;
 
 public class RecFragmentAdapter extends RecyclerView.Adapter<RecFragmentAdapter.CustomViewHolder> {
-    private ArrayList<RecFragmentMainData> movieList;
+    private ArrayList<MovieMainData> movieList;
     private Context context;
 
-    public RecFragmentAdapter(ArrayList<RecFragmentMainData> mMovieList, Context context) {
+    public RecFragmentAdapter(ArrayList<MovieMainData> mMovieList, Context context) {
         this.movieList = mMovieList;
         this.context = context;
     }
@@ -36,12 +36,8 @@ public class RecFragmentAdapter extends RecyclerView.Adapter<RecFragmentAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecFragmentAdapter.CustomViewHolder holder, int position) {
-
-//        Glide.with(holder.itemView)
-//                .load(movieList.get(position).getImg())
-//                .into(holder.img);
-        //holder.img.setImageResource(movieList.get(position).getImg());
-        holder.name.setText(movieList.get(position).getName());
+        holder.img.setImageResource(movieList.get(position).getIv_poster());
+        holder.name.setText(movieList.get(position).getTv_name());
     }
 
     @Override

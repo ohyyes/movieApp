@@ -33,6 +33,10 @@ public class MovieMainData implements Parcelable {
         this.tv_actor = null;
     }
 
+    public MovieMainData(int iv_poster, String tv_name) {
+        this.iv_poster = iv_poster;
+        this.tv_name = tv_name;
+    }
     public static final Creator<MovieMainData> CREATOR = new Creator<MovieMainData>() {
         @Override
         public MovieMainData createFromParcel(Parcel in) {

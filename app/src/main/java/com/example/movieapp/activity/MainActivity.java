@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.DataListReady;
 import com.example.movieapp.R;
-import com.example.movieapp.fragment.RecFragment;
 import com.example.movieapp.UserAccount;
+import com.example.movieapp.fragment.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mbti = mbti.replace("[", "");
                 mbti = mbti.replace("]", "");
-                RecFragment.MBTIList = new ArrayList<>(Arrays.asList(mbti.split(", ")));
+                HomeFragment.MBTIList = new ArrayList<>(Arrays.asList(mbti.split(", ")));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
