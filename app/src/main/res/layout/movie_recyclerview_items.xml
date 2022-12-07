@@ -19,7 +19,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/movie1" />
+        tools:src="@drawable/movie1"
+        android:background="@drawable/movie_image"/>
 
     <TextView
         android:id="@+id/tv_name"

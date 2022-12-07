@@ -1,6 +1,5 @@
 package com.example.movieapp;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -29,7 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
         //모든 입력창에 값이 있다면 -> 버튼 활성화 및 배경색 가시적으로 바꾸기 !
         if(name){
             ib_register.setEnabled(true);
-            ib_register.setImageResource(R.drawable.registerbutton2);
+            ib_register.setImageResource(R.drawable.btn_done);
 
             ib_register.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,6 +90,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        //뒤로가기버튼 클릭시
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

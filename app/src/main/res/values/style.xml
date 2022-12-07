@@ -4,9 +4,7 @@
 
         <item name="colorControlNormal">@color/white</item>  // unFocus 상태일때 밑줄 색.
         <item name="boxStrokeColor">@color/white</item> // Focus 상태일때 밑줄 색.
-        <item name="android:textCursorDrawable">@color/white</item>  // cursor 색.
-
-
+        <item name="android:textCursorDrawable">@color/white</item>  // cursor 색
         <item name="android:textColorHint">#878787</item>  // hint 색
         <item name="hintTextColor">@color/white</item>   // floating hint 색
 

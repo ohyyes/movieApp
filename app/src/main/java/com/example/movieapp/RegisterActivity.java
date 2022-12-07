@@ -1,19 +1,15 @@
 package com.example.movieapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -40,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(email && pw1 && pw2 && name && EI && SN && TF && JP){
             ib_register.setEnabled(true);
-            ib_register.setImageResource(R.drawable.registerbutton2);
+            ib_register.setImageResource(R.drawable.btn_done);
 
             ib_register.setOnClickListener(new View.OnClickListener() {
                 @Override

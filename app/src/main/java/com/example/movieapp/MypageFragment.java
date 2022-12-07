@@ -3,16 +3,15 @@ package com.example.movieapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -34,6 +33,7 @@ public class MypageFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
+        //홈 엑티비티 생성
         homeActivity = (HomeActivity)getActivity();
     }
 
@@ -132,13 +132,13 @@ public class MypageFragment extends Fragment {
 
 
         // 테스트용 임시 original_list
-        MyPageFragmentMainData MainData1 = new MyPageFragmentMainData(R.drawable.movie_avatar); //아이템 추가하는 코드
+        MyPageFragmentMainData MainData1 = new MyPageFragmentMainData(R.drawable.testdata_avatar, "아바타"); //아이템 추가하는 코드
         review_list.add(MainData1);
-        MyPageFragmentMainData MainData2 = new MyPageFragmentMainData(R.drawable.movie_minari); //아이템 추가하는 코드
+        MyPageFragmentMainData MainData2 = new MyPageFragmentMainData(R.drawable.testdata_minari, "미나리"); //아이템 추가하는 코드
         review_list.add(MainData2);
-        MyPageFragmentMainData MainData3 = new MyPageFragmentMainData(R.drawable.movie_black); //아이템 추가하는 코드
+        MyPageFragmentMainData MainData3 = new MyPageFragmentMainData(R.drawable.testdata_blackpenser, "블랙팬서"); //아이템 추가하는 코드
         review_list.add(MainData3);
-        MyPageFragmentMainData MainData4 = new MyPageFragmentMainData(R.mipmap.ic_launcher); //아이템 추가하는 코드
+        MyPageFragmentMainData MainData4 = new MyPageFragmentMainData(R.mipmap.ic_launcher, "샘플1"); //아이템 추가하는 코드
         review_list.add(MainData4);
 
 
@@ -174,7 +174,7 @@ public class MypageFragment extends Fragment {
         ib_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeActivity.onFragmentChange(0);
+                homeActivity.onFragmentChange(2, null);
             }
         });
         return rootView;

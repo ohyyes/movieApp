@@ -29,12 +29,65 @@
 
     </RelativeLayout>
 
+
+
+        <LinearLayout
+            android:id="@+id/rev_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/review_header">
+            <!--정렬 기준 스피너-->
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/spinner_custom"
+                android:gravity="center"
+                android:popupBackground="@color/BG"
+                android:spinnerMode="dropdown" />
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="편집"
+                android:layout_marginLeft="200dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="취소"
+                android:layout_marginLeft="170dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="삭제"
+                android:textColor="@color/white"
+                android:visibility="gone"/>
+
+
+        </LinearLayout>
+
+
     <!-- 중앙 콘텐트 -->
     <FrameLayout
         android:id="@+id/frame_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/review_header"
+        android:layout_below="@id/rev_middle"
         android:orientation="vertical">
 
         <!-- 리사이클러 뷰 레이아웃 -->
@@ -46,7 +99,7 @@
             android:scrollbarSize="5dp"
             android:scrollbarThumbVertical="@color/white"
             android:scrollbars="vertical"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             >
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -61,7 +114,6 @@
             android:visibility="invisible"
             >
             <TextView
-                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="작성한 감상평이 없어요"
