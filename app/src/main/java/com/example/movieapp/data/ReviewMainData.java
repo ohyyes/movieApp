@@ -1,17 +1,18 @@
 package com.example.movieapp.data;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 
 import java.io.Serializable;
 import java.util.Comparator;
 
 public class ReviewMainData implements Comparator<ReviewMainData>, Serializable {
-    private int iv_poster;//이미지뷰는 int 값임.
+    private Integer iv_poster;//이미지뷰는 int 값임.
     private String tv_my_rate;
     private String tv_name, tv_review_date, tv_review;
     private boolean isSelected = false;
 
-    public ReviewMainData(int iv_poster, String tv_name, String tv_my_rate, String tv_review_date, String tv_review) {
+    public ReviewMainData(Integer iv_poster, String tv_name, String tv_my_rate, String tv_review_date, String tv_review) {
         this.iv_poster = iv_poster;
         this.tv_my_rate = tv_my_rate;
         this.tv_name = tv_name;
@@ -20,7 +21,7 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
     }
 
     public ReviewMainData() {
-        this.iv_poster = 0;
+        this.iv_poster = null;
         this.tv_my_rate = "";
         this.tv_name = "";
         this.tv_review_date = "";
@@ -29,7 +30,7 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
     }
 
     protected ReviewMainData(Parcel in) {
-        iv_poster = in.readInt();
+        iv_poster = in.readInt(); //이거 맞냐? - 유다
         tv_my_rate = in.readString();
         tv_name = in.readString();
         tv_review_date = in.readString();
@@ -53,7 +54,7 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
         return iv_poster;
     }
 
-    public void setIv_poster(int iv_poster) {
+    public void setIv_poster(Integer iv_poster) {
         this.iv_poster = iv_poster;
     }
 

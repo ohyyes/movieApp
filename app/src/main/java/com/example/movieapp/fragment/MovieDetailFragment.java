@@ -52,7 +52,7 @@ public class MovieDetailFragment extends Fragment {
     boolean has_review;
 
     //firebase
-    String movieDetail_review;
+    String movieDetail_review, movieDetail_rating;
 
 
     @Override
@@ -195,7 +195,7 @@ public class MovieDetailFragment extends Fragment {
         tv_actor.setText(movieData.getActors());
 
 //        //참조할 리뷰 데이터 리스트
-//        all_review = new ArrayList<>();
+        all_review = new ArrayList<>();
 //        //MainData 객체 만들기-> back이랑 연결하면 삭제하기
 //        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
 //        all_review.add(mainData1);
@@ -213,19 +213,6 @@ public class MovieDetailFragment extends Fragment {
 
 
         //감상평 상세 프래그먼트로 전환하기 전에 선택한 영화의 감상평데이터가 있는지 확인
-        review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), "");
-        has_review = false;
-//        for(int i=0;i<all_review.size();i++){
-//            //감상평데이터가 있다면 전달할 감상평 객체 담기
-//            if(movieData.getTitle() == all_review.get(i).getTv_name()){
-//                review_item = all_review.get(i);
-//                has_review = true;
-//            }
-//            //찾으면 for문 중지
-//            if (has_review == true) break;
-//        }
-
-        //db에서 token 찾아서 title이 있나 확인(리뷰 있는지 확인하기 위해)
 
         //firebase로 로그인한 사용자 정보 불러오기
         FirebaseAuth mAuth;
@@ -239,23 +226,43 @@ public class MovieDetailFragment extends Fragment {
 
         //해당하는 title이 있나 확인해야됨
         userReference.child("user").child(userUid).child(movieData.getTitle()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //title이 존재한다 -> 리뷰도 존재
-                    try{
-                        has_review = true;
-                        movieDetail_review = snapshot.getValue().toString();
-                    }
-                    //review 작성 안했을 경우
-                    catch (Exception e){
-                        System.out.println("readReview catch");
-                    }
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //title이 존재한다 -> 리뷰도 존재
+                try{
+                    has_review = true;
+                    movieDetail_review = snapshot.child("review").getValue().toString();
+                    movieDetail_rating = snapshot.child("rating").getValue().toString();
+                    movieData.setReview(movieDetail_review);
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                //review 작성 안했을 경우
+                catch (Exception e){
+                    System.out.println("readReview catch");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+            }
+        });
+
+        System.out.println("getPoster" + movieData.getTitle());
+        System.out.println("movieDetail_review" + movieData.getReview());
+
+        review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
+        all_review.add(review_item);
+        has_review = false;
+//        for(int i=0;i<all_review.size();i++){
+//            //감상평데이터가 있다면 전달할 감상평 객체 담기
+//            if(movieData.getTitle() == all_review.get(i).getTv_name()){
+//                review_item = all_review.get(i);
+//                has_review = true;
+//            }
+//            //찾으면 for문 중지
+//            if (has_review == true) break;
+//        }
+
+        //db에서 token 찾아서 title이 있나 확인(리뷰 있는지 확인하기 위해)
 
         // [내 감상평 보러가기] 버튼의 setOnClickListener
         btn_gotoReview.setOnClickListener(new View.OnClickListener() {
@@ -273,7 +280,6 @@ public class MovieDetailFragment extends Fragment {
 
                     final AlertDialog alertDialog = AlertBuilder.create();
 
-
                     //팝업창 크기 조정
                     LayoutParams dialogAttribute = alertDialog.getWindow().getAttributes();
                     dialogAttribute.width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -284,7 +290,6 @@ public class MovieDetailFragment extends Fragment {
 
                     alertDialog.getWindow().setAttributes(dialogAttribute);
                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //팝업창이 둥글게 나올 수 있도록 기본 팝업 영역을 투명하게 설정
-
 
                     //닫기 버튼
                     Button btn_close = popupView.findViewById(R.id.btn_close);
