@@ -1,5 +1,6 @@
 package com.example.movieapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.movieapp.R;
 import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.data.MovieMainData;
-
 import java.util.ArrayList;
 
 public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAdapter.CustomViewHolder> {
@@ -49,13 +49,15 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     public void onBindViewHolder(@NonNull SearchFragmentAdapter.CustomViewHolder holder, int position) {
 
         //arrayList 의 각 MainData 객체의 정보를 holder에 전달해서 해당 정보들이 화면에 보이도록 함
-        holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
-        holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
-        holder.tv_name.setText(arrayList.get(position).getTv_name());
-        holder.tv_rate.setText(arrayList.get(position).getTv_rate());
-        holder.tv_gerne.setText(arrayList.get(position).getTv_gerne());
-        holder.tv_date.setText(arrayList.get(position).getTv_date());
-        holder.tv_time.setText(arrayList.get(position).getTv_time());
+        MovieMainData movie = arrayList.get(position);
+        if (movie.getPosterBitmap() != null) {
+            holder.iv_poster.setImageBitmap(movie.getPosterBitmap());
+        }
+        holder.tv_name.setText(movie.getTitle());
+        holder.tv_rating.setText(movie.getUserRating());
+        holder.tv_genre.setText(movie.getGenre());
+        holder.tv_date.setText(movie.getOpenYear());
+        holder.tv_running_time.setText(movie.getRunningTime());
 
 
         //리스트뷰가 클릭되었을 때,
@@ -63,11 +65,8 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 현재 눌린 아이템 (arraylist의 position번째 아이템) 객체의 tv_name 가져오기
-                MovieMainData movie_item = arrayList.get(position);
-
                 //homeActivity.java 에서 선언된 onFragmentChange 메소드에 접근해서 index=0 을 전달해 fragmentReview 로 이동 (영화 상세 페이지)
-                homeActivity.onFragmentChange(0, movie_item);
+                homeActivity.onFragmentChange(0, movie);
             }
         });
 
@@ -85,6 +84,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
 
     // SearchFragment.java 에서 검색 for문 후 만들어진 search_list 를 어댑터의 data 로 바꿀 때 쓰임.
     // 어댑터의 data 를 newList 로 바꾸고 notifyDataSetChanged()로 리사이클러뷰에게 데이터가 변했다고 알려주는 역할.
+    @SuppressLint("NotifyDataSetChanged")
     public void setItems(ArrayList<MovieMainData> newList){
         this.arrayList = newList;
         notifyDataSetChanged();
@@ -93,16 +93,16 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
         protected ImageView iv_poster;
-        protected TextView tv_name, tv_rate, tv_gerne, tv_date, tv_time, tv_summary, tv_director, tv_actor;
+        protected TextView tv_name, tv_rating, tv_genre, tv_date, tv_running_time, tv_summary, tv_director, tv_actor;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
-            this.tv_rate = (TextView) itemView.findViewById(R.id.tv_rate);
-            this.tv_gerne = (TextView) itemView.findViewById(R.id.tv_gerne);
+            this.tv_rating = (TextView) itemView.findViewById(R.id.tv_rating);
+            this.tv_genre = (TextView) itemView.findViewById(R.id.tv_genre);
             this.tv_date = (TextView) itemView.findViewById(R.id.tv_date);
-            this.tv_time = (TextView) itemView.findViewById(R.id.tv_time);
+            this.tv_running_time = (TextView) itemView.findViewById(R.id.tv_running_time);
 
         }
     }

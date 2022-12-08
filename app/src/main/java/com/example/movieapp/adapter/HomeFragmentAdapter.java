@@ -1,8 +1,11 @@
 package com.example.movieapp.adapter;
 
+import android.annotation.SuppressLint;
+import android.graphics.Outline;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,8 +50,9 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         HomeFragmentMainData item = homeFragmentMainData.get(position);
-        holder.name.setText(item.getmName());
-        holder.poster.setImageResource(item.getmPoster());
+        String title = (position+1) + ". " + item.getmName();
+        holder.name.setText(title);
+        holder.poster.setImageBitmap(item.getmPosterBitmap());
         holder.poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
 
         if (mListener != null) {
@@ -81,6 +85,12 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void setItems(ArrayList<HomeFragmentMainData> arrayList){
+        this.homeFragmentMainData = arrayList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return homeFragmentMainData.size();
@@ -95,6 +105,12 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
             poster = itemView.findViewById(R.id.iv_poster);
 
             //이미지뷰 원형으로 표시
+            poster.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setRoundRect(0,0, view.getWidth(), view.getHeight(), 40);
+                }
+            });
             poster.setClipToOutline(true);
         }
     }

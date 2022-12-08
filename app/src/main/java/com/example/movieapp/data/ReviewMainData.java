@@ -3,9 +3,10 @@ package com.example.movieapp.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class ReviewMainData implements Comparator<ReviewMainData>, Parcelable {
+public class ReviewMainData implements Comparator<ReviewMainData>, Serializable {
     private int iv_poster;//이미지뷰는 int 값임.
     private double tv_my_rate;
     private String tv_name, tv_review_date, tv_review;
@@ -37,17 +38,17 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Parcelable {
         isSelected = in.readByte() != 0;
     }
 
-    public static final Creator<ReviewMainData> CREATOR = new Creator<ReviewMainData>() {
-        @Override
-        public ReviewMainData createFromParcel(Parcel in) {
-            return new ReviewMainData(in);
-        }
-
-        @Override
-        public ReviewMainData[] newArray(int size) {
-            return new ReviewMainData[size];
-        }
-    };
+//    public static final Creator<ReviewMainData> CREATOR = new Creator<ReviewMainData>() {
+//        @Override
+//        public ReviewMainData createFromParcel(Parcel in) {
+//            return new ReviewMainData(in);
+//        }
+//
+//        @Override
+//        public ReviewMainData[] newArray(int size) {
+//            return new ReviewMainData[size];
+//        }
+//    };
 
     public int getIv_poster() {
         return iv_poster;
@@ -103,19 +104,19 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Parcelable {
         return 0;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(iv_poster);
-        parcel.writeDouble(tv_my_rate);
-        parcel.writeString(tv_name);
-        parcel.writeString(tv_review_date);
-        parcel.writeString(tv_review);
-        parcel.writeByte((byte) (isSelected ? 1 : 0));
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeInt(iv_poster);
+//        parcel.writeDouble(tv_my_rate);
+//        parcel.writeString(tv_name);
+//        parcel.writeString(tv_review_date);
+//        parcel.writeString(tv_review);
+//        parcel.writeByte((byte) (isSelected ? 1 : 0));
+//    }
 }
 

@@ -23,6 +23,7 @@ import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.data.MovieMainData;
 import com.example.movieapp.data.ReviewMainData;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -145,7 +146,7 @@ public class ReviewDetailFragment extends Fragment {
             }
         });
 
-        Parcelable item = this.getArguments().getParcelable("아이템");
+        Serializable item = this.getArguments().getSerializable("아이템");
         Log.e("d", item.getClass().getName());
         //이전 프래그먼트에서 전달된 영화 객체에 담기
         if(item.getClass().getName().contains("ReviewMainData")){
@@ -169,8 +170,8 @@ public class ReviewDetailFragment extends Fragment {
             //새로 감상평 데이터를 추가하기 위해 영화 포스터와 이름이 필요하므로 영화 객체 생성해서 전달받음
             MovieMainData movie_item =  (MovieMainData) item;
             changeMode(1);
-            iv_poster.setImageResource(movie_item.getIv_poster());
-            tv_name.setText(movie_item.getTv_name());
+            iv_poster.setImageResource(movie_item.getPoster());
+            tv_name.setText(movie_item.getTitle());
             //감상평 등록레이아웃 띄우기
             lin_review.setVisibility(View.GONE);
             lin_no_review.setVisibility(View.VISIBLE);

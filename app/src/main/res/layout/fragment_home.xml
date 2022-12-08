@@ -12,7 +12,7 @@
                 android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="340dp"
+            android:layout_height="300dp"
             android:orientation="vertical"
             android:layout_marginTop="10dp">
 
@@ -26,32 +26,30 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recyclerView"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/recyclerView"/>
 
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="340dp"
+            android:layout_height="300dp"
             android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="오늘의 추천"
+                    android:text="추천 영화"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
-                <FrameLayout
-                    android:id="@+id/rec_frame_layout"
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="?attr/actionBarSize"/>
-
+                    android:id="@+id/recyclerViewReco"/>
 
         </LinearLayout>
 </LinearLayout>

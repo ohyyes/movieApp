@@ -1,152 +1,152 @@
 package com.example.movieapp.data;
 
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MovieMainData implements Parcelable {
-    private int iv_poster;  //이미지뷰는 int 값임.
-    private String tv_name, tv_rate, tv_date, tv_time, tv_gerne, tv_summary, tv_director, tv_actor;
+import java.io.Serializable;
 
-    public MovieMainData(int iv_poster, String tv_name, String tv_rate, String tv_date, String tv_time, String tv_gerne, String tv_summary, String tv_director, String tv_actor) {
-        this.iv_poster = iv_poster;
-        this.tv_name = tv_name;
-        this.tv_rate = tv_rate;
-        this.tv_date = tv_date;
-        this.tv_time = tv_time;
-        this.tv_gerne = tv_gerne;
-        this.tv_summary = tv_summary;
-        this.tv_director = tv_director;
-        this.tv_actor = tv_actor;
+public class MovieMainData implements Serializable {
+    private int poster;
+    private Bitmap posterBitmap;
+    private String title, userRating, openYear, runningTime, genre, summary, director, actors;
+
+    public MovieMainData(int poster, String title, String userRating, String openYear, String runningTime, String genre, String summary, String director, String actors) {
+        this.poster = poster;
+        this.title = title;
+        this.userRating = userRating;
+        this.openYear = openYear;
+        this.runningTime = runningTime;
+        this.genre = genre;
+        this.summary = summary;
+        this.director = director;
+        this.actors = actors;
     }
 
-    //생성자
-    public MovieMainData() {
-        this.iv_poster = 0;
-        this.tv_name = null;
-        this.tv_rate = null;
-        this.tv_date = null;
-        this.tv_time = null;
-        this.tv_gerne = null;
-        this.tv_summary = null;
-        this.tv_director = null;
-        this.tv_actor = null;
+    public MovieMainData() {}
+    public MovieMainData(int poster, String title) {
+        this.poster = poster;
+        this.title = title;
     }
-
-    public static final Creator<MovieMainData> CREATOR = new Creator<MovieMainData>() {
-        @Override
-        public MovieMainData createFromParcel(Parcel in) {
-            return new MovieMainData(in);
-        }
-
-        @Override
-        public MovieMainData[] newArray(int size) {
-            return new MovieMainData[size];
-        }
-    };
+//    public static final Creator<MovieMainData> CREATOR = new Creator<MovieMainData>() {
+//        @Override
+//        public MovieMainData createFromParcel(Parcel in) {
+//            return new MovieMainData(in);
+//        }
+//
+//        @Override
+//        public MovieMainData[] newArray(int size) {
+//            return new MovieMainData[size];
+//        }
+//    };
 
     //getter
-    public int getIv_poster() {
-        return iv_poster;
+    public int getPoster() {
+        return poster;
     }
     //setter
-    public void setIv_poster(int iv_poster) {
-        this.iv_poster = iv_poster;
+    public void setPoster(int poster) {
+        this.poster = poster;
     }
 
-    public String getTv_name() {
-        return tv_name;
+    public Bitmap getPosterBitmap() { return posterBitmap; }
+
+    public void setPosterBitmap(Bitmap posterBitmap) { this.posterBitmap = posterBitmap; }
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setTv_name(String tv_name) {
-        this.tv_name = tv_name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getTv_rate() {
-        return tv_rate;
+    public String getUserRating() {
+        return userRating;
     }
 
-    public void setTv_rate(String tv_rate) {
-        this.tv_rate = tv_rate;
+    public void setUserRating(String userRating) {
+        this.userRating = userRating;
     }
 
-    public String getTv_date() {
-        return tv_date;
+    public String getOpenYear() {
+        return openYear;
     }
 
-    public void setTv_date(String tv_date) {
-        this.tv_rate = tv_date;
+    public void setOpenYear(String openYear) {
+        this.openYear = openYear;
     }
 
-    public String getTv_time() {
-        return tv_time;
+    public String getRunningTime() {
+        return runningTime;
     }
 
-    public void setTv_time(String tv_time) {
-        this.tv_time = tv_time;
+    public void setRunningTime(String runningTime) {
+        this.runningTime = runningTime;
     }
 
-    public String getTv_gerne() {
-        return tv_gerne;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setTv_gerne(String tv_gerne) {
-        this.tv_gerne = tv_gerne;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public String getTv_summary() {
-        return tv_summary;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setTv_summary(String tv_summary) {
-        this.tv_summary = tv_summary;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
-    public String getTv_director() {
-        return tv_director;
+    public String getDirector() {
+        return director;
     }
 
-    public void setTv_director(String tv_director) {
-        this.tv_director = tv_director;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
 
-    public String getTv_actor() {
-        return tv_actor;
+    public String getActors() {
+        return actors;
     }
 
-    public void setTv_actor(String tv_actor) {
-        this.tv_actor = tv_actor;
+    public void setActors(String actors) {
+        this.actors = actors;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    //객체를 받아올때 호출
-    protected MovieMainData(Parcel in) {
-        tv_name = in.readString();
-        iv_poster = in.readInt();
-        tv_rate = in.readString();
-        tv_date = in.readString();
-        tv_time = in.readString();
-        tv_gerne = in.readString();
-        tv_summary = in.readString();
-        tv_director = in.readString();
-        tv_actor = in.readString();
-    }
-    //객체를 전달할 때 호출
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(iv_poster);
-        parcel.writeString(tv_name);
-        parcel.writeString(tv_rate);
-        parcel.writeString(tv_date);
-        parcel.writeString(tv_time);
-        parcel.writeString(tv_gerne);
-        parcel.writeString(tv_summary);
-        parcel.writeString(tv_director);
-        parcel.writeString(tv_actor);
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    //객체를 받아올때 호출
+//    protected MovieMainData(Parcel in) {
+//        title = in.readString();
+//        poster = in.readInt();
+//        userRating = in.readString();
+//        openYear = in.readString();
+//        runningTime = in.readString();
+//        genre = in.readString();
+//        summary = in.readString();
+//        director = in.readString();
+//        actors = in.readString();
+//    }
+//    //객체를 전달할 때 호출
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeInt(poster);
+//        parcel.writeString(title);
+//        parcel.writeString(userRating);
+//        parcel.writeString(openYear);
+//        parcel.writeString(runningTime);
+//        parcel.writeString(genre);
+//        parcel.writeString(summary);
+//        parcel.writeString(director);
+//        parcel.writeString(actors);
+//    }
 }

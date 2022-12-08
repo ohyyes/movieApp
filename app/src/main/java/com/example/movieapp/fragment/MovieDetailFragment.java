@@ -32,6 +32,9 @@ import java.util.ArrayList;
  */
 public class MovieDetailFragment extends Fragment {
 
+    // 선택된 영화 객체
+    private MovieMainData movieData;
+
     //홈 엑티비티 선언 (화면 전환시 필요)
     HomeActivity homeActivity;
     //뒤로가기 버튼 선언
@@ -105,7 +108,38 @@ public class MovieDetailFragment extends Fragment {
         //뷰 선언
         ImageButton btn_gotoReview;
         ImageView iv_poster;
-        TextView tv_name, tv_rate, tv_date, tv_time, tv_gerne, tv_summary, tv_director, tv_actor;
+        TextView tv_name, tv_rating, tv_date, tv_running_time, tv_genre, tv_summary, tv_director, tv_actor;
+
+        //--------------------------------해담-----------------------------
+        // 선택된 영화 객체 받아오기
+        if (getArguments() != null) {
+            movieData = (MovieMainData) getArguments().getSerializable("아이템");
+        }
+
+        // fragment_movie_detail.xml 의 뷰 가져오기
+        iv_poster = (ImageView) rootView.findViewById(R.id.iv_poster);
+        tv_name = (TextView) rootView.findViewById(R.id.tv_name);
+        tv_rating = (TextView) rootView.findViewById(R.id.tv_rating);
+        tv_date = (TextView) rootView.findViewById(R.id.tv_date);
+        tv_running_time = (TextView) rootView.findViewById(R.id.tv_running_time);
+        tv_genre = (TextView) rootView.findViewById(R.id.tv_genre);
+        tv_director = (TextView) rootView.findViewById(R.id.tv_director);
+        tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
+        tv_summary = (TextView) rootView.findViewById(R.id.tv_summary);
+
+        // 영화 데이터를 뷰에 설정
+        iv_poster.setImageBitmap(movieData.getPosterBitmap());
+        tv_name.setText(movieData.getTitle());
+        tv_rating.setText(movieData.getUserRating());
+        tv_date.setText(movieData.getOpenYear());
+        tv_running_time.setText(movieData.getRunningTime());
+        tv_genre.setText(movieData.getGenre());
+        tv_name.setText(movieData.getTitle());
+        tv_director.setText(movieData.getDirector());
+        tv_actor.setText(movieData.getActors());
+        tv_summary.setText(movieData.getSummary());
+        //---------------------해담---------------------------
+
 
         //뒤로가기버튼 연결
         ib_back = (ImageButton) rootView.findViewById(R.id.ib_back);
@@ -125,28 +159,28 @@ public class MovieDetailFragment extends Fragment {
         btn_gotoReview = (ImageButton) rootView.findViewById(R.id.ib_gotomyreview);
         iv_poster = (ImageView) rootView.findViewById(R.id.iv_poster);
         tv_name = (TextView) rootView.findViewById(R.id.tv_name);
-        tv_rate = (TextView) rootView.findViewById(R.id.tv_rate);
+        tv_rating = (TextView) rootView.findViewById(R.id.tv_rating);
         tv_date = (TextView) rootView.findViewById(R.id.tv_date);
-        tv_time = (TextView) rootView.findViewById(R.id.tv_time);
-        tv_gerne = (TextView) rootView.findViewById(R.id.tv_gerne);
+        tv_running_time = (TextView) rootView.findViewById(R.id.tv_running_time);
+        tv_genre = (TextView) rootView.findViewById(R.id.tv_genre);
         tv_summary = (TextView) rootView.findViewById(R.id.tv_summary);
         tv_director = (TextView) rootView.findViewById(R.id.tv_director);
         tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
 
         //이전 프래그먼트에서 전달된 메세지 변수에 담기
-        MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
+        //MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
 
         //뷰에 mainData 정보 넣기
-        iv_poster.setImageResource(movie_item.getIv_poster());
+        iv_poster.setImageResource(movieData.getPoster());
         iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
-        tv_name.setText(movie_item.getTv_name());
-        tv_rate.setText(movie_item.getTv_rate());
-        tv_date.setText(movie_item.getTv_date());
-        tv_time.setText(movie_item.getTv_time());
-        tv_gerne.setText(movie_item.getTv_gerne());
-        tv_summary.setText(movie_item.getTv_summary());
-        tv_director.setText(movie_item.getTv_director());
-        tv_actor.setText(movie_item.getTv_actor());
+        tv_name.setText(movieData.getTitle());
+        tv_rating.setText(movieData.getUserRating());
+        tv_date.setText(movieData.getOpenYear());
+        tv_rating.setText(movieData.getRunningTime());
+        tv_genre.setText(movieData.getGenre());
+        tv_summary.setText(movieData.getSummary());
+        tv_director.setText(movieData.getDirector());
+        tv_actor.setText(movieData.getActors());
 
         //참조할 리뷰 데이터 리스트
         all_review = new ArrayList<>();
@@ -161,7 +195,8 @@ public class MovieDetailFragment extends Fragment {
         all_review.add(mainData4);
         ReviewMainData mainData5 = new ReviewMainData(R.drawable.movie2, "ㅁ", 0.5, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
         all_review.add(mainData5);
-        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "ㄴ", 1, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "스파이더맨3", 1, "2008.03.03", "스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박"
+        ); //아이템 추가하는 코드
         all_review.add(mainData6);
 
 
@@ -171,7 +206,7 @@ public class MovieDetailFragment extends Fragment {
 
         for(int i=0;i<all_review.size();i++){
             //감상평데이터가 있다면 전달할 감상평 객체 담기
-            if(movie_item.getTv_name() == all_review.get(i).getTv_name()){
+            if(movieData.getTitle() == all_review.get(i).getTv_name()){
                 review_item = all_review.get(i);
                 has_review = true;
             }
@@ -224,9 +259,9 @@ public class MovieDetailFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             //감상평 데이터에 필요한 영화 포스터, 이름 데이터 주기 위해 영화 아이템 객체 전달
-                            Log.e("d", movie_item.getTv_name());
+                            Log.e("d", movieData.getTitle());
                             alertDialog.dismiss();  //팝업창 닫기
-                            homeActivity.onFragmentChange(1, movie_item);
+                            homeActivity.onFragmentChange(1, movieData);
                         }
                     });
 

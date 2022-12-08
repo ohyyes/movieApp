@@ -33,4 +33,7 @@
     <style name="ChipCheck" parent="">
         <item name="strokeWidth">0dp</item>
     </style>
+    <style name="CustomRatingBar" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_selector</item>
+    </style>
 </resources>

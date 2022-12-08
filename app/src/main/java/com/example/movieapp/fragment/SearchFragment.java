@@ -1,7 +1,13 @@
 package com.example.movieapp.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +23,15 @@ import com.example.movieapp.adapter.SearchFragmentAdapter;
 import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.data.MovieMainData;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -87,7 +102,11 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    private final static String NAVER_MOVIE_SEARCH = "https://movie.naver.com/movie/search/result.naver?section=movie&query=";
+    private final static String NAVER_MOVIE_INFO = "https://movie.naver.com/movie/bi/mi/basic.naver?code=";
 
+    private static final String TAG = "moviesearch";
+    public static final int LOAD_SUCCESS = 101;
 
     private RecyclerView rec_search_list;  // 리사이클러 뷰
     private LinearLayout lin_no_result; //검색결과 없음 레이아웃
@@ -96,8 +115,7 @@ public class SearchFragment extends Fragment {
 
 
     //리스트 선언
-    private ArrayList<MovieMainData> original_list; //모든 영화가 담긴 리스트
-    private ArrayList<MovieMainData> search_list; //검색 시 담을 아이템 리스트
+    private ArrayList<MovieMainData> resultMovieList; //검색 시 담을 아이템 리스트
 
 
     //어댑터 선언
@@ -105,6 +123,8 @@ public class SearchFragment extends Fragment {
     //리사이클러 뷰에서 사용할
     private LinearLayoutManager linearLayoutManager;
 
+    // 로딩중 표시를 위한 다이얼로그
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -120,80 +140,207 @@ public class SearchFragment extends Fragment {
         ib_search = (ImageButton) rootView.findViewById(R.id.ib_search);
         et_search = (EditText)  rootView.findViewById(R.id.et_search);
 
-
-
         linearLayoutManager = new LinearLayoutManager(getContext()); //???
         rec_search_list.setLayoutManager(linearLayoutManager);
 
-
         //리스트 생성
-        original_list = new ArrayList<>();
-        search_list = new ArrayList<>();
-
+        resultMovieList = new ArrayList<>();
         //어댑터 생성
-        adapter = new SearchFragmentAdapter(original_list, homeActivity);
-
-
-
-        // 테스트용 임시 original_list
-        MovieMainData mainData1 = new MovieMainData(R.drawable.testdata_spiderman, "스파이더맨", "9.27", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData1);
-        MovieMainData mainData2 = new MovieMainData(R.drawable.testdata_spiderman2, "스파이더맨2", "8.32", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData2);
-        MovieMainData mainData3 = new MovieMainData(R.drawable.testdata_spiderman3, "스파이더맨3", "7.08", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData3);
-        MovieMainData mainData4 = new MovieMainData(R.drawable.testdata_the_amazing_spiderman, "어메이징 스파이더맨", "8.02", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData4);
-        MovieMainData mainData5 = new MovieMainData(R.drawable.testdata_the_amazing_spiderman2, "어메이징 스파이더맨 2", "7.71", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData5);
-        MovieMainData mainData6 = new MovieMainData(R.drawable.testdata_spiderman_homecomming, "스파이더맨 : 홈 커밍", "8.94", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData6);
-        MovieMainData mainData7 = new MovieMainData(R.drawable.testdata_spiderman_farfromhome, "스파이더맨 : 파 프롬 홈", "8.36", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData7);
-        MovieMainData mainData8 = new MovieMainData(R.drawable.testdata_spiderman_nowayhome, "스파이더맨 : 노 웨이 홈", "9.54", "2002", "121분","슈퍼히어로","d","d","D"); //아이템 추가하는 코드
-        original_list.add(mainData8);
+        adapter = new SearchFragmentAdapter(resultMovieList, homeActivity);
 
 
         // [돋보기] 버튼을 누르면 해당 키워드를 포함하는 아이템 검색해서 보여줌
         ib_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.v("검색버튼", "클릭!");
 
-                String search_keyword = et_search.getText().toString();  //search_keyword 변수에 EditText 에 입력된 값 담기
-                search_list.clear(); //search_list 초기화 (기존에 검색된 값이 있을 수 있으므로)
+                // 로딩중 표시
+                progressDialog = new ProgressDialog(homeActivity);
+                progressDialog.setMessage("Please wait...");
+                progressDialog.show();      // 시작
 
-
-                if(search_keyword.length() > 0){
-                    //original_list에 있는 모든 아이템을 for 문으로 돌면서 검색
-                    for(int i=0; i<original_list.size(); i++){
-                        //키워드를 포함하면 search_list에 해당 아이템 (= SearchFragmentMainData 객체) 을 추가함
-                        if(original_list.get(i).getTv_name().contains(search_keyword)){
-                            search_list.add(original_list.get(i));
-                        }
-                    }
-                }
-
-                //어댑터의 data 를 search_list 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현 되어있음)
-                adapter.setItems(search_list);
-
-
-                // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
-                if(search_list.isEmpty()){
-                    rec_search_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
-                    lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
-                }
-                // 있을 땐, 리사이클러뷰가 보이게 !
-                else{
-                    rec_search_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
-                    lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
-                }
+                // 검색 결과 리스트 초기화
+                resultMovieList.clear();
+                // 검색
+                String keyword = et_search.getText().toString();    // keyword 변수에 EditText 에 입력된 값 담기
+                searchMovie(keyword);               // keyword 로 영화 검색
             }
         });
 
-        // 리사이클러뷰에게 어댑터 객체를 전송한다.
-        // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
-        rec_search_list.setAdapter(adapter);
-
         return rootView;
+    }
+
+    private final MyHandler mHandler = new MyHandler();
+
+    private class MyHandler extends Handler {
+        // 메시지 큐의 메시지 처리
+        @Override
+        public void handleMessage(Message msg) {
+            // 어댑터의 data 를 resultMovieList 로 갱신 (setItems()는 SearchFragmentAdapter.java 에 구현되어 있음)
+            adapter.setItems(resultMovieList);
+
+            // 로딩중 표시 종료
+            progressDialog.dismiss();
+
+            // 검색된 결과가 없을 때 -> "죄송합니다 해당 키워드가 없습니다" 레이아웃을 보이게 !
+            if (resultMovieList.isEmpty()) {
+                rec_search_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
+                lin_no_result.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+            }
+            // 있을 땐, 리사이클러뷰가 보이게 !
+            else {
+                rec_search_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
+                lin_no_result.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+            }
+
+            // 리사이클러뷰에게 어댑터 객체를 전송한다.
+            // (검색결과가 없을 때도 리사이클러뷰에게 어댑터를 기본적으로 전송하도록 짜둠.)
+            rec_search_list.setAdapter(adapter);
+        }
+    }
+    // 영화목록 조회 API 호출 및 응답결과 파싱 함수 호출
+    public void searchMovie(final String keyword) {
+        if (keyword == null) return;
+
+        // 새로 생성한 스레드에서 영화진흥위원회 영화목록 API 호출
+        Thread thread = new Thread( new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document doc = Jsoup.connect(NAVER_MOVIE_SEARCH+keyword).get();	// URL 웹사이트에 있는 html 코드를 다 끌어오기
+
+                    // html 에서 태그 ul, 클래스명 "search_list_1"인 값에서 태그가 dl인 값 가져오기
+                    Elements elements = doc.select("ul.search_list_1").select("dl");
+                    boolean isEmpty = elements.isEmpty();           // 빼온 값 null 체크
+                    Log.d("Tag", "isNull? : " + isEmpty);
+
+                    if (!isEmpty) {          // null 이 아니면 크롤링
+                        for (int i=0; i<elements.size(); i++) {
+                            Element element = elements.get(i);
+                            Element idElement = element.select("a").first();
+                            // 영화 객체
+                            MovieMainData movie = new MovieMainData();
+
+                            // 식별 코드
+                            String codeUrl = idElement.attr("href");
+                            String code = codeUrl.split("code=")[1];
+
+                            // 기본 정보(제목, 평점, 개봉연도, 장르) 저장
+                            movie.setTitle(idElement.select("a").text());        // 제목
+
+                            Elements ratingElements = element.select("dd.point");
+                            movie.setUserRating((ratingElements.size()==0)?"0.00": ratingElements.select("em.num").text());    // 평점
+
+                            Elements etcElements = element.select("dd.etc").select("a");
+                            String openYear = null;
+                            String genres = etcElements.get(0).text();
+                            for (int j=1; j<etcElements.size(); j++) {
+                                Element etcElement = etcElements.get(j);
+                                if (etcElement.attr("href").contains("year"))
+                                    openYear = etcElement.text();
+                                else if (etcElement.attr("href").contains("genre"))
+                                    genres += ", " + etcElement.text();
+                            }
+                            movie.setOpenYear(openYear);        // 개봉연도
+                            movie.setGenre(genres);             // 장르
+
+                            // 결과 리스트에 영화 저장하기
+                            resultMovieList.add(movie);
+
+                            // (2) 영화 상세정보 추가 - 포스터, 감독, 출연진, 줄거리
+                            searchMovieInfo(code, i);
+                        }
+                        Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
+                        mHandler.sendMessage(msg);
+                    }
+                } catch (Exception e) {
+                    Log.d(TAG, e.toString());
+                }
+            }
+        });
+        thread.start();
+    }
+    // (2) 영화 코드로 상세정보 (영화 한 개)
+    public void searchMovieInfo(final String code, int position) {
+        if (code == null) return;
+
+        try {
+            Document doc = Jsoup.connect(NAVER_MOVIE_INFO + code).get();    // URL 웹사이트에 있는 html 코드를 다 끌어오기
+            // 포스터
+            Bitmap posterBitmap;
+            Element posterElement = doc.select("div.poster").select("img").first();
+            if (posterElement != null) {
+                posterBitmap = getBitmapFromURL(posterElement.attr("src"));
+                resultMovieList.get(position).setPosterBitmap(posterBitmap);
+            }
+
+            // 상영 시간
+            Elements infoElements = doc.select("dl.info_spec").select("span");
+            String runningTime = (infoElements.size()<3)? "": infoElements.get(2).text();
+
+            // 감독 및 출연진
+            Elements peoples = doc.select("div.people").select("li");
+            String director = "감독: ";
+            String actors = "출연: ";
+            if (peoples.size() > 0) {
+                director += peoples.get(0).select("a").get(1).text();
+                if (peoples.size() > 1) {
+                    actors += peoples.get(1).select("a").get(1).text();
+                    for (int i = 2; i < peoples.size() - 1; i++)
+                        actors += ", " + peoples.get(i).select("a").get(1).text();
+                }
+            }
+            // 줄거리
+            String summary = doc.select("div.story_area").select("p").text();
+
+            resultMovieList.get(position).setRunningTime(runningTime);
+            resultMovieList.get(position).setDirector(director);
+            resultMovieList.get(position).setActors(actors);
+            resultMovieList.get(position).setSummary(summary);
+
+        } catch (Exception e) {
+            Log.d(TAG, e.toString());
+        }
+    }
+    // (3) 이미지 링크를 받아서 비트맵으로 반환
+    public static Bitmap getBitmapFromURL(final String imageURL) {
+        if (imageURL == null) return null;
+
+        Bitmap posterBitmap = null;
+
+        try {
+            URL url = new URL(imageURL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+            httpURLConnection.setReadTimeout(3000);
+            httpURLConnection.setConnectTimeout(3000);
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setUseCaches(false);
+            httpURLConnection.connect();
+
+            int responseStatusCode = httpURLConnection.getResponseCode();
+
+            InputStream inputStream;
+            if (responseStatusCode == HttpURLConnection.HTTP_OK)
+                inputStream = httpURLConnection.getInputStream();
+            else
+                return null;
+
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+            posterBitmap = BitmapFactory.decodeStream(bufferedInputStream);
+
+            bufferedInputStream.close();
+            httpURLConnection.disconnect();
+
+            // 변환 확인용 ---------------------------
+            System.out.println(posterBitmap);
+
+        } catch (Exception e) {
+            Log.d(TAG, e.toString());
+        }
+
+        return posterBitmap;
     }
 }
