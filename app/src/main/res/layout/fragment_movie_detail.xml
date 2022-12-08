@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".fragment.HomeFragment">
 
     <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/BG"
@@ -16,7 +17,8 @@
             android:id="@+id/rel_header"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            >
             <!-- 뒤로가기 버튼 -->
             <ImageButton
                 android:id="@+id/ib_back"
@@ -36,7 +38,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
-
         </RelativeLayout>
 
         <ScrollView
@@ -63,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/movie_no_image" />
+                        android:src="@mipmap/ic_launcher" />
                 </LinearLayout>
 
                 <!--제목/별점/간단정보/버튼-->
@@ -113,13 +114,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginBottom="5dp">
-                        <!--개봉일/상영시간/장르-->
+                        <!--개봉연도/상영시간/장르-->
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
                             android:orientation="horizontal">
-                            <!--개봉일-->
+                            <!--개봉연도-->
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -133,7 +134,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:text=" 2021"
+                                android:layout_marginStart="10dp"
+                                android:text="2021"
                                 android:textAlignment="center"
                                 android:textColor="#92929D"
                                 android:textSize="22sp" />
@@ -145,7 +147,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginRight="15dp"
                                 android:layout_marginBottom="10dp"
-                                android:src="@drawable/line" />
+                                android:src="@drawable/icon_line" />
                             <!--상영시간-->
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -160,7 +162,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:text=" 148분  "
+                                android:layout_marginStart="10dp"
+                                android:text="148분 "
                                 android:textAlignment="center"
                                 android:textColor="#92929D"
                                 android:textSize="20sp" />
@@ -172,7 +175,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginRight="15dp"
                                 android:layout_marginBottom="10dp"
-                                android:src="@drawable/line" />
+                                android:src="@drawable/icon_line" />
 
                             <!--장르-->
                             <ImageView
@@ -188,7 +191,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:text=" 액션"
+                                android:layout_marginStart="10dp"
+                                android:text="액션"
                                 android:textAlignment="center"
                                 android:textColor="#92929D"
                                 android:textSize="19sp" />
@@ -203,7 +207,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="90dp"
                         android:layout_marginRight="90dp"
-                        android:background="@drawable/detail_btn_gotomyreview" />
+                        android:background="@drawable/btn_gotomyreview" />
 
                 </LinearLayout>
 
@@ -239,11 +243,11 @@
                     <TextView
                         android:id="@+id/tv_summary"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="5"
+                        android:paddingBottom="30dp"
                         android:gravity="center"
                         android:text="‘미스테리오’의 계략으로 세상에 정체가 탄로난 스파이더맨 ‘피터 파커’는 하루 아침에 평범한 일상을 잃게 된다. 문제를 해결하기 위해 ‘닥터 스트레인지’를 찾아가 도움을 청하지만 뜻하지 않게 멀티버스가 열리면서 각기 다른 차원의 불청객들이 나타난다. ‘닥터 옥토퍼스’를 비롯해 스파이더맨에게 깊은 원한을 가진 숙적들의 강력한 공격에 ‘피터 파커’는 사상 최악의 위기를 맞게 되는데…"
                         android:textColor="@color/white"

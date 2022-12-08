@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/frame_search"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment">
+    tools:context=".fragment.SearchFragment">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -55,7 +53,7 @@
                 android:textColor="@color/white"
                 android:paddingLeft="10dp"
                 android:background="@drawable/bg_search"
-                android:inputType="text" />
+                android:inputType="textEmailAddress" />
 
             <!--검색 버튼 -->
             <ImageButton
@@ -64,7 +62,7 @@
                 android:layout_height="40dp"
                 android:layout_alignEnd="@id/et_search"
                 android:background="@drawable/bg_search"
-                android:src="@drawable/moviesearch_search_btn" />
+                android:src="@drawable/btn_search" />
         </RelativeLayout>
 
 
@@ -116,6 +114,5 @@
                     />
             </LinearLayout>
         </FrameLayout>
-
     </RelativeLayout>
 </FrameLayout>
