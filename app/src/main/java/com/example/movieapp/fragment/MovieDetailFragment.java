@@ -237,6 +237,7 @@ public class MovieDetailFragment extends Fragment {
                 }
                 //review 작성 안했을 경우
                 catch (Exception e){
+                    has_review = false;
                     System.out.println("readReview catch");
                 }
             }
@@ -251,7 +252,6 @@ public class MovieDetailFragment extends Fragment {
 
         review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
         all_review.add(review_item);
-        has_review = false;
 //        for(int i=0;i<all_review.size();i++){
 //            //감상평데이터가 있다면 전달할 감상평 객체 담기
 //            if(movieData.getTitle() == all_review.get(i).getTv_name()){
@@ -262,7 +262,6 @@ public class MovieDetailFragment extends Fragment {
 //            if (has_review == true) break;
 //        }
 
-        //db에서 token 찾아서 title이 있나 확인(리뷰 있는지 확인하기 위해)
 
         // [내 감상평 보러가기] 버튼의 setOnClickListener
         btn_gotoReview.setOnClickListener(new View.OnClickListener() {

@@ -153,7 +153,7 @@ public class ReviewDetailFragment extends Fragment {
         if(item.getClass().getName().contains("ReviewMainData")){
             //리뷰 아이템을 전달받았다면
             ReviewMainData review_item = (ReviewMainData) item;
-            iv_poster.setImageResource(review_item.getIv_poster());
+//            iv_poster.setImageResource(review_item.getIv_poster());
             tv_name.setText(review_item.getTv_name());
 
             //영화제목 - firebase
@@ -181,7 +181,6 @@ public class ReviewDetailFragment extends Fragment {
                         lin_review.setVisibility(View.GONE);
                         lin_no_review.setVisibility(View.VISIBLE);
                         ratingbar2.setRating(0);
-                        System.out.println("readReview catch");
                     }
                 }
                 @Override
@@ -195,12 +194,42 @@ public class ReviewDetailFragment extends Fragment {
             changeMode(1);
             iv_poster.setImageResource(movie_item.getPoster());
             tv_name.setText(movie_item.getTitle());
+
             //영화제목 - firebase
             movieTitle = movie_item.getTitle();
 
             //감상평 등록 레이아웃 띄우기
             lin_review.setVisibility(View.GONE);
             lin_no_review.setVisibility(View.VISIBLE);
+
+            ////firebase에서 해당 TITLE의 리뷰 있으면 불러오기
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference userReference = database.getReference();
+
+            //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
+            userReference.child("user").child(userUid).child(movieTitle).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try{
+                        String review = snapshot.child("review").getValue().toString();
+                        String rating = snapshot.child("rating").getValue().toString();
+                        tv_review.setText(review);
+                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
+                        ratingbar2.setRating(Float.valueOf(rating));
+                    }
+                    //review 작성 안했을 경우
+                    //리뷰데이터가 없으면 감상평 등록 레이아웃
+                    catch (Exception e){
+                        changeMode(1);
+                        lin_review.setVisibility(View.GONE);
+                        lin_no_review.setVisibility(View.VISIBLE);
+                        ratingbar2.setRating(0);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         }
 
         //수정 버튼 클릭시
