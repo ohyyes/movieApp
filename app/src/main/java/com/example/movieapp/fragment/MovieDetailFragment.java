@@ -183,11 +183,12 @@ public class MovieDetailFragment extends Fragment {
 //        MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
 
         //뷰에 mainData 정보 넣기
-        iv_poster.setImageResource(movieData.getPoster());
+        iv_poster.setImageBitmap(movieData.getPosterBitmap());
         iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         tv_name.setText(movieData.getTitle());
         tv_rating.setText(movieData.getUserRating());
         tv_date.setText(movieData.getOpenYear());
+        tv_running_time.setText(movieData.getRunningTime());
         tv_rating.setText(movieData.getRunningTime());
         tv_genre.setText(movieData.getGenre());
         tv_summary.setText(movieData.getSummary());
@@ -249,7 +250,7 @@ public class MovieDetailFragment extends Fragment {
         System.out.println("getPoster" + movieData.getTitle());
         System.out.println("movieDetail_review" + movieData.getReview());
 
-        review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
+        review_item = new ReviewMainData(movieData.getPosterBitmap(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
         all_review.add(review_item);
         has_review = false;
 //        for(int i=0;i<all_review.size();i++){

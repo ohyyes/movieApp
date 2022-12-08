@@ -33,11 +33,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecyclerViewClickListener{
+public class HomeFragment extends Fragment{
 
     ViewGroup rootView;
     ArrayList<HomeFragmentMainData> dataList;
-    // int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
     private HomeFragmentAdapter adapter;
     static int i=0;
@@ -117,10 +116,6 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //FragmentTransaction transaction = fragmentManager.beginTransaction();
-        //transaction.replace(R.id.rec_frame_layout, fragmentRec).commitAllowingStateLoss();
-
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
 
@@ -218,31 +213,5 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
         }
     };
     //---------------------------------------------------
-
-    @Override
-    public void onItemClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Item : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onTitleClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Title : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onContentClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Content : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onImageViewClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Image : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onItemLongClicked(int position) {
-        adapter.remove(position);
-        Toast.makeText(getActivity().getApplicationContext(),
-                dataList.get(position).getmName()+" is removed",Toast.LENGTH_SHORT).show();
-    }
-
-
 
 }

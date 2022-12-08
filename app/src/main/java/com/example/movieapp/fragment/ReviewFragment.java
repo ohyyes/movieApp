@@ -198,7 +198,7 @@ public class ReviewFragment extends Fragment {
                         public int compare(ReviewMainData d1, ReviewMainData d2) {
                             if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
                                 ret = 1;
-                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                            else if (Double.valueOf(d1.getTv_my_rate()) == Double.valueOf(d2.getTv_my_rate()))
                                 ret = 0;
                             else ret = -1;
                             return ret;
@@ -214,7 +214,7 @@ public class ReviewFragment extends Fragment {
                         public int compare(ReviewMainData d1, ReviewMainData d2) {
                             if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
                                 ret = -1;
-                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                            else if (Double.valueOf(d1.getTv_my_rate()) == Double.valueOf(d2.getTv_my_rate()))
                                 ret = 0;
                             else ret = 1;
                             return ret;
@@ -293,7 +293,5 @@ public class ReviewFragment extends Fragment {
 
     }
 
-    private void checkEmpty() {
-    }
 }
 

@@ -153,7 +153,8 @@ public class ReviewDetailFragment extends Fragment {
         if(item.getClass().getName().contains("ReviewMainData")){
             //리뷰 아이템을 전달받았다면
             ReviewMainData review_item = (ReviewMainData) item;
-            iv_poster.setImageResource(review_item.getIv_poster());
+            iv_poster.setImageBitmap(review_item.getIv_posterBitmap());
+            iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
             tv_name.setText(review_item.getTv_name());
 
             //영화제목 - firebase
@@ -193,7 +194,8 @@ public class ReviewDetailFragment extends Fragment {
             //새로 감상평 데이터를 추가하기 위해 영화 포스터와 이름이 필요하므로 영화 객체 생성해서 전달받음
             MovieMainData movie_item =  (MovieMainData) item;
             changeMode(1);
-            iv_poster.setImageResource(movie_item.getPoster());
+            iv_poster.setImageBitmap(movie_item.getPosterBitmap());
+            iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
             tv_name.setText(movie_item.getTitle());
             //영화제목 - firebase
             movieTitle = movie_item.getTitle();
