@@ -167,7 +167,7 @@ public class ReviewDetailFragment extends Fragment {
                 lin_no_review.setVisibility(View.VISIBLE);
                 ratingbar2.setRating(0);
             } else { //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
-                ratingbar1.setRating((float) review_item.getTv_my_rate());
+                ratingbar1.setRating(Float.valueOf(review_item.getTv_my_rate()));
 
             }
         }else if(item.getClass().getName().contains("MovieMainData")) {

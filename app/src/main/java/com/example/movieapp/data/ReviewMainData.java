@@ -1,18 +1,17 @@
 package com.example.movieapp.data;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.Comparator;
 
 public class ReviewMainData implements Comparator<ReviewMainData>, Serializable {
     private int iv_poster;//이미지뷰는 int 값임.
-    private double tv_my_rate;
+    private String tv_my_rate;
     private String tv_name, tv_review_date, tv_review;
     private boolean isSelected = false;
 
-    public ReviewMainData(int iv_poster, String tv_name, double tv_my_rate, String tv_review_date, String tv_review) {
+    public ReviewMainData(int iv_poster, String tv_name, String tv_my_rate, String tv_review_date, String tv_review) {
         this.iv_poster = iv_poster;
         this.tv_my_rate = tv_my_rate;
         this.tv_name = tv_name;
@@ -22,7 +21,7 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
 
     public ReviewMainData() {
         this.iv_poster = 0;
-        this.tv_my_rate = 0;
+        this.tv_my_rate = "";
         this.tv_name = "";
         this.tv_review_date = "";
         this.tv_review = "";
@@ -31,7 +30,7 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
 
     protected ReviewMainData(Parcel in) {
         iv_poster = in.readInt();
-        tv_my_rate = in.readDouble();
+        tv_my_rate = in.readString();
         tv_name = in.readString();
         tv_review_date = in.readString();
         tv_review = in.readString();
@@ -58,11 +57,11 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
         this.iv_poster = iv_poster;
     }
 
-    public double getTv_my_rate() {
+    public String getTv_my_rate() {
         return tv_my_rate;
     }
 
-    public void setTv_my_rate(double tv_my_rate) {
+    public void setTv_my_rate(String tv_my_rate) {
         this.tv_my_rate = tv_my_rate;
     }
 

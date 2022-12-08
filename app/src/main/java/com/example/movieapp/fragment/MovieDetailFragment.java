@@ -48,9 +48,11 @@ public class MovieDetailFragment extends Fragment {
     HomeActivity homeActivity;
     //뒤로가기 버튼 선언
     private ImageButton ib_back;
-    ReviewMainData review;
+    ReviewMainData review_item;
     boolean has_review;
-    String rev;
+
+    //firebase
+    String movieDetail_review;
 
 
     @Override
@@ -178,7 +180,7 @@ public class MovieDetailFragment extends Fragment {
         tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
 
         //이전 프래그먼트에서 전달된 메세지 변수에 담기
-        //MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
+//        MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
 
         //뷰에 mainData 정보 넣기
         iv_poster.setImageResource(movieData.getPoster());
@@ -211,9 +213,8 @@ public class MovieDetailFragment extends Fragment {
 
 
         //감상평 상세 프래그먼트로 전환하기 전에 선택한 영화의 감상평데이터가 있는지 확인
-//        review_item = new ReviewMainData();
-//        has_review = false;
-
+        review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), "");
+        has_review = false;
 //        for(int i=0;i<all_review.size();i++){
 //            //감상평데이터가 있다면 전달할 감상평 객체 담기
 //            if(movieData.getTitle() == all_review.get(i).getTv_name()){
@@ -237,23 +238,24 @@ public class MovieDetailFragment extends Fragment {
         String userUid = user.getUid();
 
         //해당하는 title이 있나 확인해야됨
-        try{
-            userReference.child("user").child(userUid).child(movieData.getTitle()).addValueEventListener(new ValueEventListener() {
+        userReference.child("user").child(userUid).child(movieData.getTitle()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     //title이 존재한다 -> 리뷰도 존재
-                    review = new ReviewMainData();
-                    rev = review.getTv_review();
-                    Log.d("rev", rev);
+                    try{
+                        has_review = true;
+                        movieDetail_review = snapshot.getValue().toString();
+                    }
+                    //review 작성 안했을 경우
+                    catch (Exception e){
+                        System.out.println("readReview catch");
+                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
-        } catch (Exception e){
-
-        }
 
         // [내 감상평 보러가기] 버튼의 setOnClickListener
         btn_gotoReview.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +263,7 @@ public class MovieDetailFragment extends Fragment {
             public void onClick(View v) {
                 //만약 해당 감상평이 있다면 리뷰아이템 객체 그대로 전달하며 감상평 상세 프래그먼트로 화면 전환
                 if (has_review) {
-                    homeActivity.onFragmentChange(1, rev);
+                    homeActivity.onFragmentChange(1, review_item);
                 }
                 //없다면, 팝업창 띄우기
                 else {
