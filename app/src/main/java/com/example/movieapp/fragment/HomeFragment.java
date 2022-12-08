@@ -1,12 +1,18 @@
 package com.example.movieapp.fragment;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +24,11 @@ import com.example.movieapp.adapter.RecFragmentAdapter;
 import com.example.movieapp.data.HomeFragmentMainData;
 import com.example.movieapp.data.MovieMainData;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +37,7 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
 
     ViewGroup rootView;
     ArrayList<HomeFragmentMainData> dataList;
-    int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
+    // int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
     private HomeFragmentAdapter adapter;
     static int i=0;
@@ -54,6 +65,12 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
     public ArrayList<String> movieNumList;
     //------------------- 규원 -----------------
 
+
+    //--------------------해담------------------
+    private String URL = "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&qvt=0&query=%EB%B0%95%EC%8A%A4%EC%98%A4%ED%94%BC%EC%8A%A4";
+    public static final int LOAD_SUCCESS = 101;
+    RecyclerView boxRecyclerView;
+    //-----------------------------------------
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -104,30 +121,55 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
         //FragmentTransaction transaction = fragmentManager.beginTransaction();
         //transaction.replace(R.id.rec_frame_layout, fragmentRec).commitAllowingStateLoss();
 
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
+
+        //-----------------------해담----------------------------------
+        boxRecyclerView = rootView.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        boxRecyclerView.setLayoutManager(layoutManager);
 
         dataList = new ArrayList<>();
         adapter = new HomeFragmentAdapter(dataList);
-        for (int i=0; i<5; i++) {
-            dataList.add(new HomeFragmentMainData(cat[i], "movie "+(i+1)));
-        }
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document doc = Jsoup.connect(URL).get();	// URL 웹사이트에 있는 html 코드를 다 끌어오기
+
+                    // html 에서 태그 div, 클래스명 "list_image_box"인 값에서 태그가 img 인 값 가져오기
+                    Elements elements = doc.select("div.list_image_box").select("img");
+                    boolean isEmpty = elements.isEmpty();           // 빼온 값 null 체크
+                    Log.d("Tag", "isNull? : " + isEmpty);
+
+                    if (!isEmpty) {          // null 이 아니면 크롤링
+                        for (int i=0; i<5; i++) {
+                            String src = elements.get(i).absUrl("src");   // 가져온 i번째 element 에서 src 속성값 가져오기
+                            String title = elements.get(i).attr("alt");   // 가져온 i번째 element 에서 alt 속성값(제목) 가져오기
+                            Bitmap imgBitmap = SearchFragment.getBitmapFromURL(src);
+                            dataList.add(new HomeFragmentMainData(imgBitmap, title));       // 결과 리스트에 추가
+                        }
+                        Message msg = handler.obtainMessage(LOAD_SUCCESS);
+                        handler.sendMessage(msg);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        //--------------------------해담-----------------------------
 
 
-        recyclerView.setAdapter(adapter);
 
         //------------------- 규원 -----------------
 
-        rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         recoRecyclerView = rootView.findViewById(R.id.recyclerViewReco);
         recoRecyclerView.setHasFixedSize(true);
         layoutManagerReco = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recoRecyclerView.setLayoutManager(layoutManagerReco);
 
-        dataList = new ArrayList<>();
         resultList = new ArrayList<>();
         movieList = new ArrayList<>();
         movieNumList = new ArrayList<>();
@@ -166,6 +208,17 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
 
         return rootView;
     }
+
+    //-------------------------해담--------------------------
+    Handler handler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            adapter.setItems(dataList);
+            boxRecyclerView.setAdapter(adapter);
+        }
+    };
+    //---------------------------------------------------
+
     @Override
     public void onItemClicked(int position) {
         Toast.makeText(getActivity().getApplicationContext(), "Item : "+position, Toast.LENGTH_SHORT).show();

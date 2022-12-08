@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.movieapp.data.MovieMainData;
 import com.example.movieapp.fragment.HomeFragment;
 import com.example.movieapp.fragment.MovieDetailFragment;
 import com.example.movieapp.fragment.MypageFragment;
@@ -19,6 +20,7 @@ import com.example.movieapp.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.Serializable;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -69,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     //프래그먼트 to 프래그먼트 화면 전환 메소드
-    public void onFragmentChange(int index, Parcelable movie_item) {
+    public void onFragmentChange(int index, Serializable movie_item) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         // index = 0 : fragmentMovieDetail 로 이동 (영화 상세 페이지)
@@ -91,7 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                 transaction.remove(fragmentMovieDetail);
             }
             //데이터 담기
-            bundle.putParcelable("아이템", movie_item);
+            bundle.putSerializable("아이템", movie_item);
             //프래그먼트에 데이터 넘기기
             fragmentMovieDetail.setArguments(bundle);
             //프래그먼트로 이동
@@ -105,7 +107,7 @@ public class HomeActivity extends AppCompatActivity {
             }
             //데이터 담기
             //bundle.putString("영화 제목",movie_title);
-            bundle.putParcelable("아이템", movie_item);
+            bundle.putSerializable("아이템", movie_item);
             //프래그먼트에 데이터 넘기기
             fragmentReviewDetail.setArguments(bundle);
             transaction.add(R.id.menu_frame_layout, fragmentReviewDetail).commitAllowingStateLoss();

@@ -36,8 +36,8 @@ public class RecFragmentAdapter extends RecyclerView.Adapter<RecFragmentAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecFragmentAdapter.CustomViewHolder holder, int position) {
-        holder.img.setImageResource(movieList.get(position).getIv_poster());
-        holder.name.setText(movieList.get(position).getTv_name());
+        holder.img.setImageResource(movieList.get(position).getPoster());
+        holder.name.setText(movieList.get(position).getTitle());
     }
 
     @Override
