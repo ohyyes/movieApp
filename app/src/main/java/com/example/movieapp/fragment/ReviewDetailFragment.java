@@ -159,34 +159,9 @@ public class ReviewDetailFragment extends Fragment {
             //영화제목 - firebase
             movieTitle = review_item.getTv_name();
 
-            ////firebase에서 해당 TITLE의 리뷰 있으면 불러오기
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference userReference = database.getReference();
-
             //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
-            userReference.child("user").child(userUid).child(movieTitle).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    try{
-                        String review = snapshot.child("review").getValue().toString();
-                        String rating = snapshot.child("rating").getValue().toString();
-                        tv_review.setText(review);
-                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
-                        ratingbar1.setRating(Float.valueOf(rating));
-                    }
-                    //review 작성 안했을 경우
-                    //리뷰데이터가 없으면 감상평 등록 레이아웃
-                    catch (Exception e){
-                        changeMode(1);
-                        lin_review.setVisibility(View.GONE);
-                        lin_no_review.setVisibility(View.VISIBLE);
-                        ratingbar2.setRating(0);
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+            readReview(userUid, movieTitle);
+
         }else if(item.getClass().getName().contains("MovieMainData")) {
             //이전 프래그먼트가 영화 상세화면일 때 감상평 데이터가 없으면 영화 아이템을 전달 받음
             //새로 감상평 데이터를 추가하기 위해 영화 포스터와 이름이 필요하므로 영화 객체 생성해서 전달받음
@@ -207,29 +182,7 @@ public class ReviewDetailFragment extends Fragment {
             DatabaseReference userReference = database.getReference();
 
             //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
-            userReference.child("user").child(userUid).child(movieTitle).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    try{
-                        String review = snapshot.child("review").getValue().toString();
-                        String rating = snapshot.child("rating").getValue().toString();
-                        tv_review.setText(review);
-                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
-                        ratingbar2.setRating(Float.valueOf(rating));
-                    }
-                    //review 작성 안했을 경우
-                    //리뷰데이터가 없으면 감상평 등록 레이아웃
-                    catch (Exception e){
-                        changeMode(1);
-                        lin_review.setVisibility(View.GONE);
-                        lin_no_review.setVisibility(View.VISIBLE);
-                        ratingbar2.setRating(0);
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+            readReview(userUid, movieTitle);
         }
 
         //수정 버튼 클릭시
@@ -301,6 +254,36 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    private void readReview(String userUid, String title){
+        ////firebase에서 해당 TITLE의 리뷰 있으면 불러오기
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference();
+
+        userReference.child("user").child(userUid).child(title).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try{
+                    String review = snapshot.child("review").getValue().toString();
+                    String rating = snapshot.child("rating").getValue().toString();
+                    tv_review.setText(review);
+                    //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
+                    ratingbar1.setRating(Float.valueOf(rating));
+                }
+                //review 작성 안했을 경우
+                //리뷰데이터가 없으면 감상평 등록 레이아웃
+                catch (Exception e){
+                    changeMode(1);
+//                    lin_review.setVisibility(View.GONE);
+//                    lin_no_review.setVisibility(View.VISIBLE);
+                    ratingbar2.setRating(0);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }

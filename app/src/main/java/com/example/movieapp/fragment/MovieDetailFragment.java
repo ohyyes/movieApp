@@ -234,6 +234,9 @@ public class MovieDetailFragment extends Fragment {
                     movieDetail_review = snapshot.child("review").getValue().toString();
                     movieDetail_rating = snapshot.child("rating").getValue().toString();
                     movieData.setReview(movieDetail_review);
+
+                    review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
+                    all_review.add(review_item);
                 }
                 //review 작성 안했을 경우
                 catch (Exception e){
@@ -246,22 +249,6 @@ public class MovieDetailFragment extends Fragment {
 
             }
         });
-
-        System.out.println("getPoster" + movieData.getTitle());
-        System.out.println("movieDetail_review" + movieData.getReview());
-
-        review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
-        all_review.add(review_item);
-//        for(int i=0;i<all_review.size();i++){
-//            //감상평데이터가 있다면 전달할 감상평 객체 담기
-//            if(movieData.getTitle() == all_review.get(i).getTv_name()){
-//                review_item = all_review.get(i);
-//                has_review = true;
-//            }
-//            //찾으면 for문 중지
-//            if (has_review == true) break;
-//        }
-
 
         // [내 감상평 보러가기] 버튼의 setOnClickListener
         btn_gotoReview.setOnClickListener(new View.OnClickListener() {
