@@ -13,6 +13,7 @@ public class UserAccount {
     private String mbti;    //mbti
     private String idToken; //Firebase Uid (고유 토큰정보)
     private ArrayList<String> resultList;
+    private String title; //리뷰 가져옴
     /**
      * firebase realtime database를 쓸 때 모델클래스를 이용해서 갖고와야할 때 빈 생성자를 만들어주어야 함
      * -> 안 그러면 database 조회시 오류
@@ -65,5 +66,13 @@ public class UserAccount {
     public void setResultList(ArrayList<String> resultList){this.resultList = resultList;}
 
     public ArrayList<String> getResultList(){return resultList;}
+
+    public String getTitle(){
+        return title;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
 
 }
