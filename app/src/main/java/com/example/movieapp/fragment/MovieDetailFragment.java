@@ -189,7 +189,7 @@ public class MovieDetailFragment extends Fragment {
         tv_rating.setText(movieData.getUserRating());
         tv_date.setText(movieData.getOpenYear());
         tv_running_time.setText(movieData.getRunningTime());
-        tv_rating.setText(movieData.getRunningTime());
+        tv_rating.setText(movieData.getUserRating());
         tv_genre.setText(movieData.getGenre());
         tv_summary.setText(movieData.getSummary());
         tv_director.setText(movieData.getDirector());
