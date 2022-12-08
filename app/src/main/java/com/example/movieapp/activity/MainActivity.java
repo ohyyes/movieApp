@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private void doLogin() {
         String loginId = et_id.getText().toString().trim();
         String loginPasswd = et_pass.getText().toString().trim();
-        /* front
+
         if(loginId.length() == 0) {
             Toast.makeText(this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
             et_id.requestFocus();
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        /* front
         Member member = AppDatabase.findMember(loginId);
 
         if(member == null){
