@@ -250,6 +250,8 @@ public class ReviewDetailFragment extends Fragment {
                 //값 수정
                 userReference.child("user").child(userUid).child(title).child("review").setValue(review);
                 userReference.child("user").child(userUid).child(title).child("rating").setValue(rating);
+                //날짜 하드코딩 ..
+                userReference.child("user").child(userUid).child(title).child("date").setValue("2022-12-09");
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -273,7 +275,6 @@ public class ReviewDetailFragment extends Fragment {
                     //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
                     ratingbar1.setRating(Float.valueOf(rating));
                 }
-                //review 작성 안했을 경우
                 //리뷰데이터가 없으면 감상평 등록 레이아웃
                 catch (Exception e){
                     changeMode(1);

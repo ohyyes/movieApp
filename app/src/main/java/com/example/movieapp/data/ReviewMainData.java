@@ -104,6 +104,10 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
         return 0;
     }
 
+    public String toString(){
+        return "title: " + tv_name;
+    }
+
 //    @Override
 //    public int describeContents() {
 //        return 0;

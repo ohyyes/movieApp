@@ -1,5 +1,6 @@
 package com.example.movieapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
+import com.example.movieapp.UserAccount;
 import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.data.ReviewMainData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -47,23 +56,59 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
     @Override
     //실제 추가될 때 생명주기
-    public void onBindViewHolder(@NonNull ReviewFragmentAdapter.CustomViewHolder holder,  int position) {
+    public void onBindViewHolder(@NonNull ReviewFragmentAdapter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         final int pos = position;
-        //프로필 사진 가져오기
-        holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
-        holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
-        holder.tv_name.setText(arrayList.get(position).getTv_name());
-        holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
-        holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
 
+        //DB에서 값 읽어서 띄우기
+//        readData();
+
+        //firebase에서 닉네임 가져오기 -다영-
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference();
+
+        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //name, rate, date, review
+                try{
+                    String title = snapshot.getValue().toString();
+                    System.out.println("title" + title);
+                    String review = snapshot.child(title).child("review").getValue().toString();
+//                        String rating = snapshot.child("rating").getValue().toString();
+                    holder.tv_name.setText(review);
+//                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
+//                        ratingbar1.setRating(Float.valueOf(rating));
+                }
+                //review 작성 안했을 경우
+                //리뷰데이터가 없으면 감상평 등록 레이아웃
+                catch (Exception e){
+                    System.out.println("reviewFragement Error");
+
+                }
+//                프로필 사진 가져오기
+                    holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
+                    holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+                    holder.tv_name.setText(arrayList.get(position).getTv_name());
+                    holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
+                    holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (arrayList.get(position).getTv_review().length() > 35) {
             holder.tv_review.setText(arrayList.get(position).getTv_review().substring(0, 34) + "...");
         } else {
             holder.tv_review.setText(arrayList.get(position).getTv_review());
         }
-
 
         //감상평 아이템 클릭시
         holder.itemView.setTag(position);
@@ -162,5 +207,48 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
 
         }
+    }
+
+    private void readData(){
+        //firebase에서 닉네임 가져오기 -다영-
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference();
+
+        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //name, rate, date, review
+                try{
+                    String title = snapshot.getValue().toString();
+                    System.out.println("title" + title);
+//                        String review = snapshot.child("review").getValue().toString();
+//                        String rating = snapshot.child("rating").getValue().toString();
+//                        tv_review.setText(review);
+//                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
+//                        ratingbar1.setRating(Float.valueOf(rating));
+                }
+                //review 작성 안했을 경우
+                //리뷰데이터가 없으면 감상평 등록 레이아웃
+                catch (Exception e){
+
+                }
+                //프로필 사진 가져오기
+//                    holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
+//                    holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+//                    holder.tv_name.setText(arrayList.get(position).getTv_name());
+//                    holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
+//                    holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

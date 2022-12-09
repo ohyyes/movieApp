@@ -13,18 +13,31 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
+import com.example.movieapp.activity.MainActivity;
 import com.example.movieapp.adapter.ReviewFragmentAdapter;
 import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.data.ReviewMainData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +54,7 @@ public class ReviewFragment extends Fragment {
         super.onAttach(context);
 
         //홈 엑티비티 생성
-        homeActivity = (HomeActivity)getActivity();
+        homeActivity = (HomeActivity) getActivity();
     }
 
     @Override
@@ -51,6 +64,7 @@ public class ReviewFragment extends Fragment {
         //홈 엑티비티 제거
         homeActivity = null;
     }
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -108,6 +122,9 @@ public class ReviewFragment extends Fragment {
 
     //편집모드 여부 변수
     private int editMode = 0;
+    String[] all_title;
+    String title;
+    int i;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,36 +143,89 @@ public class ReviewFragment extends Fragment {
         btn_delete = rootView.findViewById(R.id.btn_delete);
         checkbox = rootView.findViewById(R.id.checkbox);
 
-
         RecyclerView review_list = (RecyclerView) rootView.findViewById(R.id.review_list);
         LinearLayout lin_no_review = (LinearLayout) rootView.findViewById(R.id.lin_no_review);
-
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity()); //???
         review_list.setLayoutManager(layoutManager);
 
-
+        //DB에서 title 가져오기
+        //title이 존재 -> 해당 poster, title, review, rating, year 가져오기
+        //all review에 DB값 받아서 저장
         all_review = new ArrayList<>();
 
+        //firebase에서 닉네임 가져오기 -다영-
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid();
 
-//        //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
-//        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData1);
-//        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData2);
-//        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData3);
-//        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "어메이징 스파이더맨 2", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
-//        all_review.add(mainData4);
-//        ReviewMainData mainData5 = new ReviewMainData(R.drawable.movie2, "ㅁ", 0.5, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData5);
-//        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "ㄴ", 1, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData6);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference();
+
+        //firebase에서 title, date 등등 가져와서 all_review에 추가
+        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //name, rate, date, review
+                try {
+                    //영화 제목만 가져오기
+                    Map<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
+                    String dataStr = String.valueOf(data.keySet());
+                    all_title = dataStr.split(", ");
+
+                    //얻은 title로 DB 다시 보기
+                    for (i = 0; i < all_title.length; i++) {
+                        //문자열 다듬기
+                        title = all_title[i];
+                        title = title.replace("[", "");
+                        title = title.replace("]", "");
+                        if(title.equals("email") || title.equals("mbti") || title.equals("name")){
+                            System.out.println("email, mbti .. equals");
+                        } else{
+                            userReference.child("user").child(userUid).child(title).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String title = snapshot.getKey();
+                                    String rating = snapshot.child("rating").getValue().toString();
+//                                    String date = snapshot.child("date").getValue().toString();
+                                    String review = snapshot.child("review").getValue().toString();
+                                    System.out.println("title in onDataChange " + title);
+                                    ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, "2022-12-09", review); //아이템 추가하는 코드
+                                    all_review.add(data);
+                                    System.out.println("all_review in datachange" + all_review);
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+                }
+                //review 작성 안했을 경우
+                //리뷰데이터가 없으면 감상평 등록 레이아웃
+                catch (Exception e) {
+                    System.out.println("review Fragement Error");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        try {
+            Thread.sleep(8000); //2초 대기
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         adapter = new ReviewFragmentAdapter(all_review, homeActivity);
         //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
         review_list.setAdapter(adapter);
 
+        System.out.println("all_review 223line" + all_review);
         //데이터 유무에 따라 보이는 리사이클러뷰 다름
         if (all_review.isEmpty()) {
             review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
@@ -166,6 +236,8 @@ public class ReviewFragment extends Fragment {
             review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
             lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
         }
+
+//        System.out.println("all_review" + all_review);
 
 
         //스피너 아이템 선택했을 때
@@ -257,8 +329,8 @@ public class ReviewFragment extends Fragment {
                 String data = "";
                 ArrayList<ReviewMainData> RevList = ((ReviewFragmentAdapter) adapter).getArrayList();
                 int count = adapter.getSelectedItemCount();
-                for(int i = 0;i<RevList.size();i++){
-                    if(RevList.get(i).isSelected() == true) {
+                for (int i = 0; i < RevList.size(); i++) {
+                    if (RevList.get(i).isSelected() == true) {
                         all_review.remove(i);
                         i--; //삭제된 인덱스가 없어지기 때문에 i--처리를 해주지 않으면 바로 다음 아이템 건너뛰게 됨
                     }
@@ -269,7 +341,7 @@ public class ReviewFragment extends Fragment {
                     review_list.setVisibility(View.INVISIBLE);    // 리사이클러뷰 보이게
                     lin_no_review.setVisibility(View.VISIBLE);    // lin_no_result 레이아웃 안 보이게
                 }
-                Toast.makeText(getActivity(), count+"개 삭제됨", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), count + "개 삭제됨", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -295,5 +367,6 @@ public class ReviewFragment extends Fragment {
 
     private void checkEmpty() {
     }
+
 }
 

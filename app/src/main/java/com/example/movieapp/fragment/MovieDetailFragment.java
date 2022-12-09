@@ -110,7 +110,7 @@ public class MovieDetailFragment extends Fragment {
         }
     }
 
-    ArrayList<ReviewMainData> all_review;
+    static ArrayList<ReviewMainData> all_review;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -237,6 +237,7 @@ public class MovieDetailFragment extends Fragment {
 
                     review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
                     all_review.add(review_item);
+                    System.out.println("all review " + all_review.get(0));
                 }
                 //review 작성 안했을 경우
                 catch (Exception e){
