@@ -45,7 +45,7 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="@id/iv_poster"
         app:layout_constraintEnd_toStartOf="@+id/iv_poster"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/num_one"
         tools:ignore="MissingConstraints" />

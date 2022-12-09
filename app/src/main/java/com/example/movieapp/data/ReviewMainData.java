@@ -13,6 +13,7 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
     private String tv_name, tv_review_date, tv_review;
     private boolean isSelected = false;
 
+
     public ReviewMainData(int iv_poster, String tv_name, String tv_my_rate, String tv_review_date, String tv_review) {
         this.iv_poster = iv_poster;
         this.tv_my_rate = tv_my_rate;

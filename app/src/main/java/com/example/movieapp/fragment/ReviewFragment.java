@@ -201,17 +201,17 @@ public class ReviewFragment extends Fragment {
                                         String title = snapshot.getKey();
 
                                         //poster Bitmap으로 바꾸기
-                                    if(!snapshot.child("poster").getValue().toString().equals(null)){
+                                    if(snapshot.child("poster").getValue() != null){
                                         String poster = snapshot.child("poster").getValue().toString();
                                         bitmap_poster = StringToBitmap(poster);
                                     }
-                                    if(!snapshot.child("rating").getValue().toString().equals(null)){
+                                    if(snapshot.child("rating").getValue() != null){
                                         rating = snapshot.child("rating").getValue().toString();
                                     }
-                                    if(!snapshot.child("date").getValue().toString().equals(null)){
+                                    if(snapshot.child("date").getValue() != null){
                                         date = snapshot.child("date").getValue().toString();
                                     }
-                                    if(!snapshot.child("review").getValue().toString().equals(null)){
+                                    if(snapshot.child("review").getValue() != null){
                                         review = snapshot.child("review").getValue().toString();
                                     }
                                         //객체 저장
@@ -343,7 +343,7 @@ public class ReviewFragment extends Fragment {
                 int count = adapter.getSelectedItemCount();
                 for (int i = 0; i < RevList.size(); i++) {
                     if (RevList.get(i).isSelected() == true) {
-//                        deleteReview(i);
+                        deleteReview(i);
                         all_review.remove(i);
                         i--; //삭제된 인덱스가 없어지기 때문에 i--처리를 해주지 않으면 바로 다음 아이템 건너뛰게 됨
                     }
@@ -356,7 +356,7 @@ public class ReviewFragment extends Fragment {
                 }
                 Toast.makeText(getActivity(), count + "개 삭제됨", Toast.LENGTH_SHORT).show();
                 //삭제시, 홈프래그먼트로 이동
-                homeActivity.onFragmentChange(3, null);
+                //homeActivity.onFragmentChange(3, null);
             }
         });
 
