@@ -341,6 +341,8 @@ public class ReviewFragment extends Fragment {
                     lin_no_review.setVisibility(View.VISIBLE);    // lin_no_result 레이아웃 안 보이게
                 }
                 Toast.makeText(getActivity(), count + "개 삭제됨", Toast.LENGTH_SHORT).show();
+                //삭제시, 홈프래그먼트로 이동
+                homeActivity.onFragmentChange(3, null);
             }
         });
 

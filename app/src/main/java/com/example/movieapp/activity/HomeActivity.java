@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         // index = 0 : fragmentMovieDetail 로 이동 (영화 상세 페이지)
         // index = 1 : fragmentReviewDetail 로 이동 (감상평 상세 페이지)
         // index = 2 : fragmentReview 로 이동 (감상평 목록 페이지)
+        // index = 3 : fragmnetHome 으로 이동 (감상평 삭제 시 홈 화면으로 이동)
 
         //인덱스 0, 1 인 영화 상세 페이지, 감상평 상세 페이지는 뒤로가기 버튼 때문에 replace 대신 add 를 사용해야했음
 
@@ -115,6 +116,11 @@ public class HomeActivity extends AppCompatActivity {
         else if(index == 2) {
             bottomNavigationView.setSelectedItemId(R.id.menu_review);
             transaction.replace(R.id.menu_frame_layout, fragmentReview).commitAllowingStateLoss();
+        }
+        else if(index == 3) {
+            bottomNavigationView.setSelectedItemId(R.id.menu_home);
+            transaction.replace(R.id.menu_frame_layout, fragmentHome).commitAllowingStateLoss();
+
         }
     }
 }
