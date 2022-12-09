@@ -36,7 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,7 +112,7 @@ public class ReviewDetailFragment extends Fragment {
     private TextView tv_name, tv_review;
     private RatingBar ratingbar1, ratingbar2;
     private EditText et_review;
-    public String movieTitle, review=null, rating;
+    public String moviePoster, movieTitle, review=null, rating;
 
     //버튼 선언
     private Button btn_amend, btn_write;
@@ -153,7 +155,7 @@ public class ReviewDetailFragment extends Fragment {
         if(item.getClass().getName().contains("ReviewMainData")){
             //리뷰 아이템을 전달받았다면
             ReviewMainData review_item = (ReviewMainData) item;
-//            iv_poster.setImageResource(review_item.getIv_poster());
+            iv_poster.setImageResource(review_item.getIv_poster());
             tv_name.setText(review_item.getTv_name());
 
             //영화제목 - firebase
@@ -202,8 +204,11 @@ public class ReviewDetailFragment extends Fragment {
                 //사용자가 쓴 리뷰 저장
                 review = et_review.getText().toString();
                 rating = String.valueOf(ratingbar2.getRating());
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date now = new Date();
+                String now_dt = format.format(now);
                 //firebase에 리뷰 저장 함수
-                saveReview(userUid, movieTitle, review, rating);
+                saveReview(userUid, movieTitle, review, rating, now_dt);
 
                 changeMode(0);
                 lin_review.setVisibility(View.VISIBLE);
@@ -240,7 +245,7 @@ public class ReviewDetailFragment extends Fragment {
     }
 
     //firebase에 영화 리뷰 저장하기
-    private void saveReview(String userUid, String title, String review, String rating){
+    private void saveReview(String userUid, String title, String review, String rating, String now_dt){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userReference = database.getReference();
 
@@ -248,10 +253,10 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //값 수정
+//                userReference.child("user").child(userUid).child(title).child("poster").setValue(review);
                 userReference.child("user").child(userUid).child(title).child("review").setValue(review);
                 userReference.child("user").child(userUid).child(title).child("rating").setValue(rating);
-                //날짜 하드코딩 ..
-                userReference.child("user").child(userUid).child(title).child("date").setValue("2022-12-09");
+                userReference.child("user").child(userUid).child(title).child("date").setValue(now_dt);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

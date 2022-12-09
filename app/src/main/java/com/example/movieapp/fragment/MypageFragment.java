@@ -191,10 +191,10 @@ public class MypageFragment extends Fragment {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String title = snapshot.getKey();
                                     String rating = snapshot.child("rating").getValue().toString();
-//                                    String date = snapshot.child("date").getValue().toString();
+                                    String date = snapshot.child("date").getValue().toString();
                                     String review = snapshot.child("review").getValue().toString();
                                     System.out.println("title in onDataChange " + title);
-                                    ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, "2022-12-09", review); //아이템 추가하는 코드
+                                    ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, date, review); //아이템 추가하는 코드
                                     review_list.add(data);
                                     System.out.println("all_review in datachange" + review_list);
 
