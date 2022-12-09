@@ -5,11 +5,11 @@ MVTI 🎬
 <br/><br/>
 
 ## Overview
-1. [프로젝트 목표]([#1.-프로젝트-목표])
-2. [앱 소개]([#2.-앱-소개])
-3. [기능 구현]([#3.-기능-구현])
-4. [문제 해결]([#4.-문제-해결])
-5. [팀원]([#5.-팀원])
+1. [프로젝트 목표](https://github.com/ohyyes/movieApp/edit/main/README.md#1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%AA%A9%ED%91%9C)
+2. [앱 소개](https://github.com/ohyyes/movieApp/edit/main/README.md#2-%EC%95%B1-%EC%86%8C%EA%B0%9C)
+3. [기능 구현](https://github.com/ohyyes/movieApp/edit/main/README.md#3-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84)
+4. [문제 해결](https://github.com/ohyyes/movieApp/edit/main/README.md#4-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0)
+5. [팀원](https://github.com/ohyyes/movieApp/edit/main/README.md#5-%ED%8C%80%EC%9B%90)
 
 <br/><br/>
 
