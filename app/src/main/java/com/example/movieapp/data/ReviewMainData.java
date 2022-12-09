@@ -50,7 +50,7 @@ public class ReviewMainData implements Comparator<ReviewMainData>, Serializable 
 //        }
 //    };
 
-    public int getIv_poster() {
+    public Integer getIv_poster() {
         return iv_poster;
     }
 

@@ -2,6 +2,7 @@ package com.example.movieapp.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Outline;
 import android.graphics.drawable.ColorDrawable;
@@ -55,6 +56,7 @@ public class MovieDetailFragment extends Fragment {
 
     //firebase
     String movieDetail_review, movieDetail_rating;
+    Bitmap poster;
 
 
     @Override
@@ -112,7 +114,7 @@ public class MovieDetailFragment extends Fragment {
         }
     }
 
-    ArrayList<ReviewMainData> all_review;
+    static ArrayList<ReviewMainData> all_review;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -201,22 +203,6 @@ public class MovieDetailFragment extends Fragment {
 
         //참조할 리뷰 데이터 리스트
         all_review = new ArrayList<>();
-//        //MainData 객체 만들기-> back이랑 연결하면 삭제하기
-//        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData1);
-//        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData2);
-//        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData3);
-//        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "어메이징 스파이더맨 2", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
-//        all_review.add(mainData4);
-//        ReviewMainData mainData5 = new ReviewMainData(R.drawable.movie2, "ㅁ", 0.5, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        all_review.add(mainData5);
-//        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "스파이더맨3", 1, "2008.03.03", "스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박스파이더맨 너무 멋있고 배우들 연기대박대박 배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박배우들 연기대박대박"
-//        ); //아이템 추가하는 코드
-//        all_review.add(mainData6);
-
-
         //감상평 상세 프래그먼트로 전환하기 전에 선택한 영화의 감상평데이터가 있는지 확인
 
         //firebase로 로그인한 사용자 정보 불러오기
@@ -239,10 +225,15 @@ public class MovieDetailFragment extends Fragment {
                     movieDetail_review = snapshot.child("review").getValue().toString();
                     movieDetail_rating = snapshot.child("rating").getValue().toString();
                     movieData.setReview(movieDetail_review);
+
+                    review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
+                    all_review.add(review_item);
+//                    System.out.println("all review " + all_review.get(0));
                 }
                 //review 작성 안했을 경우
                 catch (Exception e){
-                    System.out.println("readReview catch");
+                    has_review = false;
+//                    System.out.println("readReview catch");
                 }
             }
             @Override
@@ -250,24 +241,6 @@ public class MovieDetailFragment extends Fragment {
 
             }
         });
-
-        System.out.println("getPoster" + movieData.getTitle());
-        System.out.println("movieDetail_review" + movieData.getReview());
-
-        review_item = new ReviewMainData(movieData.getPosterBitmap(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
-        all_review.add(review_item);
-        has_review = false;
-//        for(int i=0;i<all_review.size();i++){
-//            //감상평데이터가 있다면 전달할 감상평 객체 담기
-//            if(movieData.getTitle() == all_review.get(i).getTv_name()){
-//                review_item = all_review.get(i);
-//                has_review = true;
-//            }
-//            //찾으면 for문 중지
-//            if (has_review == true) break;
-//        }
-
-        //db에서 token 찾아서 title이 있나 확인(리뷰 있는지 확인하기 위해)
 
         // [내 감상평 보러가기] 버튼의 setOnClickListener
         btn_gotoReview.setOnClickListener(new View.OnClickListener() {
