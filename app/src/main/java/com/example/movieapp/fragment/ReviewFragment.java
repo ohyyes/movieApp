@@ -194,6 +194,86 @@ public class ReviewFragment extends Fragment {
                                     ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, "2022-12-09", review); //아이템 추가하는 코드
                                     all_review.add(data);
                                     System.out.println("all_review in datachange" + all_review);
+
+                                    adapter = new ReviewFragmentAdapter(all_review, homeActivity);
+                                    //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
+                                    review_list.setAdapter(adapter);
+
+                                    System.out.println("all_review 223line" + all_review);
+                                    //데이터 유무에 따라 보이는 리사이클러뷰 다름
+                                    if (all_review.isEmpty()) {
+                                        review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
+                                        lin_no_review.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+                                    }
+                                    // 있을 땐, 리사이클러뷰가 보이게 !
+                                    else {
+                                        review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
+                                        lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+                                    }
+
+                                    //스피너 아이템 선택했을 때
+                                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                        @Override
+                                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                            if (i == 0) {//최신순
+                                                Comparator<ReviewMainData> timeDesc = new Comparator<ReviewMainData>() {
+                                                    @Override
+                                                    public int compare(ReviewMainData item1, ReviewMainData item2) {
+                                                        return item2.getTv_review_date().compareTo(item1.getTv_review_date());
+                                                    }
+                                                };
+                                                Collections.sort(all_review, timeDesc);
+                                                adapter.setItems(all_review);
+                                            } else if (i == 1) {//이름순
+                                                Comparator<ReviewMainData> textAsc = new Comparator<ReviewMainData>() {
+                                                    @Override
+                                                    public int compare(ReviewMainData item1, ReviewMainData item2) {
+                                                        return item1.getTv_name().compareTo(item2.getTv_name());
+                                                    }
+                                                };
+                                                Collections.sort(all_review, textAsc);
+                                                adapter.setItems(all_review);
+                                            } else if (i == 2) { //별점높은순
+                                                Comparator<ReviewMainData> starDesc = new Comparator<ReviewMainData>() {
+                                                    int ret; //변수 선언은 함수 밖에서 해줘야 함
+
+                                                    @Override
+                                                    public int compare(ReviewMainData d1, ReviewMainData d2) {
+                                                        if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
+                                                            ret = 1;
+                                                        else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                                                            ret = 0;
+                                                        else ret = -1;
+                                                        return ret;
+                                                    }
+                                                };
+                                                Collections.sort(all_review, starDesc);
+                                                adapter.setItems(all_review);
+                                            } else if (i == 3) { //별점낮은순
+                                                Comparator<ReviewMainData> starAsc = new Comparator<ReviewMainData>() {
+                                                    int ret; //변수 선언은 함수 밖에서 해줘야 함
+
+                                                    @Override
+                                                    public int compare(ReviewMainData d1, ReviewMainData d2) {
+                                                        if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
+                                                            ret = -1;
+                                                        else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                                                            ret = 0;
+                                                        else ret = 1;
+                                                        return ret;
+                                                    }
+                                                };
+                                                Collections.sort(all_review, starAsc);
+                                                adapter.setItems(all_review);
+                                            }
+                                        }
+
+                                        //아무것도 선택되지 않았을 때
+                                        @Override
+                                        public void onNothingSelected(AdapterView<?> adapterView) {
+                                            //바뀌는 것 없음
+                                        }
+                                    });
                                 }
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
@@ -215,95 +295,7 @@ public class ReviewFragment extends Fragment {
             }
         });
 
-        try {
-            Thread.sleep(8000); //2초 대기
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        adapter = new ReviewFragmentAdapter(all_review, homeActivity);
-        //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
-        review_list.setAdapter(adapter);
-
-        System.out.println("all_review 223line" + all_review);
-        //데이터 유무에 따라 보이는 리사이클러뷰 다름
-        if (all_review.isEmpty()) {
-            review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
-            lin_no_review.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
-        }
-        // 있을 땐, 리사이클러뷰가 보이게 !
-        else {
-            review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
-            lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
-        }
-
 //        System.out.println("all_review" + all_review);
-
-
-        //스피너 아이템 선택했을 때
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {//최신순
-                    Comparator<ReviewMainData> timeDesc = new Comparator<ReviewMainData>() {
-                        @Override
-                        public int compare(ReviewMainData item1, ReviewMainData item2) {
-                            return item2.getTv_review_date().compareTo(item1.getTv_review_date());
-                        }
-                    };
-                    Collections.sort(all_review, timeDesc);
-                    adapter.setItems(all_review);
-                } else if (i == 1) {//이름순
-                    Comparator<ReviewMainData> textAsc = new Comparator<ReviewMainData>() {
-                        @Override
-                        public int compare(ReviewMainData item1, ReviewMainData item2) {
-                            return item1.getTv_name().compareTo(item2.getTv_name());
-                        }
-                    };
-                    Collections.sort(all_review, textAsc);
-                    adapter.setItems(all_review);
-                } else if (i == 2) { //별점높은순
-                    Comparator<ReviewMainData> starDesc = new Comparator<ReviewMainData>() {
-                        int ret; //변수 선언은 함수 밖에서 해줘야 함
-
-                        @Override
-                        public int compare(ReviewMainData d1, ReviewMainData d2) {
-                            if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
-                                ret = 1;
-                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
-                                ret = 0;
-                            else ret = -1;
-                            return ret;
-                        }
-                    };
-                    Collections.sort(all_review, starDesc);
-                    adapter.setItems(all_review);
-                } else if (i == 3) { //별점낮은순
-                    Comparator<ReviewMainData> starAsc = new Comparator<ReviewMainData>() {
-                        int ret; //변수 선언은 함수 밖에서 해줘야 함
-
-                        @Override
-                        public int compare(ReviewMainData d1, ReviewMainData d2) {
-                            if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
-                                ret = -1;
-                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
-                                ret = 0;
-                            else ret = 1;
-                            return ret;
-                        }
-                    };
-                    Collections.sort(all_review, starAsc);
-                    adapter.setItems(all_review);
-                }
-            }
-
-            //아무것도 선택되지 않았을 때
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                //바뀌는 것 없음
-            }
-        });
-
 
         //편집 버튼 눌렀을 때-> 편집모드로 바꿈
         btn_edit.setOnClickListener(new View.OnClickListener() {
