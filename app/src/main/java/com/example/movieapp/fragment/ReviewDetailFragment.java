@@ -190,12 +190,12 @@ public class ReviewDetailFragment extends Fragment {
             lin_no_review.setVisibility(View.VISIBLE);
 
             ////firebase에서 해당 TITLE의 리뷰 있으면 불러오기
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference userReference = database.getReference();
-
-            //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
-            System.out.println("moviteTitle" + movieTitle);
-            readReview(userUid, movieTitle);
+//            FirebaseDatabase database = FirebaseDatabase.getInstance();
+//            DatabaseReference userReference = database.getReference();
+//
+//            //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
+//            System.out.println("moviteTitle" + movieTitle);
+//            readReview(userUid, movieTitle);
         }
 
         //수정 버튼 클릭시
@@ -314,9 +314,9 @@ public class ReviewDetailFragment extends Fragment {
 
     private void reviewDetail(){
         iv_poster.setImageBitmap(bitmap_poster_db);
-        tv_review.setText(review);
+        tv_review.setText(review_db);
         //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
-        ratingbar1.setRating(Float.valueOf(rating));
+        ratingbar1.setRating(Float.valueOf(rating_db));
     }
 
         /* * String형을 BitMap으로 변환시켜주는 함수 * */

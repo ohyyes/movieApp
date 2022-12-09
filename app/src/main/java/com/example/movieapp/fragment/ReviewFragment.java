@@ -1,5 +1,6 @@
 package com.example.movieapp.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -128,6 +129,9 @@ public class ReviewFragment extends Fragment {
     String[] all_title;
     String title;
     int i;
+
+    // 로딩중 표시를 위한 다이얼로그
+    private ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -332,6 +336,8 @@ public class ReviewFragment extends Fragment {
                         deleteReview(i);
                         all_review.remove(i);
                         i--; //삭제된 인덱스가 없어지기 때문에 i--처리를 해주지 않으면 바로 다음 아이템 건너뛰게 됨
+                        // 로딩중 표시 종료
+                        progressDialog.dismiss();
                     }
                 }
                 adapter.notifyDataSetChanged(); //리스트 갱신
@@ -384,6 +390,11 @@ public class ReviewFragment extends Fragment {
         String userUid = user.getUid();
         String delete_title = all_review.get(num).getTv_name();
         System.out.println("delete " + all_review.get(num).getTv_name());
+
+        // 로딩중 표시
+        progressDialog = new ProgressDialog(homeActivity);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();      // 시작
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userReference = database.getReference();
