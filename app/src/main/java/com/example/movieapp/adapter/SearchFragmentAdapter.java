@@ -106,7 +106,6 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
             this.tv_genre = (TextView) itemView.findViewById(R.id.tv_genre);
             this.tv_date = (TextView) itemView.findViewById(R.id.tv_date);
             this.tv_running_time = (TextView) itemView.findViewById(R.id.tv_running_time);
-
         }
 
     }

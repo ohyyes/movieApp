@@ -120,7 +120,7 @@ public class MypageFragment extends Fragment {
     private RecyclerView rec_review_list; //리사이클러 뷰
     private LinearLayout lin_no_review; //리뷰 없음 레이아웃
     private ImageButton ib_edit_profile, ib_more; //프로필 수정 버튼, 더보기 버튼
-    private TextView tv_nickname; //닉네임
+    private TextView tv_nickname, tv_mbti; //닉네임
 
     //리스트 선언
     private ArrayList<ReviewMainData> review_list; //내 리뷰가 담긴 리스트
@@ -147,6 +147,7 @@ public class MypageFragment extends Fragment {
         ib_more = (ImageButton) rootView.findViewById(R.id.ib_more);
         ib_edit_profile = (ImageButton) rootView.findViewById(R.id.ib_edit_profile);
         tv_nickname = (TextView) rootView.findViewById(R.id.tv_nickname);
+        tv_mbti = (TextView) rootView.findViewById(R.id.tv_mbti);
 
         //수평 스크롤뷰로 설정하기 ㅎㅎ
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false); //???
@@ -163,7 +164,6 @@ public class MypageFragment extends Fragment {
 
         //닉네임 화면에 띄워주는 함수
         readUser(userUid);
-
 
         //all review에 DB값 받아서 저장
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -278,8 +278,16 @@ public class MypageFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserAccount user = snapshot.getValue(UserAccount.class);
+
                 String name = user.getName();
+                String mbti = user.getMbti();
+
+                mbti = mbti.replace("[", "");
+                mbti = mbti.replace(",", "");
+                mbti = mbti.replace("]", "");
+
                 tv_nickname.setText(name);
+                tv_mbti.setText(mbti);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

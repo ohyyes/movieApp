@@ -73,6 +73,19 @@
                     android:textColor="@color/white"
                     android:text="모구모구"
                     />
+                <TextView
+                    android:id="@+id/tv_mbti"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:text="ISFP"
+                    />
 
                 <!--프로필 수정 버튼 -->
                 <ImageButton
