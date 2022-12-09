@@ -85,9 +85,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
                     String review = snapshot.child(title).child("review").getValue().toString();
                     String poster = snapshot.child("poster").getValue().toString();
                     Bitmap bitmap_poster = StringToBitmap(poster);
-//                    String rating = snapshot.child("rating").getValue().toString();
-//                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
-//                        ratingbar1.setRating(Float.valueOf(rating));
+//
                 }
                 //review 작성 안했을 경우
                 //리뷰데이터가 없으면 감상평 등록 레이아웃
@@ -95,18 +93,19 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
                     System.out.println("reviewFragement Error");
 
                 }
-                //프로필 사진 가져오기
-                holder.iv_poster.setImageBitmap(arrayList.get(position).getIv_posterBitmap());
-                holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
-                holder.tv_name.setText(arrayList.get(position).getTv_name());
-                holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
-                holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+        //프로필 사진 가져오기
+        holder.iv_poster.setImageBitmap(arrayList.get(position).getIv_posterBitmap());
+        holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+        holder.tv_name.setText(arrayList.get(position).getTv_name());
+        holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
+        holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
 
         if (arrayList.get(position).getTv_review().length() > 35) {
             holder.tv_review.setText(arrayList.get(position).getTv_review().substring(0, 34) + "...");

@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
 import com.example.movieapp.activity.MainActivity;
+import com.example.movieapp.activity.RegisterActivity;
 import com.example.movieapp.adapter.ReviewFragmentAdapter;
 import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.data.ReviewMainData;
@@ -188,25 +189,24 @@ public class ReviewFragment extends Fragment {
                             userReference.child("user").child(userUid).child(title).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    //DB 불러오기
-                                    String title = snapshot.getKey();
+                                        //DB 불러오기
+                                        String title = snapshot.getKey();
 
-                                    //poster Bitmap으로 바꾸기
-                                    String poster = snapshot.child("poster").getValue().toString();
-                                    Bitmap bitmap_poster = StringToBitmap(poster);
+                                        //poster Bitmap으로 바꾸기
+                                        String poster = snapshot.child("poster").getValue().toString();
+                                        Bitmap bitmap_poster = StringToBitmap(poster);
 
-                                    String rating = snapshot.child("rating").getValue().toString();
-                                    String date = snapshot.child("date").getValue().toString();
-                                    String review = snapshot.child("review").getValue().toString();
-//                                    System.out.println("title in onDataChange " + title);
+                                        String rating = snapshot.child("rating").getValue().toString();
+                                        String date = snapshot.child("date").getValue().toString();
+                                        String review = snapshot.child("review").getValue().toString();
 
-                                    //객체 저장
-                                    ReviewMainData data = new ReviewMainData(bitmap_poster, title, rating, date, review); //아이템 추가하는 코드
-                                    all_review.add(data);
+                                        //객체 저장
+                                        ReviewMainData data = new ReviewMainData(bitmap_poster, title, rating, date, review); //아이템 추가하는 코드
+                                        all_review.add(data);
 
-                                    //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
-                                    adapter = new ReviewFragmentAdapter(all_review, homeActivity);
-                                    review_list.setAdapter(adapter);
+                                        //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
+                                        adapter = new ReviewFragmentAdapter(all_review, homeActivity);
+                                        review_list.setAdapter(adapter);
 
                                     //데이터 유무에 따라 보이는 리사이클러뷰 다름
                                     if (all_review.isEmpty()) {
@@ -329,6 +329,7 @@ public class ReviewFragment extends Fragment {
                 int count = adapter.getSelectedItemCount();
                 for (int i = 0; i < RevList.size(); i++) {
                     if (RevList.get(i).isSelected() == true) {
+                        deleteReview(i);
                         all_review.remove(i);
                         i--; //삭제된 인덱스가 없어지기 때문에 i--처리를 해주지 않으면 바로 다음 아이템 건너뛰게 됨
                     }
@@ -373,6 +374,30 @@ public class ReviewFragment extends Fragment {
             e.getMessage();
             return null;
         }
+    }
+
+    private void deleteReview(int num){
+        //user Token 받아오기
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String userUid = user.getUid();
+        String delete_title = all_review.get(num).getTv_name();
+        System.out.println("delete " + all_review.get(num).getTv_name());
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference();
+        userReference.child("user").child(userUid).child(delete_title).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                        appleSnapshot.getRef().removeValue();
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
     }
 
 }
