@@ -343,7 +343,7 @@ public class ReviewFragment extends Fragment {
                 int count = adapter.getSelectedItemCount();
                 for (int i = 0; i < RevList.size(); i++) {
                     if (RevList.get(i).isSelected() == true) {
-                        deleteReview(i);
+//                        deleteReview(i);
                         all_review.remove(i);
                         i--; //삭제된 인덱스가 없어지기 때문에 i--처리를 해주지 않으면 바로 다음 아이템 건너뛰게 됨
                     }
