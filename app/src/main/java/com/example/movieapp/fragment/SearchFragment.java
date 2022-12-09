@@ -215,7 +215,7 @@ public class SearchFragment extends Fragment {
                     boolean isEmpty = elements.isEmpty();           // 빼온 값 null 체크
                     Log.d("Tag", "isNull? : " + isEmpty);
 
-                    if (!isEmpty) {          // null 이 아니면 크롤링
+                    if (!isEmpty) {          // 검색 결과가 있으면 크롤링
                         for (int i=0; i<elements.size(); i++) {
                             Element element = elements.get(i);
                             Element idElement = element.select("a").first();
@@ -252,6 +252,7 @@ public class SearchFragment extends Fragment {
                             searchMovieInfo(code, i);
                         }
                     }
+
                     // 검색 결과 있든 없든 메시지 전달 -> 결과 없음 레이아웃 뜨게
                     Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
                     mHandler.sendMessage(msg);
