@@ -32,12 +32,12 @@ MVTI 🎬
 <br/><br/>
 
 ### 주요 화면 및 기능
-#### - 1) 홈 화면 - 박스오피스, MBTI 기반 영화 추천
+#### 1) 홈 화면 - 박스오피스, MBTI 기반 영화 추천
 <img src="README.assets/Home.png" width="200" height="400"/>
 
 #### 2) 영화 검색 및 상세 화면
-<img src="README.assets/감상평 목록 1.png" width="200" height="400"/>
-<img src="README.assets/Details About Movie.png" width="200" height="400"/>
+<img src="README.assets/검색.png" width="200" height="350"/>
+<img src="README.assets/검색(1).png" width="200" height="350"/>
 
 #### 3) 감상평 목록 및 상세 화면
 <img src="README.assets/감상평 목록 1.png" width="200" height="400"/>
@@ -50,6 +50,7 @@ MVTI 🎬
 <br/><br/>
 
 ## 3. 기능 구현
+프론트
 
 <br/><br/>
 
