@@ -112,7 +112,8 @@ public class ReviewDetailFragment extends Fragment {
     private TextView tv_name, tv_review;
     private RatingBar ratingbar1, ratingbar2;
     private EditText et_review;
-    public String moviePoster, movieTitle, review=null, rating;
+    public String movieTitle, review=null, rating;
+//    public int poster;
 
     //버튼 선언
     private Button btn_amend, btn_write;
@@ -159,6 +160,7 @@ public class ReviewDetailFragment extends Fragment {
             tv_name.setText(review_item.getTv_name());
 
             //영화제목 - firebase
+//            poster = review_item.getIv_poster();
             movieTitle = review_item.getTv_name();
 
             //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
@@ -204,9 +206,12 @@ public class ReviewDetailFragment extends Fragment {
                 //사용자가 쓴 리뷰 저장
                 review = et_review.getText().toString();
                 rating = String.valueOf(ratingbar2.getRating());
+
+                //현재 날짜 구하기
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date now = new Date();
                 String now_dt = format.format(now);
+
                 //firebase에 리뷰 저장 함수
                 saveReview(userUid, movieTitle, review, rating, now_dt);
 
@@ -253,7 +258,7 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //값 수정
-//                userReference.child("user").child(userUid).child(title).child("poster").setValue(review);
+//                userReference.child("user").child(userUid).child(title).child("poster").setValue(poster);
                 userReference.child("user").child(userUid).child(title).child("review").setValue(review);
                 userReference.child("user").child(userUid).child(title).child("rating").setValue(rating);
                 userReference.child("user").child(userUid).child(title).child("date").setValue(now_dt);
@@ -274,8 +279,10 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
+//                    String poster = snapshot.child("poster").getValue().toString();
                     String review = snapshot.child("review").getValue().toString();
                     String rating = snapshot.child("rating").getValue().toString();
+//                    iv_poster.setImageResource(Integer.parseInt(poster));
                     tv_review.setText(review);
                     //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
                     ratingbar1.setRating(Float.valueOf(rating));

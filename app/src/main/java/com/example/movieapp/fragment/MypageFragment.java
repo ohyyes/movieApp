@@ -190,11 +190,17 @@ public class MypageFragment extends Fragment {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String title = snapshot.getKey();
+                                    //DB poster저장하면 연결하기
+//                                    String poster = snapshot.child("poster").getValue().toString();
                                     String rating = snapshot.child("rating").getValue().toString();
                                     String date = snapshot.child("date").getValue().toString();
                                     String review = snapshot.child("review").getValue().toString();
                                     System.out.println("title in onDataChange " + title);
+                                    //data 객체에 영화 값들 저장
                                     ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, date, review); //아이템 추가하는 코드
+//                                  DB poster 연결하면 이걸로 data객체 바꾸기
+//                                  ReviewMainData data = new ReviewMainData(poster, title, rating, date, review); //아이템 추가하는 코드
+
                                     review_list.add(data);
                                     System.out.println("all_review in datachange" + review_list);
 
