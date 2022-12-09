@@ -2,6 +2,7 @@ package com.example.movieapp.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class MovieDetailFragment extends Fragment {
 
     //firebase
     String movieDetail_review, movieDetail_rating;
+    Bitmap poster;
 
 
     @Override
@@ -222,12 +224,12 @@ public class MovieDetailFragment extends Fragment {
 
                     review_item = new ReviewMainData(movieData.getPoster(), movieData.getTitle(), movieData.getUserRating(), movieData.getOpenYear(), movieData.getReview());
                     all_review.add(review_item);
-                    System.out.println("all review " + all_review.get(0));
+//                    System.out.println("all review " + all_review.get(0));
                 }
                 //review 작성 안했을 경우
                 catch (Exception e){
                     has_review = false;
-                    System.out.println("readReview catch");
+//                    System.out.println("readReview catch");
                 }
             }
             @Override

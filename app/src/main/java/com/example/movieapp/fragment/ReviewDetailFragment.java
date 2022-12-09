@@ -1,9 +1,12 @@
 package com.example.movieapp.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -113,7 +117,7 @@ public class ReviewDetailFragment extends Fragment {
     private RatingBar ratingbar1, ratingbar2;
     private EditText et_review;
     public String movieTitle, review=null, rating;
-//    public int poster;
+    public Bitmap poster;
 
     //버튼 선언
     private Button btn_amend, btn_write;
@@ -161,7 +165,7 @@ public class ReviewDetailFragment extends Fragment {
             tv_name.setText(review_item.getTv_name());
 
             //영화제목 - firebase
-//            poster = review_item.getIv_poster();
+            poster = review_item.getIv_posterBitmap();
             movieTitle = review_item.getTv_name();
 
             //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
@@ -177,6 +181,7 @@ public class ReviewDetailFragment extends Fragment {
             tv_name.setText(movie_item.getTitle());
 
             //영화제목 - firebase
+            poster = movie_item.getPosterBitmap();
             movieTitle = movie_item.getTitle();
 
             //감상평 등록 레이아웃 띄우기
@@ -214,8 +219,11 @@ public class ReviewDetailFragment extends Fragment {
                 Date now = new Date();
                 String now_dt = format.format(now);
 
+                //DB에는 String으로 저장해야 해서 변경
+                String str_poster = BitmapToString(poster);
+
                 //firebase에 리뷰 저장 함수
-                saveReview(userUid, movieTitle, review, rating, now_dt);
+                saveReview(userUid, str_poster, movieTitle, review, rating, now_dt);
 
                 changeMode(0);
                 lin_review.setVisibility(View.VISIBLE);
@@ -252,7 +260,7 @@ public class ReviewDetailFragment extends Fragment {
     }
 
     //firebase에 영화 리뷰 저장하기
-    private void saveReview(String userUid, String title, String review, String rating, String now_dt){
+    private void saveReview(String userUid, String poster, String title, String review, String rating, String now_dt){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userReference = database.getReference();
 
@@ -260,7 +268,7 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //값 수정
-//                userReference.child("user").child(userUid).child(title).child("poster").setValue(poster);
+                userReference.child("user").child(userUid).child(title).child("poster").setValue(poster);
                 userReference.child("user").child(userUid).child(title).child("review").setValue(review);
                 userReference.child("user").child(userUid).child(title).child("rating").setValue(rating);
                 userReference.child("user").child(userUid).child(title).child("date").setValue(now_dt);
@@ -281,10 +289,11 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
-//                    String poster = snapshot.child("poster").getValue().toString();
+                    String poster = snapshot.child("poster").getValue().toString();
                     String review = snapshot.child("review").getValue().toString();
                     String rating = snapshot.child("rating").getValue().toString();
-//                    iv_poster.setImageResource(Integer.parseInt(poster));
+                    Bitmap bitmap_poster = StringToBitmap(poster);
+                    iv_poster.setImageBitmap(bitmap_poster);
                     tv_review.setText(review);
                     //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
                     ratingbar1.setRating(Float.valueOf(rating));
@@ -303,4 +312,24 @@ public class ReviewDetailFragment extends Fragment {
         });
     }
 
+        /* * String형을 BitMap으로 변환시켜주는 함수 * */
+        public static Bitmap StringToBitmap(String encodedString) {
+            try {
+                byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+                return bitmap;
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+        }
+
+    /* * Bitmap을 String형으로 변환 * */
+    public static String BitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+        byte[] bytes = baos.toByteArray();
+        String temp = Base64.encodeToString(bytes, Base64.DEFAULT);
+        return temp;
+    }
 }

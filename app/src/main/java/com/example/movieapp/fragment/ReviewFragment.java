@@ -1,7 +1,10 @@
 package com.example.movieapp.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -185,20 +188,26 @@ public class ReviewFragment extends Fragment {
                             userReference.child("user").child(userUid).child(title).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    //DB 불러오기
                                     String title = snapshot.getKey();
+
+                                    //poster Bitmap으로 바꾸기
+                                    String poster = snapshot.child("poster").getValue().toString();
+                                    Bitmap bitmap_poster = StringToBitmap(poster);
+
                                     String rating = snapshot.child("rating").getValue().toString();
-//                                    String date = snapshot.child("date").getValue().toString();
+                                    String date = snapshot.child("date").getValue().toString();
                                     String review = snapshot.child("review").getValue().toString();
                                     System.out.println("title in onDataChange " + title);
-                                    ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, "2022-12-09", review); //아이템 추가하는 코드
-                                    all_review.add(data);
-                                    System.out.println("all_review in datachange" + all_review);
 
-                                    adapter = new ReviewFragmentAdapter(all_review, homeActivity);
+                                    //객체 저장
+                                    ReviewMainData data = new ReviewMainData(bitmap_poster, title, rating, date, review); //아이템 추가하는 코드
+                                    all_review.add(data);
+
                                     //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
+                                    adapter = new ReviewFragmentAdapter(all_review, homeActivity);
                                     review_list.setAdapter(adapter);
 
-                                    System.out.println("all_review 223line" + all_review);
                                     //데이터 유무에 따라 보이는 리사이클러뷰 다름
                                     if (all_review.isEmpty()) {
                                         review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
@@ -294,8 +303,6 @@ public class ReviewFragment extends Fragment {
             }
         });
 
-//        System.out.println("all_review" + all_review);
-
         //편집 버튼 눌렀을 때-> 편집모드로 바꿈
         btn_edit.setOnClickListener(new View.OnClickListener() {
 
@@ -354,6 +361,18 @@ public class ReviewFragment extends Fragment {
             btn_back.setVisibility(View.GONE);
         }
 
+    }
+
+    /* * String형을 BitMap으로 변환시켜주는 함수 * */
+    public static Bitmap StringToBitmap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 
 }
