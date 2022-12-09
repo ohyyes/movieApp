@@ -215,7 +215,7 @@ public class SearchFragment extends Fragment {
                     boolean isEmpty = elements.isEmpty();           // 빼온 값 null 체크
                     Log.d("Tag", "isNull? : " + isEmpty);
 
-                    if (!isEmpty) {          // null 이 아니면 크롤링
+                    if (!isEmpty) {          // 검색 결과가 있으면 크롤링
                         for (int i=0; i<elements.size(); i++) {
                             Element element = elements.get(i);
                             Element idElement = element.select("a").first();
@@ -251,9 +251,12 @@ public class SearchFragment extends Fragment {
                             // (2) 영화 상세정보 추가 - 포스터, 감독, 출연진, 줄거리
                             searchMovieInfo(code, i);
                         }
-                        Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
-                        mHandler.sendMessage(msg);
                     }
+
+                    // 검색 결과 있든 없든 메시지 전달 -> 결과 없음 레이아웃 뜨게
+                    Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
+                    mHandler.sendMessage(msg);
+
                 } catch (Exception e) {
                     Log.d(TAG, e.toString());
                 }
@@ -271,7 +274,8 @@ public class SearchFragment extends Fragment {
             Bitmap posterBitmap;
             Element posterElement = doc.select("div.poster").select("img").first();
             if (posterElement != null) {
-                posterBitmap = getBitmapFromURL(posterElement.attr("src"));
+                String imgUrl = posterElement.attr("src").split("\\?type=")[0];
+                posterBitmap = getBitmapFromURL(imgUrl);
                 resultMovieList.get(position).setPosterBitmap(posterBitmap);
             }
 

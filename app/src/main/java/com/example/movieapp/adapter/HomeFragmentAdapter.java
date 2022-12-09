@@ -36,10 +36,27 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         HomeFragmentMainData item = homeFragmentMainData.get(position);
-        String title = (position+1) + ". " + item.getmName();
-        holder.name.setText(title);
+        holder.name.setText(item.getmName());
         holder.poster.setImageBitmap(item.getmPosterBitmap());
         holder.poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+        // 박스오피스 순위 출력
+        switch (position) {
+            case 0:     // 첫 번째 - 1위
+                holder.grade.setImageResource(R.drawable.num_one);
+                break;
+            case 1:     // 두 번째 - 2위
+                holder.grade.setImageResource(R.drawable.num_two);
+                break;
+            case 2:     // 세 번째 - 3위
+                holder.grade.setImageResource(R.drawable.num_three);
+                break;
+            case 3:     // 네 번째 - 4위
+                holder.grade.setImageResource(R.drawable.num_four);
+                break;
+            case 4:     // 다섯 번째 - 5위
+                holder.grade.setImageResource(R.drawable.num_five);
+                break;
+        }
 
     }
 
@@ -56,13 +73,14 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
-        ImageView poster;
+        ImageView poster, grade;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             poster = itemView.findViewById(R.id.iv_poster);
+            grade = itemView.findViewById(R.id.iv_grade);
 
-            //이미지뷰 원형으로 표시
+            //이미지뷰 테두리 원형으로 표시
             poster.setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {

@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -143,6 +145,8 @@ public class MovieDetailFragment extends Fragment {
 
         // 영화 데이터를 뷰에 설정
         iv_poster.setImageBitmap(movieData.getPosterBitmap());
+        iv_poster.setClipToOutline(true);
+
         tv_name.setText(movieData.getTitle());
         tv_rating.setText(movieData.getUserRating());
         tv_date.setText(movieData.getOpenYear());
@@ -182,7 +186,7 @@ public class MovieDetailFragment extends Fragment {
         tv_actor = (TextView) rootView.findViewById(R.id.tv_actor);
 
         //이전 프래그먼트에서 전달된 메세지 변수에 담기
-//        MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
+        //MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
 
         //뷰에 mainData 정보 넣기
         iv_poster.setImageBitmap(movieData.getPosterBitmap());
@@ -197,7 +201,7 @@ public class MovieDetailFragment extends Fragment {
         tv_director.setText(movieData.getDirector());
         tv_actor.setText(movieData.getActors());
 
-//        //참조할 리뷰 데이터 리스트
+        //참조할 리뷰 데이터 리스트
         all_review = new ArrayList<>();
         //감상평 상세 프래그먼트로 전환하기 전에 선택한 영화의 감상평데이터가 있는지 확인
 

@@ -59,6 +59,5 @@ public class RecFragmentAdapter extends RecyclerView.Adapter<RecFragmentAdapter.
             this.name = (TextView) itemView.findViewById(R.id.tv_name);
 
         }
-
     }
 }
