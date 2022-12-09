@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.example.movieapp.UserAccount;
 import com.example.movieapp.activity.EditProfileActivity;
 import com.example.movieapp.activity.HomeActivity;
 import com.example.movieapp.adapter.MyPageFragmentAdapter;
+import com.example.movieapp.adapter.ReviewFragmentAdapter;
 import com.example.movieapp.data.ReviewMainData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -121,6 +127,11 @@ public class MypageFragment extends Fragment {
     //리사이클러 뷰에서 사용할
     private LinearLayoutManager linearLayoutManager;
 
+    //firebase
+    String[] all_title;
+    String title;
+    int i;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,12 +139,18 @@ public class MypageFragment extends Fragment {
         // rootView 객체에 fragment_mypage.xml 과 연결한 것을 담기.
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypage, container, false);
 
-
         rec_review_list = (RecyclerView) rootView.findViewById(R.id.rec_review_list);
         lin_no_review = (LinearLayout) rootView.findViewById(R.id.lin_no_review);
         ib_more = (ImageButton) rootView.findViewById(R.id.ib_more);
         ib_edit_profile = (ImageButton) rootView.findViewById(R.id.ib_edit_profile);
         tv_nickname = (TextView) rootView.findViewById(R.id.tv_nickname);
+
+        //수평 스크롤뷰로 설정하기 ㅎㅎ
+        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false); //???
+        rec_review_list.setLayoutManager(linearLayoutManager);
+
+        //리스트 생성
+        review_list = new ArrayList<>();
 
         //firebase에서 닉네임 가져오기 -다영-
         FirebaseAuth mAuth;
@@ -144,44 +161,79 @@ public class MypageFragment extends Fragment {
         //닉네임 화면에 띄워주는 함수
         readUser(userUid);
 
-        //수평 스크롤뷰로 설정하기 ㅎㅎ
-        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false); //???
-        rec_review_list.setLayoutManager(linearLayoutManager);
 
+        //all review에 DB값 받아서 저장
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = database.getReference();
 
-        //리스트 생성
-        review_list = new ArrayList<>();
+        //firebase에서 title, date 등등 가져와서 all_review에 추가
+        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot){
+                //name, rate, date, review
+                try {
+                    //영화 제목만 가져오기
+                    Map<String, Object> data = (HashMap<String, Object>) snapshot.getValue();
+                    String dataStr = String.valueOf(data.keySet());
+                    all_title = dataStr.split(", ");
 
-        //어댑터 생성
-        adapter = new MyPageFragmentAdapter(review_list, homeActivity);
+                    //얻은 title로 DB 다시 보기
+                    for (i = 0; i < all_title.length; i++) {
+                        //문자열 다듬기
+                        title = all_title[i];
+                        title = title.replace("[", "");
+                        title = title.replace("]", "");
+                        if (title.equals("email") || title.equals("mbti") || title.equals("name")) {
+                            System.out.println("email, mbti .. equals");
+                        } else {
+                            userReference.child("user").child(userUid).child(title).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String title = snapshot.getKey();
+                                    String rating = snapshot.child("rating").getValue().toString();
+//                                    String date = snapshot.child("date").getValue().toString();
+                                    String review = snapshot.child("review").getValue().toString();
+                                    System.out.println("title in onDataChange " + title);
+                                    ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, "2022-12-09", review); //아이템 추가하는 코드
+                                    review_list.add(data);
+                                    System.out.println("all_review in datachange" + review_list);
 
+//                                    adapter = new ReviewFragmentAdapter(all_review, homeActivity);
+                                    //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
+                                    //어댑터 생성
+                                    adapter = new MyPageFragmentAdapter(review_list, homeActivity);
+                                    rec_review_list.setAdapter(adapter);
 
-//        // 테스트용 임시
-//        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        review_list.add(mainData1);
-//        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        review_list.add(mainData2);
-//        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-//        review_list.add(mainData3);
-//        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "ㄱ", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
-//        review_list.add(mainData4);
+                                    // 저장된 리뷰가 없을 때 -> "작성한 감상평이 없네요!" 레이아웃을 보이게
+                                    if (review_list.isEmpty()) {
+                                        rec_review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
+                                        lin_no_review.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
+                                    }
+                                    // 있을 땐, 리사이클러뷰가 보이게 !
+                                    else {
+                                        rec_review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
+                                        lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
+                                    }
+                                }
 
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-        // 저장된 리뷰가 없을 때 -> "작성한 감상평이 없네요!" 레이아웃을 보이게
-        if(review_list.isEmpty()){
-            rec_review_list.setVisibility(View.INVISIBLE);  // 리사이클러뷰 잠깐 안 보이게 설정
-            lin_no_review.setVisibility(View.VISIBLE);      // lin_no_result 레이아웃을 보이게 설정
-        }
-        // 있을 땐, 리사이클러뷰가 보이게 !
-        else{
-            rec_review_list.setVisibility(View.VISIBLE);    // 리사이클러뷰 보이게
-            lin_no_review.setVisibility(View.INVISIBLE);    // lin_no_result 레이아웃 안 보이게
-        }
+                                }
+                            });
+                        }
+                    }
+                    //review 작성 안했을 경우
+                    //리뷰데이터가 없으면 감상평 등록 레이아웃
+                }catch (Exception e) {
+                    System.out.println("review Fragement Error");
+                }
+                    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-
-        rec_review_list.setAdapter(adapter);
-
-
+            }
+        });
 
         //프로필수정 버튼 눌렀을 때,
         ib_edit_profile.setOnClickListener(new View.OnClickListener() {
@@ -203,8 +255,6 @@ public class MypageFragment extends Fragment {
             }
         });
         return rootView;
-
-
 
     }
 
