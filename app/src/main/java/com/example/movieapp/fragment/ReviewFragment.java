@@ -130,6 +130,10 @@ public class ReviewFragment extends Fragment {
     String title;
     int i;
 
+    //firebase값 저장 변수
+    Bitmap bitmap_poster;
+    String rating, date, review;
+
     // 로딩중 표시를 위한 다이얼로그
     private ProgressDialog progressDialog;
 
@@ -197,13 +201,19 @@ public class ReviewFragment extends Fragment {
                                         String title = snapshot.getKey();
 
                                         //poster Bitmap으로 바꾸기
+                                    if(!snapshot.child("poster").getValue().toString().equals(null)){
                                         String poster = snapshot.child("poster").getValue().toString();
-                                        Bitmap bitmap_poster = StringToBitmap(poster);
-
-                                        String rating = snapshot.child("rating").getValue().toString();
-                                        String date = snapshot.child("date").getValue().toString();
-                                        String review = snapshot.child("review").getValue().toString();
-
+                                        bitmap_poster = StringToBitmap(poster);
+                                    }
+                                    if(!snapshot.child("rating").getValue().toString().equals(null)){
+                                        rating = snapshot.child("rating").getValue().toString();
+                                    }
+                                    if(!snapshot.child("date").getValue().toString().equals(null)){
+                                        date = snapshot.child("date").getValue().toString();
+                                    }
+                                    if(!snapshot.child("review").getValue().toString().equals(null)){
+                                        review = snapshot.child("review").getValue().toString();
+                                    }
                                         //객체 저장
                                         ReviewMainData data = new ReviewMainData(bitmap_poster, title, rating, date, review); //아이템 추가하는 코드
                                         all_review.add(data);
@@ -336,8 +346,6 @@ public class ReviewFragment extends Fragment {
                         deleteReview(i);
                         all_review.remove(i);
                         i--; //삭제된 인덱스가 없어지기 때문에 i--처리를 해주지 않으면 바로 다음 아이템 건너뛰게 됨
-                        // 로딩중 표시 종료
-                        progressDialog.dismiss();
                     }
                 }
                 adapter.notifyDataSetChanged(); //리스트 갱신
@@ -393,10 +401,10 @@ public class ReviewFragment extends Fragment {
         String delete_title = all_review.get(num).getTv_name();
         System.out.println("delete " + all_review.get(num).getTv_name());
 
-        // 로딩중 표시
-        progressDialog = new ProgressDialog(homeActivity);
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();      // 시작
+//        // 로딩중 표시
+//        progressDialog = new ProgressDialog(homeActivity);
+//        progressDialog.setMessage("Please wait...");
+//        progressDialog.show();      // 시작
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userReference = database.getReference();

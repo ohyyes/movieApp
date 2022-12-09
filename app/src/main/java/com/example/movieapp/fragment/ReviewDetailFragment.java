@@ -184,6 +184,7 @@ public class ReviewDetailFragment extends Fragment {
             //영화제목 - firebase
             poster = movie_item.getPosterBitmap();
             movieTitle = movie_item.getTitle();
+//            ratingbar2.setRating(0);
 
             //감상평 등록 레이아웃 띄우기
             lin_review.setVisibility(View.GONE);
@@ -196,7 +197,7 @@ public class ReviewDetailFragment extends Fragment {
 //
 //            //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
 //            System.out.println("moviteTitle" + movieTitle);
-//            readReview(userUid, movieTitle);
+            readReview(userUid, movieTitle);
         }
 
         //수정 버튼 클릭시
@@ -292,7 +293,6 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
-                    System.out.println("readReview");
                     poster_db = snapshot.child("poster").getValue().toString();
                     review_db = snapshot.child("review").getValue().toString();
                     rating_db = snapshot.child("rating").getValue().toString();
@@ -304,6 +304,7 @@ public class ReviewDetailFragment extends Fragment {
                     changeMode(1);
 //                    lin_review.setVisibility(View.GONE);
 //                    lin_no_review.setVisibility(View.VISIBLE);
+                    et_review.setText("");
                     ratingbar2.setRating(0);
                 }
             }
