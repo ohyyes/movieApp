@@ -29,7 +29,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movie_recyclerview_items, parent, false);
+                .inflate(R.layout.boxoffice_recyclerview_items, parent, false);
         return new ViewHolder(view);
     }
 
