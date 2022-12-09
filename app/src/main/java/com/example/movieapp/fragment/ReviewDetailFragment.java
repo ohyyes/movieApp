@@ -188,6 +188,7 @@ public class ReviewDetailFragment extends Fragment {
             //감상평 등록 레이아웃 띄우기
             lin_review.setVisibility(View.GONE);
             lin_no_review.setVisibility(View.VISIBLE);
+            changeMode(1);
 
             ////firebase에서 해당 TITLE의 리뷰 있으면 불러오기
 //            FirebaseDatabase database = FirebaseDatabase.getInstance();
