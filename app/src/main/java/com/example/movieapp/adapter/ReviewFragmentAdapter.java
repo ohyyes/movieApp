@@ -2,6 +2,9 @@ package com.example.movieapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +83,10 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
                     String title = snapshot.getValue().toString();
                     System.out.println("title" + title);
                     String review = snapshot.child(title).child("review").getValue().toString();
-//                        String rating = snapshot.child("rating").getValue().toString();
+                    String poster = snapshot.child("poster").getValue().toString();
+                    Bitmap bitmap_poster = StringToBitmap(poster);
+//                    String rating = snapshot.child("rating").getValue().toString();
+                    holder.iv_poster.setImageBitmap(bitmap_poster);
                     holder.tv_name.setText(review);
 //                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
 //                        ratingbar1.setRating(Float.valueOf(rating));
@@ -92,7 +98,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
                 }
 //                프로필 사진 가져오기
-                    holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
+//                    holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
                     holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
                     holder.tv_name.setText(arrayList.get(position).getTv_name());
                     holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
@@ -210,46 +216,14 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         }
     }
 
-    private void readData(){
-        //firebase에서 닉네임 가져오기 -다영-
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
-        String userUid = user.getUid();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userReference = database.getReference();
-
-        userReference.child("user").child(userUid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //name, rate, date, review
-                try{
-                    String title = snapshot.getValue().toString();
-                    System.out.println("title" + title);
-//                        String review = snapshot.child("review").getValue().toString();
-//                        String rating = snapshot.child("rating").getValue().toString();
-//                        tv_review.setText(review);
-//                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
-//                        ratingbar1.setRating(Float.valueOf(rating));
-                }
-                //review 작성 안했을 경우
-                //리뷰데이터가 없으면 감상평 등록 레이아웃
-                catch (Exception e){
-
-                }
-                //프로필 사진 가져오기
-//                    holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
-//                    holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
-//                    holder.tv_name.setText(arrayList.get(position).getTv_name());
-//                    holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
-//                    holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+    private static Bitmap StringToBitmap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

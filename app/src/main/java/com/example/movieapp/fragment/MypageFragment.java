@@ -2,7 +2,10 @@ package com.example.movieapp.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -191,13 +194,15 @@ public class MypageFragment extends Fragment {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String title = snapshot.getKey();
                                     //DB poster저장하면 연결하기
-//                                    String poster = snapshot.child("poster").getValue().toString();
+                                    String poster = snapshot.child("poster").getValue().toString();
+                                    Bitmap bitmap_poster = StringToBitmap(poster);
+
                                     String rating = snapshot.child("rating").getValue().toString();
                                     String date = snapshot.child("date").getValue().toString();
                                     String review = snapshot.child("review").getValue().toString();
                                     System.out.println("title in onDataChange " + title);
                                     //data 객체에 영화 값들 저장
-                                    ReviewMainData data = new ReviewMainData(R.drawable.movie1, title, rating, date, review); //아이템 추가하는 코드
+                                    ReviewMainData data = new ReviewMainData(bitmap_poster, title, rating, date, review); //아이템 추가하는 코드
 //                                  DB poster 연결하면 이걸로 data객체 바꾸기
 //                                  ReviewMainData data = new ReviewMainData(poster, title, rating, date, review); //아이템 추가하는 코드
 
@@ -281,5 +286,16 @@ public class MypageFragment extends Fragment {
 
             }
         });
+    }
+
+    private static Bitmap StringToBitmap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

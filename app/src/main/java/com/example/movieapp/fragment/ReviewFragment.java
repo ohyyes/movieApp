@@ -198,7 +198,7 @@ public class ReviewFragment extends Fragment {
                                     String rating = snapshot.child("rating").getValue().toString();
                                     String date = snapshot.child("date").getValue().toString();
                                     String review = snapshot.child("review").getValue().toString();
-                                    System.out.println("title in onDataChange " + title);
+//                                    System.out.println("title in onDataChange " + title);
 
                                     //객체 저장
                                     ReviewMainData data = new ReviewMainData(bitmap_poster, title, rating, date, review); //아이템 추가하는 코드
