@@ -86,8 +86,6 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
                     String poster = snapshot.child("poster").getValue().toString();
                     Bitmap bitmap_poster = StringToBitmap(poster);
 //                    String rating = snapshot.child("rating").getValue().toString();
-                    holder.iv_poster.setImageBitmap(bitmap_poster);
-                    holder.tv_name.setText(review);
 //                        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
 //                        ratingbar1.setRating(Float.valueOf(rating));
                 }
@@ -97,12 +95,12 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
                     System.out.println("reviewFragement Error");
 
                 }
-//                프로필 사진 가져오기
-//                    holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
-                    holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
-                    holder.tv_name.setText(arrayList.get(position).getTv_name());
-                    holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
-                    holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
+                //프로필 사진 가져오기
+                holder.iv_poster.setImageBitmap(arrayList.get(position).getIv_posterBitmap());
+                holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
+                holder.tv_name.setText(arrayList.get(position).getTv_name());
+                holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
+                holder.tv_review_date.setText(arrayList.get(position).getTv_review_date());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

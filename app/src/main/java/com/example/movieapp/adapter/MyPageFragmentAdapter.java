@@ -49,7 +49,7 @@ public class MyPageFragmentAdapter extends RecyclerView.Adapter<MyPageFragmentAd
     //실제 추가될 때 생명주기
     public void onBindViewHolder(@NonNull MyPageFragmentAdapter.CustomViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //데이터 가져와서 화면에 보여주기
-        holder.iv_profile.setImageResource(arrayList.get(position).getIv_poster());
+        holder.iv_profile.setImageBitmap(arrayList.get(position).getIv_posterBitmap());
 
 
         //리스트뷰가 클릭되었을 때,
