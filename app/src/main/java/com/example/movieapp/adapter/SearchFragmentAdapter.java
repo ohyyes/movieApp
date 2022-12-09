@@ -53,11 +53,13 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
         if (movie.getPosterBitmap() != null) {
             holder.iv_poster.setImageBitmap(movie.getPosterBitmap());
         }
+        holder.iv_poster.setClipToOutline(true);
         holder.tv_name.setText(movie.getTitle());
         holder.tv_rating.setText(movie.getUserRating());
         holder.tv_genre.setText(movie.getGenre());
         holder.tv_date.setText(movie.getOpenYear());
         holder.tv_running_time.setText(movie.getRunningTime());
+
 
 
         //리스트뷰가 클릭되었을 때,
@@ -98,6 +100,7 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
+            this.iv_poster.setClipToOutline(true);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             this.tv_rating = (TextView) itemView.findViewById(R.id.tv_rating);
             this.tv_genre = (TextView) itemView.findViewById(R.id.tv_genre);
@@ -105,5 +108,6 @@ public class SearchFragmentAdapter extends RecyclerView.Adapter<SearchFragmentAd
             this.tv_running_time = (TextView) itemView.findViewById(R.id.tv_running_time);
 
         }
+
     }
 }

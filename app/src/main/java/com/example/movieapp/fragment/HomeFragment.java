@@ -33,11 +33,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecyclerViewClickListener{
+public class HomeFragment extends Fragment{
 
     ViewGroup rootView;
     ArrayList<HomeFragmentMainData> dataList;
-    // int[] cat = {R.drawable.movie1, R.drawable.movie2,R.drawable.movie3,R.drawable.movie4,R.drawable.movie5};
 
     private HomeFragmentAdapter adapter;
     static int i=0;
@@ -117,10 +116,6 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //FragmentTransaction transaction = fragmentManager.beginTransaction();
-        //transaction.replace(R.id.rec_frame_layout, fragmentRec).commitAllowingStateLoss();
-
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
 
 
@@ -191,12 +186,6 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
 
         recoAdapter = new RecFragmentAdapter(movieList, getContext());
 
-        String str = "메멘토, 플립, 아멜리에, 어린왕자, 이터널 선샤인, 500일의 썸머, 비포 선셋, 미드나잇 인 파리, 매트릭스 : 리저렉션, 반지의 제왕 : 왕의 귀환, 스타워즈 : 라이즈 오브 스카이워커, 인생은 아름다워, 미녀와 야수, 월터의 상상은 현실이 된다, 록산느, 꼬마 돼지 베이브, 컨택트, 페인 앤 글로리, 프로메테우스, 그레이트 뷰티";
-        resultList = new ArrayList<>(Arrays.asList(str.split(", ")));
-
-        String str2 = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20";
-        movieNumList = new ArrayList<>(Arrays.asList(str2.split(", ")));
-
         for (int i = 0; i < resultList.size(); i++) {
             int tmpPosNum = movie_poster[Integer.parseInt(movieNumList.get(i))];
             movieList.add(new MovieMainData(tmpPosNum, resultList.get(i)));
@@ -218,31 +207,5 @@ public class HomeFragment extends Fragment implements HomeFragmentAdapter.MyRecy
         }
     };
     //---------------------------------------------------
-
-    @Override
-    public void onItemClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Item : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onTitleClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Title : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onContentClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Content : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onImageViewClicked(int position) {
-        Toast.makeText(getActivity().getApplicationContext(), "Image : "+position, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onItemLongClicked(int position) {
-        adapter.remove(position);
-        Toast.makeText(getActivity().getApplicationContext(),
-                dataList.get(position).getmName()+" is removed",Toast.LENGTH_SHORT).show();
-    }
-
-
 
 }

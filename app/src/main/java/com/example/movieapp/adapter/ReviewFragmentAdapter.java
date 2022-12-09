@@ -110,6 +110,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
             holder.tv_review.setText(arrayList.get(position).getTv_review());
         }
 
+
         //감상평 아이템 클릭시
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

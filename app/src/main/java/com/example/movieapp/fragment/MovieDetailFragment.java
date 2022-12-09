@@ -183,12 +183,13 @@ public class MovieDetailFragment extends Fragment {
 //        MovieMainData movie_item =  (MovieMainData) this.getArguments().getParcelable("아이템");
 
         //뷰에 mainData 정보 넣기
-        iv_poster.setImageResource(movieData.getPoster());
+        iv_poster.setImageBitmap(movieData.getPosterBitmap());
         iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         tv_name.setText(movieData.getTitle());
         tv_rating.setText(movieData.getUserRating());
         tv_date.setText(movieData.getOpenYear());
-        tv_rating.setText(movieData.getRunningTime());
+        tv_running_time.setText(movieData.getRunningTime());
+        tv_rating.setText(movieData.getUserRating());
         tv_genre.setText(movieData.getGenre());
         tv_summary.setText(movieData.getSummary());
         tv_director.setText(movieData.getDirector());

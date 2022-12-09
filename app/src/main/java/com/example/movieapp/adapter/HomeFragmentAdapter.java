@@ -24,20 +24,6 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         this.homeFragmentMainData = homeFragmentMainData;
     }
 
-    public interface MyRecyclerViewClickListener{
-        void onItemClicked(int position);
-        void onTitleClicked(int position);
-        void onItemLongClicked(int position);
-        void onImageViewClicked(int position);
-    }
-
-
-    private MyRecyclerViewClickListener mListener;
-
-    public void setOnClickListener(MyRecyclerViewClickListener listener) {
-        this.mListener = listener;
-    }
-
 
     @NonNull
     @Override
@@ -55,34 +41,6 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         holder.poster.setImageBitmap(item.getmPosterBitmap());
         holder.poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
 
-        if (mListener != null) {
-            final int pos = position;
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onItemClicked(pos);
-                }
-            });
-            holder.name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onTitleClicked(pos);
-                }
-            });
-            holder.poster.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onImageViewClicked(pos);
-                }
-            });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    mListener.onItemLongClicked(holder.getAdapterPosition());
-                    return true;
-                }
-            });
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -115,13 +73,4 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         }
     }
 
-    //리스트 삭제 이벤트
-    public void remove(int position){
-        try {
-            homeFragmentMainData.remove(position);
-            notifyDataSetChanged();
-        } catch (IndexOutOfBoundsException e){
-            e.printStackTrace();
-        }
-    }
 }
