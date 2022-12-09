@@ -62,7 +62,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
             name = itemView.findViewById(R.id.tv_name);
             poster = itemView.findViewById(R.id.iv_poster);
 
-            //이미지뷰 원형으로 표시
+            //이미지뷰 테두리 원형으로 표시
             poster.setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {

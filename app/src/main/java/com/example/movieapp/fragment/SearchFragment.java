@@ -274,7 +274,8 @@ public class SearchFragment extends Fragment {
             Bitmap posterBitmap;
             Element posterElement = doc.select("div.poster").select("img").first();
             if (posterElement != null) {
-                posterBitmap = getBitmapFromURL(posterElement.attr("src"));
+                String imgUrl = posterElement.attr("src").split("\\?type=")[0];
+                posterBitmap = getBitmapFromURL(imgUrl);
                 resultMovieList.get(position).setPosterBitmap(posterBitmap);
             }
 

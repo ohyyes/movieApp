@@ -3,12 +3,14 @@ package com.example.movieapp.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -141,6 +143,8 @@ public class MovieDetailFragment extends Fragment {
 
         // 영화 데이터를 뷰에 설정
         iv_poster.setImageBitmap(movieData.getPosterBitmap());
+        iv_poster.setClipToOutline(true);
+
         tv_name.setText(movieData.getTitle());
         tv_rating.setText(movieData.getUserRating());
         tv_date.setText(movieData.getOpenYear());
@@ -195,7 +199,7 @@ public class MovieDetailFragment extends Fragment {
         tv_director.setText(movieData.getDirector());
         tv_actor.setText(movieData.getActors());
 
-//        //참조할 리뷰 데이터 리스트
+        //참조할 리뷰 데이터 리스트
         all_review = new ArrayList<>();
 //        //MainData 객체 만들기-> back이랑 연결하면 삭제하기
 //        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
