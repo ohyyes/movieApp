@@ -117,7 +117,8 @@ public class ReviewDetailFragment extends Fragment {
     private RatingBar ratingbar1, ratingbar2;
     private EditText et_review;
     public String movieTitle, review=null, rating;
-    public Bitmap poster;
+    public String poster_db, review_db, rating_db;
+    public Bitmap poster, bitmap_poster_db;
 
     //버튼 선언
     private Button btn_amend, btn_write;
@@ -193,6 +194,7 @@ public class ReviewDetailFragment extends Fragment {
             DatabaseReference userReference = database.getReference();
 
             //title이 존재하는지 확인 (없으면 -> 리뷰도 없음)
+            System.out.println("moviteTitle" + movieTitle);
             readReview(userUid, movieTitle);
         }
 
@@ -289,14 +291,12 @@ public class ReviewDetailFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
-                    String poster = snapshot.child("poster").getValue().toString();
-                    String review = snapshot.child("review").getValue().toString();
-                    String rating = snapshot.child("rating").getValue().toString();
-                    Bitmap bitmap_poster = StringToBitmap(poster);
-                    iv_poster.setImageBitmap(bitmap_poster);
-                    tv_review.setText(review);
-                    //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
-                    ratingbar1.setRating(Float.valueOf(rating));
+                    System.out.println("readReview");
+                    poster_db = snapshot.child("poster").getValue().toString();
+                    review_db = snapshot.child("review").getValue().toString();
+                    rating_db = snapshot.child("rating").getValue().toString();
+                    bitmap_poster_db = StringToBitmap(poster_db);
+                    reviewDetail();
                 }
                 //리뷰데이터가 없으면 감상평 등록 레이아웃
                 catch (Exception e){
@@ -310,6 +310,13 @@ public class ReviewDetailFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    private void reviewDetail(){
+        iv_poster.setImageBitmap(bitmap_poster_db);
+        tv_review.setText(review);
+        //리뷰데이터 있으면 리뷰아이템 객체 바로 보여줌
+        ratingbar1.setRating(Float.valueOf(rating));
     }
 
         /* * String형을 BitMap으로 변환시켜주는 함수 * */
