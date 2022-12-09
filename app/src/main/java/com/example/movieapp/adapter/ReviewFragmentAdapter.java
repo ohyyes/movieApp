@@ -51,7 +51,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
 
         final int pos = position;
         //프로필 사진 가져오기
-        holder.iv_poster.setImageResource(arrayList.get(position).getIv_poster());
+        holder.iv_poster.setImageBitmap(arrayList.get(position).getIv_posterBitmap());
         holder.iv_poster.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
         holder.tv_name.setText(arrayList.get(position).getTv_name());
         holder.tv_my_rate.setText(String.valueOf(arrayList.get(position).getTv_my_rate()));
@@ -154,6 +154,7 @@ public class ReviewFragmentAdapter extends RecyclerView.Adapter<ReviewFragmentAd
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
+            this.iv_poster.setClipToOutline(true);
             this.tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             this.tv_my_rate = (TextView) itemView.findViewById(R.id.tv_my_rate);
             this.tv_review_date = (TextView) itemView.findViewById(R.id.tv_review_date);

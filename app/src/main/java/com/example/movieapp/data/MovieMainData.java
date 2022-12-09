@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class MovieMainData implements Serializable {
     private int poster;
     private Bitmap posterBitmap;
-    private String title, userRating, openYear, runningTime, genre, summary, director, actors;
+    private String title, userRating, openYear, runningTime, genre, summary, director, actors, review;
 
     public MovieMainData(int poster, String title, String userRating, String openYear, String runningTime, String genre, String summary, String director, String actors) {
         this.poster = poster;
@@ -119,34 +119,40 @@ public class MovieMainData implements Serializable {
         this.actors = actors;
     }
 
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
 //    @Override
 //    public int describeContents() {
 //        return 0;
 //    }
 //
-//    //객체를 받아올때 호출
-//    protected MovieMainData(Parcel in) {
-//        title = in.readString();
-//        poster = in.readInt();
-//        userRating = in.readString();
-//        openYear = in.readString();
-//        runningTime = in.readString();
-//        genre = in.readString();
-//        summary = in.readString();
-//        director = in.readString();
-//        actors = in.readString();
-//    }
+    //객체를 받아올때 호출
+    protected MovieMainData(Parcel in) {
+        title = in.readString();
+        poster = in.readInt();
+        userRating = in.readString();
+        openYear = in.readString();
+        runningTime = in.readString();
+        genre = in.readString();
+        summary = in.readString();
+        director = in.readString();
+        actors = in.readString();
+    }
 //    //객체를 전달할 때 호출
-//    @Override
-//    public void writeToParcel(Parcel parcel, int i) {
-//        parcel.writeInt(poster);
-//        parcel.writeString(title);
-//        parcel.writeString(userRating);
-//        parcel.writeString(openYear);
-//        parcel.writeString(runningTime);
-//        parcel.writeString(genre);
-//        parcel.writeString(summary);
-//        parcel.writeString(director);
-//        parcel.writeString(actors);
-//    }
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(poster);
+        parcel.writeString(title);
+        parcel.writeString(userRating);
+        parcel.writeString(openYear);
+        parcel.writeString(runningTime);
+        parcel.writeString(genre);
+        parcel.writeString(summary);
+        parcel.writeString(director);
+        parcel.writeString(actors);
+    }
 }

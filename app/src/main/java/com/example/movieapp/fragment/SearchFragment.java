@@ -251,9 +251,11 @@ public class SearchFragment extends Fragment {
                             // (2) 영화 상세정보 추가 - 포스터, 감독, 출연진, 줄거리
                             searchMovieInfo(code, i);
                         }
-                        Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
-                        mHandler.sendMessage(msg);
                     }
+                    // 검색 결과 있든 없든 메시지 전달 -> 결과 없음 레이아웃 뜨게
+                    Message msg = mHandler.obtainMessage(LOAD_SUCCESS);
+                    mHandler.sendMessage(msg);
+
                 } catch (Exception e) {
                     Log.d(TAG, e.toString());
                 }

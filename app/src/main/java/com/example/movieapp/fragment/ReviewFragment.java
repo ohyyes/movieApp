@@ -138,19 +138,19 @@ public class ReviewFragment extends Fragment {
         all_review = new ArrayList<>();
 
 
-        //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
-        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-        all_review.add(mainData1);
-        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-        all_review.add(mainData2);
-        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-        all_review.add(mainData3);
-        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "어메이징 스파이더맨 2", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
-        all_review.add(mainData4);
-        ReviewMainData mainData5 = new ReviewMainData(R.drawable.movie2, "ㅁ", 0.5, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-        all_review.add(mainData5);
-        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "ㄴ", 1, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
-        all_review.add(mainData6);
+//        //임의의 데이터리뷰 추가 -> 나중에 back과 연결시키기
+//        ReviewMainData mainData1 = new ReviewMainData(R.drawable.movie1, "쥬라기 월드", 5, "2022.02.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+//        all_review.add(mainData1);
+//        ReviewMainData mainData2 = new ReviewMainData(R.drawable.movie2, "스파이더맨:노 웨이 홈", 4, "2021.08.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+//        all_review.add(mainData2);
+//        ReviewMainData mainData3 = new ReviewMainData(R.drawable.movie3, "소닉 2", 4.5, "2022.09.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+//        all_review.add(mainData3);
+//        ReviewMainData mainData4 = new ReviewMainData(R.drawable.movie1, "어메이징 스파이더맨 2", 2.5, "2022.02.20", ""); //아이템 추가하는 코드
+//        all_review.add(mainData4);
+//        ReviewMainData mainData5 = new ReviewMainData(R.drawable.movie2, "ㅁ", 0.5, "2015.05.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+//        all_review.add(mainData5);
+//        ReviewMainData mainData6 = new ReviewMainData(R.drawable.movie3, "ㄴ", 1, "2008.03.03", "우왕 재밌다 우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다우왕 재밌다"); //아이템 추가하는 코드
+//        all_review.add(mainData6);
 
         adapter = new ReviewFragmentAdapter(all_review, homeActivity);
         //ReviewFragment 레이아웃의 리사이클러뷰와 어댑터 연결
@@ -196,9 +196,9 @@ public class ReviewFragment extends Fragment {
 
                         @Override
                         public int compare(ReviewMainData d1, ReviewMainData d2) {
-                            if (d1.getTv_my_rate() < d2.getTv_my_rate())
+                            if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
                                 ret = 1;
-                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                            else if (Double.valueOf(d1.getTv_my_rate()) == Double.valueOf(d2.getTv_my_rate()))
                                 ret = 0;
                             else ret = -1;
                             return ret;
@@ -212,9 +212,9 @@ public class ReviewFragment extends Fragment {
 
                         @Override
                         public int compare(ReviewMainData d1, ReviewMainData d2) {
-                            if (d1.getTv_my_rate() < d2.getTv_my_rate())
+                            if (Double.valueOf(d1.getTv_my_rate()) < Double.valueOf(d2.getTv_my_rate()))
                                 ret = -1;
-                            else if (d1.getTv_my_rate() == d2.getTv_my_rate())
+                            else if (Double.valueOf(d1.getTv_my_rate()) == Double.valueOf(d2.getTv_my_rate()))
                                 ret = 0;
                             else ret = 1;
                             return ret;
@@ -293,7 +293,5 @@ public class ReviewFragment extends Fragment {
 
     }
 
-    private void checkEmpty() {
-    }
 }
 

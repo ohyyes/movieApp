@@ -38,6 +38,8 @@ public class RecFragmentAdapter extends RecyclerView.Adapter<RecFragmentAdapter.
     public void onBindViewHolder(@NonNull RecFragmentAdapter.CustomViewHolder holder, int position) {
         holder.img.setImageResource(movieList.get(position).getPoster());
         holder.name.setText(movieList.get(position).getTitle());
+
+        holder.img.setClipToOutline(true); //포스터 둥근테두리 디자인 반영
     }
 
     @Override
