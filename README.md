@@ -4,7 +4,9 @@ MVTI 🎬
 ===========================================
 > - MBTI 기반 영화 추천 및 영화 감상 기록 어플 <br/><br/> 
 > - 2학년 2학기 5인 프로젝트 (2022년 11월 ~ 12월) <br/><br/>
-> - 시연영상 링크 (https://youtu.be/fsD2ozhgTb0) <br/><br/>
+> - [시연영상 링크](https://youtu.be/fsD2ozhgTb0) <br/><br/>
+> - [노션 링크](https://sprout-angle-4de.notion.site/a8d27f48b033448da9071b4984928be7) <br/><br/>
+> - [FIGMA 링크](https://www.figma.com/file/fG36IoqczE1nT9Sj7at5MH/MVTI?node-id=0-1&t=oLOUN6Jru8Gdaf9v-0) <br/>
 
 <br/><br/>
 
